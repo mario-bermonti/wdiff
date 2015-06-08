@@ -120,9 +120,11 @@ class WordAnalysis(object):
             hCount -= 1
             start = hPosition
 
+        print(silentLetterCount)
+
         return silentLetterCount
 
-    def get_silent_info(self):
+    def get_silent_letter_info(self):
         """Returns a dict with the mute letter info for every word."""
 
         return self.silentLetterInfo

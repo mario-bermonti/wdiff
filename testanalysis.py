@@ -5,15 +5,23 @@ import iofiles
 import analysis
 
 iodata = iofiles.IOData()
-words = iodata.read_sequence("silabas2.txt", duplicates="n")
+words = iodata.read_sequence("a.txt", duplicates="n")
 
 wordanalysis = analysis.WordAnalysis(words)
-# wordanalysis.check_special_characters()
+wordanalysis.check_special_characters()
 
-# wordanalysis.length()
-# wordInfo = wordanalysis.get_word_info()
+wordanalysis.length()
+wordInfo = wordanalysis.get_word_info()
 
-wordanalysis.check_mute_letters()
-muteInfo = str(wordanalysis.get_mute_info())
+print("\n"*10)
+
+wordanalysis.check_silent_letters()
+muteInfo = wordanalysis.get_silent_letter_info()
+
+with open("testMuteLetters.txt") as file:
+    file.write('kj')
+    
+#    iodata.write_sequence((k, v), "testMuteLetters.txt")
 
 end = input("press enter")
+
