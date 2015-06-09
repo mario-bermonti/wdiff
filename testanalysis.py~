@@ -4,29 +4,26 @@
 import iofiles
 import analysis
 
-print(1)
-iodata = iofiles.IOData()
-words = iodata.read_sequence("a.txt", duplicates="y")
-print(words)
-print(2)
 
-wordanalysis = analysis.WordAnalysis(words)
-# wordanalysis.check_special_characters()
+def main():
+    iodata = iofiles.IOData()
+    words = iodata.read_sequence("words.txt", duplicates="y")
 
-# wordanalysis.length()
-# wordInfo = wordanalysis.get_word_info()
+    wordanalysis = analysis.WordAnalysis(words)
+    # wordanalysis.check_special_characters()
 
-print(3)
-wordanalysis.check_silent_letters()
-silentInfo = wordanalysis.get_silent_letter_info()
-print(4)
+    # wordanalysis.length()
+    # wordInfo = wordanalysis.get_word_info()
 
-with open("testSilentLetters.txt", "wt") as file:
-    file.write(str(silentInfo))
-    print(5)
+    wordanalysis.check_silent_letters()
+    silentInfo = wordanalysis.get_silent_letter_info()
+    print(silentInfo)
 
-print(6)
+    with open("testSilentLetters.txt", "wt") as file:
+        file.write(str(silentInfo))
 
-#iodata.write_sequence(silentInfo, "testSilentLetters.txt")
+        #iodata.write_sequence(silentInfo, "testSilentLetters.txt")
 
-end = input("press enter")
+        end = input("press enter")
+
+main()

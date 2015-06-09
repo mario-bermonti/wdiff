@@ -7,7 +7,7 @@ import analysis
 
 def main():
     iodata = iofiles.IOData()
-    words = iodata.read_sequence("words.txt", duplicates="y")
+    words = iodata.read_sequence("testsuite_silent_u.txt", duplicates="y")
 
     wordanalysis = analysis.WordAnalysis(words)
     # wordanalysis.check_special_characters()
