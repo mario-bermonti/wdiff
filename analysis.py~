@@ -83,7 +83,9 @@ class WordAnalysis(object):
 
         for word in self.words:
             silentLetterOcurrences = self.has_silent_letters(word)
+            print('silentLetterCount in main fn', silentLetterOcurrences)
             difficultyLevel = difficultyweight * silentLetterOcurrences
+            print('difficulty level', difficultyLevel)
             self.silentLetterInfo[word] = difficultyLevel
 
         # just fo debugging purposes
@@ -101,24 +103,30 @@ class WordAnalysis(object):
 
         if "h" in word:
             hCount = word.count("h")
+            print('h', hCount)
             start = 0
             while hCount > 0:
                 hPosition = word.find("h", start)
                 if not word[hPosition-1] == "c":
                     silentLetterCount += 1
                 hCount -= 1
+                print('h count', hCount)
                 start = hPosition
 
         if "u" in word:
             uCount = word.count("u")
+            print('u', uCount)
             start = 0
             while uCount > 0:
                 uPosition = word.find("u", start)
                 if ((word[uPosition-1] == "q" or word[uPosition-1] == 'g') and
                         (word[uPosition+1] == "e" or word[uPosition+1] == "i")):
                     silentLetterCount += 1
-            hCount -= 1
-            start = hPosition
+            uCount -= 1
+            print('u', uCount)
+            start = uPosition
+
+        print('silent letter count', silentLetterCount)
 
         return silentLetterCount
 

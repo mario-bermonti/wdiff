@@ -101,13 +101,19 @@ class WordAnalysis(object):
 
         if "h" in word:
             hCount = word.count("h")
+            print('count', hCount)
             start = 0
             while hCount > 0:
+                print('start', start)
                 hPosition = word.find("h", start)
+                print('hpos', hPosition)
                 if not word[hPosition-1] == "c":
                     silentLetterCount += 1
+                print('silent count', silentLetterCount)
+                print('before h', word[hPosition-1])
                 hCount -= 1
-                start = hPosition
+                print('count', hCount)
+                start = hPosition + 1
 
         if "u" in word:
             uCount = word.count("u")
@@ -117,11 +123,10 @@ class WordAnalysis(object):
                 if ((word[uPosition-1] == "q" or word[uPosition-1] == 'g') and
                         (word[uPosition+1] == "e" or word[uPosition+1] == "i")):
                     silentLetterCount += 1
-            hCount -= 1
-            start = hPosition
+                uCount -= 1
+                start = uPosition + 1
 
-        print(silentLetterCount)
-
+        print('silent count final', silentLetterCount)
         return silentLetterCount
 
     def get_silent_letter_info(self):
