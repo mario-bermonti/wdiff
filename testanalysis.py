@@ -5,9 +5,19 @@ import iofiles
 import analysis
 
 
+def get_file_name():
+    """Aks the user for the name of the file with the words to be analyzed."""
+
+    fileName = input("Escribe el nombre del documento con las palabras: ")
+
+    return fileName
+
+
 def main():
     iodata = iofiles.IOData()
-    words = iodata.read_sequence("testsuite_silent_u.txt", duplicates="y")
+    fileName = get_file_name()
+    fileName = "{}.txt".format(fileName)
+    words = iodata.read_sequence(fileName, duplicates="y")
 
     wordanalysis = analysis.WordAnalysis(words)
     # wordanalysis.check_special_characters()
