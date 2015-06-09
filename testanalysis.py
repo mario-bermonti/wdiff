@@ -34,6 +34,6 @@ def main():
 
         #iodata.write_sequence(silentInfo, "testSilentLetters.txt")
 
-        end = input("press enter")
+    end = input("press enter")
 
 main()
