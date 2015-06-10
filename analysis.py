@@ -83,8 +83,8 @@ class WordAnalysis(object):
 
         for word in self.words:
             silentLetterOcurrences = self.has_silent_letters(word)
-            difficultyLevel = difficultyweight * silentLetterOcurrences
-            self.silentLetterInfo[word] = difficultyLevel
+            difficultyIndex = difficultyweight * silentLetterOcurrences
+            self.silentLetterInfo[word] = difficultyIndex
 
     def has_silent_letters(self, word):
         """Returns the total difficulty points for the word passed in."""
