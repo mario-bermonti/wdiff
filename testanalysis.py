@@ -29,10 +29,8 @@ def main():
     silentInfo = wordanalysis.get_silent_letter_info()
     print(silentInfo)
 
-    with open("testSilentLetters.txt", "wt") as file:
-        file.write(str(silentInfo))
-
-        #iodata.write_sequence(silentInfo, "testSilentLetters.txt")
+#    with open("testSilentLetters.txt", "wt") as file:
+#        file.write(str(silentInfo))
 
     end = input("press enter")
 

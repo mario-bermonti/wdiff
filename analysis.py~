@@ -21,7 +21,7 @@ class WordAnalysis(object):
     def check_special_characters(self):
         """Uses has_special_characters to determine if any word has special
         characters. If the word has any of the special characters they are
-        included in the  wordsWithSpecialCharacters list, which will be
+        included in the wordsWithSpecialCharacters list, which will be
         written to the file file, so the user can check them.
         """
 
@@ -29,7 +29,6 @@ class WordAnalysis(object):
         for word in self.words:
             if self.has_special_characters(word):
                 self.wordsWithSpecialCharacters.append(word)
-        print(self.wordsWithSpecialCharacters)
 
         if self.wordsWithSpecialCharacters:
             self.iodata = iofiles.IOData()
@@ -83,52 +82,66 @@ class WordAnalysis(object):
 
         for word in self.words:
             silentLetterOcurrences = self.has_silent_letters(word)
-            print('silentLetterCount in main fn', silentLetterOcurrences)
             difficultyLevel = difficultyweight * silentLetterOcurrences
-            print('difficulty level', difficultyLevel)
             self.silentLetterInfo[word] = difficultyLevel
-
-        # just fo debugging purposes
-        print("""mute info:
-        {}""".format(self.silentLetterInfo))
 
     def has_silent_letters(self, word):
         """Adds difficulty points to the word passed in if it contains mute
-        letters. It supports spanish mute letters ("h" and "u".
+        letters. It supports spanish mute letters ("h" and "u").
 
         Returns the total difficulty points for the word.
         """
 
-        silentLetterCount = 0
+        return self.silent_h(word) + self.silent_u(word)
+
+    def silent_h(self, word):
+        """
+        """
+
+        silenthCount = 0
 
         if "h" in word:
             hCount = word.count("h")
-            print('h', hCount)
+            print('count', hCount)
             start = 0
             while hCount > 0:
+                print('start', start)
                 hPosition = word.find("h", start)
+                print('hpos', hPosition)
                 if not word[hPosition-1] == "c":
-                    silentLetterCount += 1
+                    silenthCount += 1
+                print('silent count', silenthCount)
+                print('before h', word[hPosition-1])
                 hCount -= 1
-                print('h count', hCount)
-                start = hPosition
+                print('count', hCount)
+                start = hPosition + 1
+
+        return silenthCount
+
+    def silent_u(self, word):
+        """
+        """
+
+        silentuCount = 0
 
         if "u" in word:
             uCount = word.count("u")
-            print('u', uCount)
             start = 0
             while uCount > 0:
                 uPosition = word.find("u", start)
                 if ((word[uPosition-1] == "q" or word[uPosition-1] == 'g') and
                         (word[uPosition+1] == "e" or word[uPosition+1] == "i")):
-                    silentLetterCount += 1
-            uCount -= 1
-            print('u', uCount)
-            start = uPosition
+                    silentuCount += 1
+                uCount -= 1
+                start = uPosition + 1
 
-        print('silent letter count', silentLetterCount)
+        return silentuCount
 
-        return silentLetterCount
+    def check_same_sound_letter(self):
+        """
+        """
+
+        pass
 
     def get_silent_letter_info(self):
         """Returns a dict with the mute letter info for every word."""
@@ -141,3 +154,5 @@ class WordAnalysis(object):
         """
 
         return self.wordInfo
+if __name__ == "__main__":
+    analysis = WordAnalysis()
