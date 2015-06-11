@@ -14,7 +14,6 @@ class WordAnalysis(object):
 
     def __init__(self, words):
         self.words = words
-        self.wordInfo = dict()
         self.dimensions = ("length", "accents", "silent letters",
                            "same sound letters")
 
@@ -147,60 +146,87 @@ class WordAnalysis(object):
         on the occurrences of "same sound letters".
         """
 
-        pass
+        difficultyweight = 2
+        self.sameSoundLetterInfo = dict()
 
-    def has_same_sound_letters(self):
+        for word in self.words:
+            sameSoundLetterOcurrences = self.has_same_sound_letters(word)
+            difficultyIndex = difficultyweight * sameSoundLetterOcurrences
+            self.sameSoundLetterInfo[word] = difficultyIndex
+
+    def has_same_sound_letters(self, word):
         """Returns the total difficulty points for the word passed in
         based on "same sound letter" occurrences.
         """
 
-        pass
+        sameSoundOccurrences = 0
 
-    def check_b_sound(self):
+        return (self.check_b_sound(word) + self.check_j_sound(word) +
+                self.check_s_sound(word) + self.check_k_sound(word) +
+                self.check_l_sound(word)
+                )
+
+    def check_b_sound(self, word):
         """Determines the number of occurrences in the word word of different
         letters with the sound /b/ that can be swapped by mistake.
         """
 
-        pass
+        bSoundCount = 0
 
-    def check_j_sound(self):
+        return bSoundCount
+
+    def check_j_sound(self, word):
         """Determines the number of occurrences in the word word of different
         letters with the sound /j/ that can be swapped by mistake.
         """
 
-        pass
+        jSoundCount = 0
 
-    def check_s_sound(self):
+        return jSoundCount
+
+    def check_s_sound(self, word):
         """Determines the number of occurrences in the word word of different
         letters with the sound /s/ that can be swapped by mistake.
         """
 
-        pass
+        sSoundCount = 0
 
-    def check_k_sound(self):
+        return sSoundCount
+
+    def check_k_sound(self, word):
         """Determines the number of occurrences in the word word of different
         letters with the sound /k/ that can be swapped by mistake.
         """
 
-        pass
+        kSoundCount = 0
 
-    def check_l_sound(self):
+        return kSoundCount
+
+    def check_l_sound(self, word):
         """Determines the number of occurrences in the word word of different
         letters with the sound /b/ that can be swapped by mistake.
         """
 
-        pass
+        lSoundCount = 0
+
+        return lSoundCount
 
     def get_silent_letter_info(self):
-        """Returns a dict with the mute letter info for every word."""
+        """Returns a dict with the silent letter info for every word."""
 
         return self.silentLetterInfo
 
-    def get_word_info(self):
-        """Returns a dict with the info of the dimensions analyzed for
+    def get_length_info(self):
+        """Returns a dict with the info of the length of every word."""
+
+        return self.lengthInfo
+
+    def get_same_sound_letter_info(self):
+        """"Returns a dict with the same sound letters info for
         every word.
         """
 
-        return self.wordInfo
+        return self.sameSoundLetterInfo
+
 if __name__ == "__main__":
     analysis = WordAnalysis()

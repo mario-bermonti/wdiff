@@ -14,7 +14,6 @@ class WordAnalysis(object):
 
     def __init__(self, words):
         self.words = words
-        self.wordInfo = dict()
         self.dimensions = ("length", "accents", "silent letters",
                            "same sound letters")
 
@@ -73,8 +72,9 @@ class WordAnalysis(object):
         {}""".format(self.lengthInfo))
 
     def check_silent_letters(self):
-        """Uses has_silent_letters to determine if the words has silent letters
-        that. If it does, it assigns a point of difficulty to the word.
+        """Uses has_silent_letters to determine if the words in self.words
+        have silent letters. Assigns a difficulty index to each word based
+        on the presence of silent letters.
         """
 
         difficultyweight = 1
@@ -82,20 +82,19 @@ class WordAnalysis(object):
 
         for word in self.words:
             silentLetterOcurrences = self.has_silent_letters(word)
-            difficultyLevel = difficultyweight * silentLetterOcurrences
-            self.silentLetterInfo[word] = difficultyLevel
+            difficultyIndex = difficultyweight * silentLetterOcurrences
+            self.silentLetterInfo[word] = difficultyIndex
 
     def has_silent_letters(self, word):
-        """Adds difficulty points to the word passed in if it contains mute
-        letters. It supports spanish mute letters ("h" and "u").
+        """Returns the total difficulty points for the word passed in."""
 
-        Returns the total difficulty points for the word.
-        """
+        return self.has_silent_h(word) + self.has_silent_u(word)
 
-        return self.silent_h(word) + self.silent_u(word)
+    def has_silent_h(self, word):
+        """Determines the occurences of silent h's in the word based on the
+        spanish language rules.
 
-    def silent_h(self, word):
-        """
+        returns: the number of silent h's in the word.
         """
 
         silenthCount = 0
@@ -118,8 +117,11 @@ class WordAnalysis(object):
 
         return silenthCount
 
-    def silent_u(self, word):
-        """
+    def has_silent_u(self, word):
+        """Determines the occurences of silent u's in the word based on the
+        spanish language rules.
+
+        returns: the number of silent u's in the word.
         """
 
         silentuCount = 0
@@ -138,21 +140,90 @@ class WordAnalysis(object):
         return silentuCount
 
     def check_same_sound_letter(self):
-        """
+        """Uses has_same_sound_letters to determine if the words in self.words
+        have different letters that can be swapped by mistake, because they
+        have the same sound. Assigns a difficulty index to each word based
+        on the occurrences of "same sound letters".
         """
 
-        pass
+        difficultyweight = 2
+        self.sameSoundLetterInfo = dict()
+
+        for word in self.words:
+            sameSoundLetterOcurrences = self.has_same_sound_letters(word)
+            difficultyIndex = difficultyweight * sameSoundLetterOcurrences
+            self.sameSoundLetterInfo[word] = difficultyIndex
+
+    def has_same_sound_letters(self, word):
+        """Returns the total difficulty points for the word passed in
+        based on "same sound letter" occurrences.
+        """
+
+        sameSoundOccurrences = 0
+
+        return (self.check_b_sound(word) + self.check_j_sound(word) + self.check_s_sound(word) + self.check_k_sound(word) + self.check_l_sound(word))
+
+    def check_b_sound(self, word):
+        """Determines the number of occurrences in the word word of different
+        letters with the sound /b/ that can be swapped by mistake.
+        """
+
+        bSoundCount = 0
+
+        return bSoundCount
+
+    def check_j_sound(self, word):
+        """Determines the number of occurrences in the word word of different
+        letters with the sound /j/ that can be swapped by mistake.
+        """
+
+        jSoundCount = 0
+
+        return jSoundCount
+
+    def check_s_sound(self, word):
+        """Determines the number of occurrences in the word word of different
+        letters with the sound /s/ that can be swapped by mistake.
+        """
+
+        sSoundCount = 0
+
+        return sSoundCount
+
+    def check_k_sound(self, word):
+        """Determines the number of occurrences in the word word of different
+        letters with the sound /k/ that can be swapped by mistake.
+        """
+
+        kSoundCount = 0
+
+        return kSoundCount
+
+    def check_l_sound(self, word):
+        """Determines the number of occurrences in the word word of different
+        letters with the sound /b/ that can be swapped by mistake.
+        """
+
+        lSoundCount = 0
+
+        return lSoundCount
 
     def get_silent_letter_info(self):
-        """Returns a dict with the mute letter info for every word."""
+        """Returns a dict with the silent letter info for every word."""
 
         return self.silentLetterInfo
 
-    def get_word_info(self):
-        """Returns a dict with the info of the dimensions analyzed for
+    def get_length_info(self):
+        """Returns a dict with the info of the length of every word."""
+
+        return self.lengthInfo
+
+    def get_same_sound_letter_info(self):
+        """"Returns a dict with the same sound letters info for
         every word.
         """
 
-        return self.wordInfo
+        return self.sameSoundLetterInfo
+
 if __name__ == "__main__":
     analysis = WordAnalysis()

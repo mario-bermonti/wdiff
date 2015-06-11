@@ -13,25 +13,34 @@ def get_file_name():
     return fileName
 
 
-def main():
+def get_words(fileName):
     iodata = iofiles.IOData()
-    fileName = get_file_name()
-    fileName = "{}.txt".format(fileName)
     words = iodata.read_sequence(fileName, duplicates="y")
 
+    return words
+
+
+def main():
+    fileName = get_file_name()
+    fileName = "{}.txt".format(fileName)
+    words = get_words(fileName)
+
     wordanalysis = analysis.WordAnalysis(words)
+
     # wordanalysis.check_special_characters()
 
     # wordanalysis.length()
     # wordInfo = wordanalysis.get_word_info()
 
-    wordanalysis.check_silent_letters()
-    silentInfo = wordanalysis.get_silent_letter_info()
-    print(silentInfo)
+#    wordanalysis.check_silent_letters()
+#    silentInfo = wordanalysis.get_silent_letter_info()
+#    print(silentInfo)
 
-#    with open("testSilentLetters.txt", "wt") as file:
-#        file.write(str(silentInfo))
+    wordanalysis.check_same_sound_letter()
+    sameSoundInfo = wordanalysis.get_same_sound_letter_info()
+    print(sameSoundInfo)
 
     end = input("press enter")
+
 
 main()

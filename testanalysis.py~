@@ -4,6 +4,7 @@
 import iofiles
 import analysis
 
+
 def get_file_name():
     """Aks the user for the name of the file with the words to be analyzed."""
 
@@ -24,15 +25,14 @@ def main():
     # wordanalysis.length()
     # wordInfo = wordanalysis.get_word_info()
 
-    wordanalysis.check_silent_letters()
-    silentInfo = wordanalysis.get_silent_letter_info()
-    print(silentInfo)
+#    wordanalysis.check_silent_letters()
+#    silentInfo = wordanalysis.get_silent_letter_info()
+#    print(silentInfo)
 
-    with open("testSilentLetters.txt", "wt") as file:
-        file.write(str(silentInfo))
+#    with open("testSilentLetters.txt", "wt") as file:
+#        file.write(str(silentInfo))
 
-        #iodata.write_sequence(silentInfo, "testSilentLetters.txt")
 
-    end = input("press enter")
+end = input("press enter")
 
 main()
