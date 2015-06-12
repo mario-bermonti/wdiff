@@ -161,7 +161,7 @@ class WordAnalysis(object):
 
         return (self.check_b_sound(word) + self.check_j_sound(word) +
                 self.check_s_sound(word) + self.check_k_sound(word) +
-                self.check_l_sound(word)
+                self.check_y_sound(word)
                 )
 
     def check_b_sound(self, word):
@@ -182,12 +182,15 @@ class WordAnalysis(object):
         """
 
         if "j" in word and "g" in word:
-            ruleCompliantGs = self.gSwappable_check(word)
+            ruleCompliantGs = self.swap_g_for_j_check(word)
             jSwappableCount = word.count("j") * ruleCompliantGs
 
         return jSwappableCount
 
-    def gSwappable_check(self, word):
+    def swap_g_for_j_check(self, word):
+        """Checks how many g's in the word word sound like j's so they can be
+        swapped with j's by mistake.
+        """
 
         gCompliantCount = 0
         gCount = word.count("g")
@@ -213,8 +216,6 @@ class WordAnalysis(object):
         that sound like s's.
         """
 
-        sSwappableCount = 0
-
         if (("s" in word and "c" in word) or ("s" in word and "z" in word) or
                 ("c" in word and "z" in word)):
             if "c" in word:
@@ -234,7 +235,7 @@ class WordAnalysis(object):
 
         return sSwappableCount
 
-    def cSwappable_check(self, word):
+    def swap_c_for_s_check(self, word):
         """Checks how many c's in the word word sound like s's so they can be
         swapped with s's by mistake.
         """
@@ -258,31 +259,145 @@ class WordAnalysis(object):
 
     def check_k_sound(self, word):
         """Determines the number of occurrences in the word word of different
-        letters with the sound /k/ that can be swapped by mistake.
+        letters with the sound /k/ that can be swapped by mistake. Uses
+        the cSwappable_check qSwappable_check methods to determine if there are
+        any c's or q's that sound like k's.
         """
 
-        kSoundCount = 0
+        if (("k" in word and "q" in word) or ("k" in word and "c" in word) or
+                ("q" in word and "c" in word)):
+            if "q" in word:
+                ruleCompliantQs = self.check_q_for_k_sound(word)
+            if "c" in word:
+                ruleCompliantCs = self.check_c_for_k_sound(word)
+            if "k" in word and "q" in word and "c" in word:
+                kSwappableCount = (
+                    (word.count("k") * ruleCompliantQs) +
+                    (word.count("k") * ruleCompliantCs) +
+                    (ruleCompliantQs * ruleCompliantCs)
+                )
+            elif "k" in word and "q" in word:
+                kSwappableCount = word.count("k") * ruleCompliantQs
+            elif "k" in word and "c" in word:
+                kSwappableCount = word.count("s") * ruleCompliantCs
+            elif "q" in word and "c" in word:
+                kSwappableCount = ruleCompliantQs * ruleCompliantCs
 
-        return kSoundCount
+        return kSwappableCount
 
-    def check_l_sound(self, word):
+    def swap_q_for_k_check(self, word):
+        """Checks how many q's in the word word sound like k's so they can be
+        swapped with k's by mistake.
+        """
+
+        qCompliantCount = 0
+        qCount = word.count("q")
+        qPositions = list()
+        start = 0
+
+        while qCount > 0:
+            qPosition = word.find("q", start)
+            qPositions.append(qPosition)
+            start = qPosition + 1
+            qCount -= 1
+
+        for position in qPositions:
+            if (word[position+1] == 'u' and
+                    (word[position+2] == "e" or word[position+2] == "i")):
+                qCompliantCount += 1
+
+        return qCompliantCount
+
+    def swap_c_for_k_check(self, word):
+        """Checks how many c's in the word word sound like k's so they can be
+        swapped with k's by mistake.
+        """
+
+        cCompliantCount = 0
+        cCount = word.count("c")
+        cPositions = list()
+        start = 0
+
+        while cCount > 0:
+            cPosition = word.find("c", start)
+            cPositions.append(cPosition)
+            start = cPosition + 1
+            cCount -= 1
+
+        for position in cPositions:
+            if (word[position+1] == "a" or word[position+1] == "o" or
+                    word[position+1] == "u"):
+                cCompliantCount += 1
+
+        return cCompliantCount
+
+    def check_y_sound(self, word):
         """Determines the number of occurrences in the word word of different
-        letters with the sound /b/ that can be swapped by mistake.
+        letters with the sound /y/ that can be swapped by mistake. Uses
+        the swap_y_for_y_check and swap_l_for_y_check methods to determine
+        if there are any y's or ll's that sound like y's.
         """
 
-        lSoundCount = 0
+        if "y" in word and "l" in word:
+            ruleCompliantYs = self.swap_y_for_y_check(word)
+            ruleCompliantLs = self.swap_l_for_y_check(word)
+            ySwappableCount = ruleCompliantYs * ruleCompliantLs
 
-        return lSoundCount
+        return ySwappableCount
 
-    def get_silent_letter_info(self):
-        """Returns a dict with the silent letter info for every word."""
+    def swap_y_for_y_check(self, word):
+        """Checks how many c's in the word word sound like k's so they can be
+        swapped with k's by mistake.
+        """
 
-        return self.silentLetterInfo
+        yCompliantCount = 0
+        yCount = word.count("y")
+        yPositions = list()
+        start = 0
+
+        while yCount > 0:
+            yPosition = word.find("y", start)
+            yPositions.append(yPosition)
+            start = yPosition + 1
+            yCount -= 1
+
+        for position in yPositions:
+            if position != (len(word) - 1):
+                yCompliantCount += 1
+
+        return yCompliantCount
+
+    def swap_l_for_y_check(self, word):
+        """Checks how many c's in the word word sound like k's so they can be
+        swapped with k's by mistake.
+        """
+
+        lCompliantCount = 0
+        lCount = word.count("l")
+        lPositions = list()
+        start = 0
+
+        while lCount > 0:
+            lPosition = word.find("l", start)
+            lPositions.append(lPosition)
+            start = lPosition + 1
+            lCount -= 1
+
+        for position in lPositions:
+            if word[position+1] == "l":
+                lCompliantCount += 1
+
+        return lCompliantCount
 
     def get_length_info(self):
         """Returns a dict with the info of the length of every word."""
 
         return self.lengthInfo
+
+    def get_silent_letter_info(self):
+        """Returns a dict with the silent letter info for every word."""
+
+        return self.silentLetterInfo
 
     def get_same_sound_letter_info(self):
         """"Returns a dict with the same sound letters info for
