@@ -159,36 +159,102 @@ class WordAnalysis(object):
         based on "same sound letter" occurrences.
         """
 
-        sameSoundOccurrences = 0
-
-        return (self.check_b_sound(word) + self.check_j_sound(word) + self.check_s_sound(word) + self.check_k_sound(word) + self.check_l_sound(word))
+        return (self.check_b_sound(word) + self.check_j_sound(word) +
+                self.check_s_sound(word) + self.check_k_sound(word) +
+                self.check_l_sound(word)
+                )
 
     def check_b_sound(self, word):
         """Determines the number of occurrences in the word word of different
         letters with the sound /b/ that can be swapped by mistake.
         """
 
-        bSoundCount = 0
+        if "b" in word and "v" in word:
+            bSwappableCount = word.count("b") * word.count("v")
 
-        return bSoundCount
+        return bSwappableCount
 
     def check_j_sound(self, word):
         """Determines the number of occurrences in the word word of different
-        letters with the sound /j/ that can be swapped by mistake.
+        letters with the sound /j/ that can be swapped by mistake. Uses
+        the gswappable_check method to determine if there are any g's that
+        sound like j's.
         """
 
-        jSoundCount = 0
+        if "j" in word and "g" in word:
+            ruleCompliantGs = self.gSwappable_check(word)
+            jSwappableCount = word.count("j") * ruleCompliantGs
 
-        return jSoundCount
+        return jSwappableCount
+
+    def gSwappable_check(self, word):
+
+        gCompliantCount = 0
+        gCount = word.count("g")
+        gPositions = list()
+        start = 0
+
+        while gCount > 0:
+            gPosition = word.find("g", start)
+            gPositions.append(gPosition)
+            start = gPosition + 1
+            gCount -= 1
+
+        for position in gPositions:
+            if word[position+1] == 'i' or word[position+1] == "e":
+                gCompliantCount += 1
+
+        return gCompliantCount
 
     def check_s_sound(self, word):
         """Determines the number of occurrences in the word word of different
-        letters with the sound /s/ that can be swapped by mistake.
+        letters with the sound /s/ that can be swapped by mistake. Uses
+        the cSwappable_check method to determine if there are any c's
+        that sound like s's.
         """
 
-        sSoundCount = 0
+        sSwappableCount = 0
 
-        return sSoundCount
+        if (("s" in word and "c" in word) or ("s" in word and "z" in word) or
+                ("c" in word and "z" in word)):
+            if "c" in word:
+                ruleCompliantCs = self.cSwappable_check(word)
+            if "s" in word and "c" in word and "z" in word:
+                sSwappableCount = (
+                    (word.count("s") * ruleCompliantCs) +
+                    (word.count("s") * word.count("z")) +
+                    (ruleCompliantCs * word.count("z"))
+                )
+            elif "s" in word and "c" in word:
+                sSwappableCount = word.count("s") * ruleCompliantCs
+            elif "s" in word and "z" in word:
+                sSwappableCount = word.count("s") * word.count("z")
+            elif "c" in word and "z" in word:
+                sSwappableCount = ruleCompliantCs * word.count("z")
+
+        return sSwappableCount
+
+    def cSwappable_check(self, word):
+        """Checks how many c's in the word word sound like s's so they can be
+        swapped with s's by mistake.
+        """
+
+        cCompliantCount = 0
+        cCount = word.count("c")
+        cPositions = list()
+        start = 0
+
+        while cCount > 0:
+            cPosition = word.find("c", start)
+            cPositions.append(cPosition)
+            start = cPosition + 1
+            cCount -= 1
+
+        for position in cPositions:
+            if word[position+1] == 'i' or word[position+1] == "e":
+                cCompliantCount += 1
+
+        return cCompliantCount
 
     def check_k_sound(self, word):
         """Determines the number of occurrences in the word word of different
