@@ -279,7 +279,7 @@ class WordAnalysis(object):
             elif "k" in word and "q" in word:
                 kSwappableCount = word.count("k") * ruleCompliantQs
             elif "k" in word and "c" in word:
-                kSwappableCount = word.count("s") * ruleCompliantCs
+                kSwappableCount = word.count("k") * ruleCompliantCs
             elif "q" in word and "c" in word:
                 kSwappableCount = ruleCompliantQs * ruleCompliantCs
 
@@ -372,6 +372,7 @@ class WordAnalysis(object):
         swapped with k's by mistake.
         """
 
+        # ARREGLAR QUE NO BUSQUE LA SEGUNDA L (LL)
         lCompliantCount = 0
         lCount = word.count("l")
         lPositions = list()
@@ -388,6 +389,25 @@ class WordAnalysis(object):
                 lCompliantCount += 1
 
         return lCompliantCount
+
+    def check_anagrams(self):
+
+        difficultyweight = 3
+        self.anagramsInfo = dict()
+
+        if "iodata" in locals():
+            anagramList = self.iodata.read_sequence("anagrams.txt")
+        else:
+            self.iodata = iofiles.IOData()
+            anagramList = self.iodata.read_sequence("anagrams.txt")
+
+        for word in self.words:
+            for line in anagramList:
+                self.in_anagrams_list(word, line)
+
+    def in_anagrams_list(self, word, line):
+        pass
+#        return word in line:
 
     def get_length_info(self):
         """Returns a dict with the info of the length of every word."""
