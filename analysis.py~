@@ -391,11 +391,23 @@ class WordAnalysis(object):
         return lCompliantCount
 
     def check_anagrams(self):
-        pass
-#        anagramsList = iodata.read_sequence()_
+
+        difficultyweight = 3
+        self.anagramsInfo = dict()
+
+        if "iodata" in locals():
+            anagramList = self.iodata.read_sequence("anagrams.txt")
+        else:
+            self.iodata = iofiles.IOData()
+            anagramList = self.iodata.read_sequence("anagrams.txt")
+
+        for word in self.words:
+            for line in anagramList:
+                self.in_anagrams_list(word, line)
 
     def in_anagrams_list(self, word, line):
-        return word in line
+        pass
+#        return word in line:
 
     def get_length_info(self):
         """Returns a dict with the info of the length of every word."""

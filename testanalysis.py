@@ -27,18 +27,19 @@ def main():
 
     wordanalysis = analysis.WordAnalysis(words)
 
-    # wordanalysis.check_special_characters()
+    wordanalysis.check_special_characters()
 
-    # wordanalysis.length()
-    # wordInfo = wordanalysis.get_word_info()
+    wordanalysis.length()
+    wordLengthInfo = wordanalysis.get_length_info()
+    print(wordLengthInfo)
+    wordanalysis.check_silent_letters()
+    silentInfo = wordanalysis.get_silent_letter_info()
+    print("\n")
+    print(silentInfo)
 
-#    wordanalysis.check_silent_letters()
-#    silentInfo = wordanalysis.get_silent_letter_info()
-#    print(silentInfo)
-
-    wordanalysis.check_same_sound_letter()
-    sameSoundInfo = wordanalysis.get_same_sound_letter_info()
-    print(sameSoundInfo)
+#    wordanalysis.check_same_sound_letter()
+#    sameSoundInfo = wordanalysis.get_same_sound_letter_info()
+#    print(sameSoundInfo)
 
     end = input("press enter")
 
