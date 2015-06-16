@@ -402,10 +402,9 @@ class WordAnalysis(object):
             anagramList = self.iodata.read_sequence("anagrams.txt")
 
         for word in self.words:
-            for line in anagramList:
-                self.in_anagrams_list(word, line)
+            self.in_anagrams_list(word, anagramList)
 
-    def in_anagrams_list(self, word, line):
+    def in_anagrams_list(self, word, anagramList):
         pass
 #        return word in line:
 

@@ -402,11 +402,15 @@ class WordAnalysis(object):
             anagramList = self.iodata.read_sequence("anagrams.txt")
 
         for word in self.words:
-            self.in_anagrams_list(word, anagramList)
+            anagramCount = self.in_anagrams_list(word, anagramList)
+            self.anagramsInfo[word] = anagramCount * difficultyweight
 
     def in_anagrams_list(self, word, anagramList):
-        pass
-#        return word in line:
+        for line in anagramList:
+            if word in line:
+                return len(line)
+            else:
+                return 0
 
     def get_length_info(self):
         """Returns a dict with the info of the length of every word."""
