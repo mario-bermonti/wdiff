@@ -391,6 +391,13 @@ class WordAnalysis(object):
         return lCompliantCount
 
     def check_anagrams(self):
+        """It uses in_anagrams_list to determine if any of the words is an
+        anagram and determines a difficulty index for each word for the anagram
+        dimension. Stores the word info in the dict anagramsInfo.
+        
+        Checks to see if an instance of IOData already exists and if it doesn't
+        it creates one in order to read the anagram database.
+        """
 
         difficultyweight = 3
         self.anagramsInfo = dict()
@@ -406,6 +413,11 @@ class WordAnalysis(object):
             self.anagramsInfo[word] = anagramCount * difficultyweight
 
     def in_anagrams_list(self, word, anagramList):
+        """Checks if the word word is in any of the lines in anagramList.
+        If it is in any line, it counts the number of words on that line
+        to determine how many words can the letters of the word be scrambled to make.
+        """
+
         for line in anagramList:
             if word in line:
                 return len(line)
@@ -427,7 +439,7 @@ class WordAnalysis(object):
         every word.
         """
 
-        return self.sameSoundLetterInfo
+        return self.sameSoundLetterIndef
 
 if __name__ == "__main__":
     analysis = WordAnalysis()
