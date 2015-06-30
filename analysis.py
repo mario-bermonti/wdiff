@@ -169,6 +169,7 @@ class WordAnalysis(object):
         letters with the sound /b/ that can be swapped by mistake.
         """
 
+        bSwappableCount = 0
         if "b" in word and "v" in word:
             bSwappableCount = word.count("b") * word.count("v")
 
@@ -181,6 +182,7 @@ class WordAnalysis(object):
         sound like j's.
         """
 
+        jSwappableCount = 0
         if "j" in word and "g" in word:
             ruleCompliantGs = self.swap_g_for_j_check(word)
             jSwappableCount = word.count("j") * ruleCompliantGs
@@ -216,6 +218,7 @@ class WordAnalysis(object):
         that sound like s's.
         """
 
+        sSwappableCount = 0
         if (("s" in word and "c" in word) or ("s" in word and "z" in word) or
                 ("c" in word and "z" in word)):
             if "c" in word:
@@ -264,6 +267,7 @@ class WordAnalysis(object):
         any c's or q's that sound like k's.
         """
 
+        kSwappableCount = 0
         if (("k" in word and "q" in word) or ("k" in word and "c" in word) or
                 ("q" in word and "c" in word)):
             if "q" in word:
@@ -338,6 +342,7 @@ class WordAnalysis(object):
         if there are any y's or ll's that sound like y's.
         """
 
+        ySwappableCount = 0
         if "y" in word and "l" in word:
             ruleCompliantYs = self.swap_y_for_y_check(word)
             ruleCompliantLs = self.swap_l_for_y_check(word)
@@ -372,7 +377,6 @@ class WordAnalysis(object):
         swapped with k's by mistake.
         """
 
-        # ARREGLAR QUE NO BUSQUE LA SEGUNDA L (LL)
         lCompliantCount = 0
         lCount = word.count("l")
         lPositions = list()
@@ -394,7 +398,7 @@ class WordAnalysis(object):
         """It uses in_anagrams_list to determine if any of the words is an
         anagram and determines a difficulty index for each word for the anagram
         dimension. Stores the word info in the dict anagramsInfo.
-        
+ 
         Checks to see if an instance of IOData already exists and if it doesn't
         it creates one in order to read the anagram database.
         """
