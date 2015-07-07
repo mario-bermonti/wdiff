@@ -162,7 +162,7 @@ class WordAnalysis(object):
         based on "same sound letter" occurrences.
         """
 
-        return self.check_k_sound(word)
+        return self.check_j_sound(word)
 
 
 #(# self.check_b_sound(word))
@@ -280,9 +280,7 @@ class WordAnalysis(object):
         """
 
         kSwappableCount = 0
-        if (("k" in word and "q" in word and "c" in word) or
-                ("k" in word and "q" in word) or
-                ("k" in word and "c" in word) or
+        if (("k" in word and "q" in word) or ("k" in word and "c" in word) or
                 ("q" in word and "c" in word)):
             if "q" in word:
                 ruleCompliantQs = self.swap_q_for_k_check(word)
@@ -308,13 +306,13 @@ class WordAnalysis(object):
         """Checks how many q's in the word word sound like k's so they can be
         swapped with k's by mistake.
         """
-        print('checking qs')
+        print('checking qs', word)
 
         qCompliantCount = 0
         qCount = word.count("q")
         qPositions = list()
         start = 0
-        print('qcount', qCount)
+        print('qcount', qCount, word)
 
         while qCount > 0:
             qPosition = word.find("q", start)
@@ -322,16 +320,18 @@ class WordAnalysis(object):
             start = qPosition + 1
             qCount -= 1
 
+        print('qpositions', qPositions, word)
         for position in qPositions:
             if position == (len(word) - 1):
                 continue
-                print('continue')
-            if (word[qPosition+1] == "u" and
-                    (word[qPosition+2] == "e" or word[qPosition+2] == "i")):
-                print(word, 'cumple con la regla')
-                print(qPosition, 'position approved')
+                print('continue', word)
+            if (word[position+1] == "u" and
+                    (word[position+2] == "e" or word[position+2] == "i")):
+                print(word, 'cumple con la regla', word)
+                print(position, 'position approved', word)
                 qCompliantCount += 1
 
+        print(word, 'qcompliant', qCompliantCount)
         return qCompliantCount
 
     def swap_c_for_k_check(self, word):

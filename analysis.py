@@ -162,14 +162,11 @@ class WordAnalysis(object):
         based on "same sound letter" occurrences.
         """
 
-        return self.check_k_sound(word)
-
-
-#(# self.check_b_sound(word))
-#            self.check_j_sound(word))
-#                self.check_s_sound(word) + self.check_k_sound(word) +
-#                self.check_y_sound(word)
-#                )
+        return(
+            self.check_b_sound(word) + self.check_j_sound(word) +
+            self.check_s_sound(word) + self.check_k_sound(word) +
+            self.check_y_sound(word)
+        )
 
     def check_b_sound(self, word):
         """Determines the number of occurrences in the word word of different
