@@ -154,15 +154,22 @@ class WordAnalysis(object):
             difficultyIndex = difficultyweight * sameSoundLetterOcurrences
             self.sameSoundLetterInfo[word] = difficultyIndex
 
+        print('samesoundletteroccurrences', sameSoundLetterOcurrences)
+        print('difficulty index', difficultyIndex)
+
     def has_same_sound_letters(self, word):
         """Returns the total difficulty points for the word passed in
         based on "same sound letter" occurrences.
         """
 
-        return (self.check_b_sound(word) + self.check_j_sound(word) +
-                self.check_s_sound(word) + self.check_k_sound(word) +
-                self.check_y_sound(word)
-                )
+        return self.check_k_sound(word)
+
+
+#(# self.check_b_sound(word))
+#            self.check_j_sound(word))
+#                self.check_s_sound(word) + self.check_k_sound(word) +
+#                self.check_y_sound(word)
+#                )
 
     def check_b_sound(self, word):
         """Determines the number of occurrences in the word word of different
@@ -181,11 +188,13 @@ class WordAnalysis(object):
         the gswappable_check method to determine if there are any g's that
         sound like j's.
         """
-
+        print('estoy corriendo')
         jSwappableCount = 0
         if "j" in word and "g" in word:
             ruleCompliantGs = self.swap_g_for_j_check(word)
             jSwappableCount = word.count("j") * ruleCompliantGs
+
+        print('jswappablecount', jSwappableCount)
 
         return jSwappableCount
 
@@ -206,8 +215,11 @@ class WordAnalysis(object):
             gCount -= 1
 
         for position in gPositions:
+            if position == (len(word) - 1):
+                continue
             if word[position+1] == 'i' or word[position+1] == "e":
                 gCompliantCount += 1
+        print("gcompliantcount", gCompliantCount)
 
         return gCompliantCount
 
@@ -222,7 +234,7 @@ class WordAnalysis(object):
         if (("s" in word and "c" in word) or ("s" in word and "z" in word) or
                 ("c" in word and "z" in word)):
             if "c" in word:
-                ruleCompliantCs = self.cSwappable_check(word)
+                ruleCompliantCs = self.swap_c_for_s_check(word)
             if "s" in word and "c" in word and "z" in word:
                 sSwappableCount = (
                     (word.count("s") * ruleCompliantCs) +
@@ -255,10 +267,10 @@ class WordAnalysis(object):
             cCount -= 1
 
         for position in cPositions:
+            if position == (len(word) - 1):
+                continue
             if word[position+1] == 'i' or word[position+1] == "e":
                 cCompliantCount += 1
-
-        return cCompliantCount
 
     def check_k_sound(self, word):
         """Determines the number of occurrences in the word word of different
@@ -271,9 +283,9 @@ class WordAnalysis(object):
         if (("k" in word and "q" in word) or ("k" in word and "c" in word) or
                 ("q" in word and "c" in word)):
             if "q" in word:
-                ruleCompliantQs = self.check_q_for_k_sound(word)
+                ruleCompliantQs = self.swap_q_for_k_check(word)
             if "c" in word:
-                ruleCompliantCs = self.check_c_for_k_sound(word)
+                ruleCompliantCs = self.swap_c_for_k_check(word)
             if "k" in word and "q" in word and "c" in word:
                 kSwappableCount = (
                     (word.count("k") * ruleCompliantQs) +
@@ -282,6 +294,7 @@ class WordAnalysis(object):
                 )
             elif "k" in word and "q" in word:
                 kSwappableCount = word.count("k") * ruleCompliantQs
+                print('kswappablecount', kSwappableCount)
             elif "k" in word and "c" in word:
                 kSwappableCount = word.count("k") * ruleCompliantCs
             elif "q" in word and "c" in word:
@@ -293,11 +306,13 @@ class WordAnalysis(object):
         """Checks how many q's in the word word sound like k's so they can be
         swapped with k's by mistake.
         """
+        print('checking qs', word)
 
         qCompliantCount = 0
         qCount = word.count("q")
         qPositions = list()
         start = 0
+        print('qcount', qCount, word)
 
         while qCount > 0:
             qPosition = word.find("q", start)
@@ -305,11 +320,18 @@ class WordAnalysis(object):
             start = qPosition + 1
             qCount -= 1
 
+        print('qpositions', qPositions, word)
         for position in qPositions:
-            if (word[position+1] == 'u' and
+            if position == (len(word) - 1):
+                continue
+                print('continue', word)
+            if (word[position+1] == "u" and
                     (word[position+2] == "e" or word[position+2] == "i")):
+                print(word, 'cumple con la regla', word)
+                print(position, 'position approved', word)
                 qCompliantCount += 1
 
+        print(word, 'qcompliant', qCompliantCount)
         return qCompliantCount
 
     def swap_c_for_k_check(self, word):
@@ -329,6 +351,8 @@ class WordAnalysis(object):
             cCount -= 1
 
         for position in cPositions:
+            if position == (len(word) - 1):
+                continue
             if (word[position+1] == "a" or word[position+1] == "o" or
                     word[position+1] == "u"):
                 cCompliantCount += 1
@@ -389,6 +413,8 @@ class WordAnalysis(object):
             lCount -= 1
 
         for position in lPositions:
+            if position == (len(word) - 1):
+                continue
             if word[position+1] == "l":
                 lCompliantCount += 1
 
@@ -443,7 +469,7 @@ class WordAnalysis(object):
         every word.
         """
 
-        return self.sameSoundLetterIndef
+        return self.sameSoundLetterInfo
 
 if __name__ == "__main__":
     analysis = WordAnalysis()

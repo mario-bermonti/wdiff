@@ -32,15 +32,14 @@ def main():
 #    wordanalysis.length()
 #    wordLengthInfo = wordanalysis.get_length_info()
 #    print(wordLengthInfo)
-##    wordanalysis.check_silent_letters()
+#    wordanalysis.check_silent_letters()
 #    silentInfo = wordanalysis.get_silent_letter_info()
 #    print("\n")
 #    print(silentInfo)
 
-#    wordanalysis.check_same_sound_letter()
-#    sameSoundInfo = wordanalysis.get_same_sound_letter_info()
-#    print(sameSoundInfo)
-    wordanalysis.check_anagrams()
+    wordanalysis.check_same_sound_letter()
+    sameSoundInfo = wordanalysis.get_same_sound_letter_info()
+    print(sameSoundInfo)
 
     end = input("press enter")
 
