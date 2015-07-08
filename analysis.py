@@ -239,6 +239,7 @@ class WordAnalysis(object):
                     (ruleCompliantCs * word.count("z"))
                 )
             elif "s" in word and "c" in word:
+                print('rule compliant cs', ruleCompliantCs)
                 sSwappableCount = word.count("s") * ruleCompliantCs
             elif "s" in word and "z" in word:
                 sSwappableCount = word.count("s") * word.count("z")
@@ -268,6 +269,8 @@ class WordAnalysis(object):
                 continue
             if word[position+1] == 'i' or word[position+1] == "e":
                 cCompliantCount += 1
+
+        return cCompliantCount
 
     def check_k_sound(self, word):
         """Determines the number of occurrences in the word word of different
@@ -421,7 +424,7 @@ class WordAnalysis(object):
         """It uses in_anagrams_list to determine if any of the words is an
         anagram and determines a difficulty index for each word for the anagram
         dimension. Stores the word info in the dict anagramsInfo.
- 
+
         Checks to see if an instance of IOData already exists and if it doesn't
         it creates one in order to read the anagram database.
         """
