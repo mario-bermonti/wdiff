@@ -270,6 +270,8 @@ class WordAnalysis(object):
             if word[position+1] == 'i' or word[position+1] == "e":
                 cCompliantCount += 1
 
+        return cCompliantCount
+
     def check_k_sound(self, word):
         """Determines the number of occurrences in the word word of different
         letters with the sound /k/ that can be swapped by mistake. Uses
@@ -422,7 +424,7 @@ class WordAnalysis(object):
         """It uses in_anagrams_list to determine if any of the words is an
         anagram and determines a difficulty index for each word for the anagram
         dimension. Stores the word info in the dict anagramsInfo.
- 
+
         Checks to see if an instance of IOData already exists and if it doesn't
         it creates one in order to read the anagram database.
         """
@@ -463,11 +465,17 @@ class WordAnalysis(object):
         return self.silentLetterInfo
 
     def get_same_sound_letter_info(self):
-        """"Returns a dict with the same sound letters info for
+        """Returns a dict with the same sound letters info for
         every word.
         """
 
         return self.sameSoundLetterInfo
+
+    def get_anagrams_info(self):
+        """Returns a dict with the anagrams info for every word."""
+
+        return self.anagramsInfo
+
 
 if __name__ == "__main__":
     analysis = WordAnalysis()

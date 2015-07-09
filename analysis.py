@@ -440,6 +440,7 @@ class WordAnalysis(object):
 
         for word in self.words:
             anagramCount = self.in_anagrams_list(word, anagramList)
+            print(word,anagramCount)
             self.anagramsInfo[word] = anagramCount * difficultyweight
 
     def in_anagrams_list(self, word, anagramList):
@@ -465,11 +466,17 @@ class WordAnalysis(object):
         return self.silentLetterInfo
 
     def get_same_sound_letter_info(self):
-        """"Returns a dict with the same sound letters info for
+        """Returns a dict with the same sound letters info for
         every word.
         """
 
         return self.sameSoundLetterInfo
+
+    def get_anagrams_info(self):
+        """Returns a dict with the anagrams info for every word."""
+
+        return self.anagramsInfo
+
 
 if __name__ == "__main__":
     analysis = WordAnalysis()

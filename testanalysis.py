@@ -16,6 +16,10 @@ def get_file_name():
 def get_words(fileName):
     iodata = iofiles.IOData()
     words = iodata.read_sequence(fileName, duplicates="y")
+    words = [word.upper() for word in words]
+    for word in words[:]:
+        if word == "":
+            words.remove(word)
 
     return words
 
@@ -26,6 +30,9 @@ def main():
     words = get_words(fileName)
 
     wordanalysis = analysis.WordAnalysis(words)
+    wordanalysis.check_anagrams()
+    anagramInfo = wordanalysis.get_anagrams_info()
+    print(anagramInfo)
 
 #    wordanalysis.check_special_characters()
 
@@ -37,9 +44,8 @@ def main():
 #    print("\n")
 #    print(silentInfo)
 
-    wordanalysis.check_same_sound_letter()
-    sameSoundInfo = wordanalysis.get_same_sound_letter_info()
-    print(sameSoundInfo)
+#    wordanalysis.check_same_sound_letter()
+#    sameSoundInfo = wordanalysis.get_same_sound_letter_info()
 
     end = input("press enter")
 
