@@ -1,9 +1,9 @@
 #! "C:\Python33\Python.exe"
+
 # -*- coding: utf-8 -*-
 
 import iofiles
 import analysis
-
 
 def get_file_name():
     """Aks the user for the name of the file with the words to be analyzed."""
@@ -15,12 +15,13 @@ def get_file_name():
 
 def get_words(fileName):
     iodata = iofiles.IOData()
-    words = iodata.read_sequence(fileName, duplicates="y")
+    words = iodata.read_sequence(fileName)
+    words = iodata.get_data()
     words = [word.upper() for word in words]
     for word in words[:]:
         if word == "":
             words.remove(word)
-
+    print(words)
     return words
 
 

@@ -15,7 +15,7 @@ class WordAnalysis(object):
     def __init__(self, words):
         self.words = words
         self.dimensions = ("length", "accents", "silent letters",
-                           "same sound letters")
+                           "same sound letters, anagrams")
 
     def check_special_characters(self):
         """Uses has_special_characters to determine if any word has special
@@ -432,28 +432,33 @@ class WordAnalysis(object):
         difficultyweight = 3
         self.anagramsInfo = dict()
 
-        if "iodata" in locals():
-            anagramList = self.iodata.read_sequence("anagrams.txt")
-        else:
+        if "iodata" not in locals():
             self.iodata = iofiles.IOData()
-            anagramList = self.iodata.read_sequence("anagrams.txt")
+        self.iodata.read_sequence("anagrams.txt")
+        self.iodata.split_lines(sep=",")
+        anagramList = self.iodata.get_data()
 
         for word in self.words:
             anagramCount = self.in_anagrams_list(word, anagramList)
-            print(word,anagramCount)
-            self.anagramsInfo[word] = anagramCount * difficultyweight
+            print(word, 'anagramcount', anagramCount)
+            difficultyIndex = anagramCount * difficultyweight
+            print(word, 'diffindex', difficultyIndex)
+            self.anagramsInfo[word] = difficultyIndex
 
     def in_anagrams_list(self, word, anagramList):
         """Checks if the word word is in any of the lines in anagramList.
         If it is in any line, it counts the number of words on that line
-        to determine how many words can the letters of the word be scrambled to make.
+        to determine how many words can the letters of the word be scrambled
+        to make.
         """
 
+        anagramCount = 0
         for line in anagramList:
             if word in line:
-                return len(line)
-            else:
-                return 0
+                print("found")
+                anagramCount = len(line)
+                print('words in anagram', anagramCount)
+        return anagramCount
 
     def get_length_info(self):
         """Returns a dict with the info of the length of every word."""
