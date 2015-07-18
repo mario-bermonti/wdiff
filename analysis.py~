@@ -436,7 +436,7 @@ class WordAnalysis(object):
             self.iodata = iofiles.IOData()
         self.iodata.read_sequence("anagrams.txt")
         self.iodata.split_lines(sep=",")
-        self.iodata.get_data()
+        anagramList = self.iodata.get_data()
 
         for word in self.words:
             anagramCount = self.in_anagrams_list(word, anagramList)

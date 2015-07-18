@@ -1,5 +1,4 @@
 #! "C:\Python33\Python.exe"
-
 # -*- coding: utf-8 -*-
 
 import iofiles
@@ -21,7 +20,6 @@ def get_words(fileName):
     for word in words[:]:
         if word == "":
             words.remove(word)
-    print(words)
     return words
 
 
@@ -33,7 +31,6 @@ def main():
     wordanalysis = analysis.WordAnalysis(words)
     wordanalysis.check_anagrams()
     anagramInfo = wordanalysis.get_anagrams_info()
-    print(anagramInfo)
 
 #    wordanalysis.check_special_characters()
 

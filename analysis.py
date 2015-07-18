@@ -68,8 +68,6 @@ class WordAnalysis(object):
             self.lengthInfo[word] = len(word)
 
         # just fo debugging purposes
-        print("""length info:
-        {}""".format(self.lengthInfo))
 
     def check_silent_letters(self):
         """Uses has_silent_letters to determine if the words in self.words
@@ -101,18 +99,12 @@ class WordAnalysis(object):
 
         if "h" in word:
             hCount = word.count("h")
-            print('count', hCount)
             start = 0
             while hCount > 0:
-                print('start', start)
                 hPosition = word.find("h", start)
-                print('hpos', hPosition)
                 if not word[hPosition-1] == "c":
                     silenthCount += 1
-                print('silent count', silenthCount)
-                print('before h', word[hPosition-1])
                 hCount -= 1
-                print('count', hCount)
                 start = hPosition + 1
 
         return silenthCount
@@ -154,8 +146,6 @@ class WordAnalysis(object):
             difficultyIndex = difficultyweight * sameSoundLetterOcurrences
             self.sameSoundLetterInfo[word] = difficultyIndex
 
-        print('samesoundletteroccurrences', sameSoundLetterOcurrences)
-        print('difficulty index', difficultyIndex)
 
     def has_same_sound_letters(self, word):
         """Returns the total difficulty points for the word passed in
@@ -185,13 +175,11 @@ class WordAnalysis(object):
         the gswappable_check method to determine if there are any g's that
         sound like j's.
         """
-        print('estoy corriendo')
+
         jSwappableCount = 0
         if "j" in word and "g" in word:
             ruleCompliantGs = self.swap_g_for_j_check(word)
             jSwappableCount = word.count("j") * ruleCompliantGs
-
-        print('jswappablecount', jSwappableCount)
 
         return jSwappableCount
 
@@ -216,7 +204,6 @@ class WordAnalysis(object):
                 continue
             if word[position+1] == 'i' or word[position+1] == "e":
                 gCompliantCount += 1
-        print("gcompliantcount", gCompliantCount)
 
         return gCompliantCount
 
@@ -239,7 +226,6 @@ class WordAnalysis(object):
                     (ruleCompliantCs * word.count("z"))
                 )
             elif "s" in word and "c" in word:
-                print('rule compliant cs', ruleCompliantCs)
                 sSwappableCount = word.count("s") * ruleCompliantCs
             elif "s" in word and "z" in word:
                 sSwappableCount = word.count("s") * word.count("z")
@@ -294,7 +280,6 @@ class WordAnalysis(object):
                 )
             elif "k" in word and "q" in word:
                 kSwappableCount = word.count("k") * ruleCompliantQs
-                print('kswappablecount', kSwappableCount)
             elif "k" in word and "c" in word:
                 kSwappableCount = word.count("k") * ruleCompliantCs
             elif "q" in word and "c" in word:
@@ -306,13 +291,11 @@ class WordAnalysis(object):
         """Checks how many q's in the word word sound like k's so they can be
         swapped with k's by mistake.
         """
-        print('checking qs', word)
 
         qCompliantCount = 0
         qCount = word.count("q")
         qPositions = list()
         start = 0
-        print('qcount', qCount, word)
 
         while qCount > 0:
             qPosition = word.find("q", start)
@@ -320,18 +303,13 @@ class WordAnalysis(object):
             start = qPosition + 1
             qCount -= 1
 
-        print('qpositions', qPositions, word)
         for position in qPositions:
             if position == (len(word) - 1):
                 continue
-                print('continue', word)
             if (word[position+1] == "u" and
                     (word[position+2] == "e" or word[position+2] == "i")):
-                print(word, 'cumple con la regla', word)
-                print(position, 'position approved', word)
                 qCompliantCount += 1
 
-        print(word, 'qcompliant', qCompliantCount)
         return qCompliantCount
 
     def swap_c_for_k_check(self, word):
@@ -440,9 +418,7 @@ class WordAnalysis(object):
 
         for word in self.words:
             anagramCount = self.in_anagrams_list(word, anagramList)
-            print(word, 'anagramcount', anagramCount)
             difficultyIndex = anagramCount * difficultyweight
-            print(word, 'diffindex', difficultyIndex)
             self.anagramsInfo[word] = difficultyIndex
 
     def in_anagrams_list(self, word, anagramList):
@@ -455,9 +431,7 @@ class WordAnalysis(object):
         anagramCount = 0
         for line in anagramList:
             if word in line:
-                print("found")
                 anagramCount = len(line)
-                print('words in anagram', anagramCount)
         return anagramCount
 
     def get_length_info(self):
