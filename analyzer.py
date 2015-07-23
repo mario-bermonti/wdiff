@@ -1,10 +1,11 @@
 #! "C:\Python33\python.exe"
 # -*- coding: utf-8 -*-
 
-import iofiles
+
+import libraryext.iofiles as iofiles
 
 
-class WordAnalysis(object):
+class WordAnalyzer(object):
     """Analyzes words on the dimensions of: number of letters, if letters have
     special characters, silent letters, different letters with the same sound,
     and letters visually similar. It will assign different difficulty points
@@ -14,8 +15,13 @@ class WordAnalysis(object):
 
     def __init__(self, words):
         self.words = words
-        self.dimensions = ("length", "accents", "silent letters",
-                           "same sound letters, anagrams")
+        self.analysisDimensions = (
+            "length",
+            "silent letters",
+            "same sound letters",
+            "anagrams"
+            "difficulty index"
+        )
 
     def check_special_characters(self):
         """Uses has_special_characters to determine if any word has special
@@ -31,7 +37,7 @@ class WordAnalysis(object):
 
         if self.wordsWithSpecialCharacters:
             self.iodata = iofiles.IOData()
-            writeWord = self.iodata.write_sequence(
+            writeWord = self.iodata.write_lines_to_file(
                 self.wordsWithSpecialCharacters,
                 "invalid words.txt"
             )
@@ -412,7 +418,7 @@ class WordAnalysis(object):
 
         if "iodata" not in locals():
             self.iodata = iofiles.IOData()
-        self.iodata.read_sequence("anagrams.txt")
+        self.iodata.read_file_lines("anagrams.txt")
         self.iodata.split_lines(sep=",")
         anagramList = self.iodata.get_data()
 
@@ -433,6 +439,29 @@ class WordAnalysis(object):
             if word in line:
                 anagramCount = len(line)
         return anagramCount
+
+    def determine_total_difficulty_index(self):
+        """Determines the total difficulty index for each word and appends it
+        to the properties of each word."""
+
+        for k, v in self.wordInfo.items():
+            self.wordInfo[k] = v + sum((v, ))
+
+    def integrate_word_information(self):
+        """Integrates information  the work information for each dictionary
+        into a single dictionary.
+        """
+
+        self.wordInfo = dict()
+        for word in self.words:
+            self.wordInfo[word] = (
+                self.lengthInfo[word],
+                self.silentLetterInfo[word],
+                self.sameSoundLetterInfo[word],
+                self.anagramsInfo[word]
+            )
+
+        self.determine_total_difficulty_index()
 
     def get_length_info(self):
         """Returns a dict with the info of the length of every word."""
@@ -456,6 +485,17 @@ class WordAnalysis(object):
 
         return self.anagramsInfo
 
+    def get_word_info(self):
+        """Returns a dictionary with the info for every word."""
+
+        return self.wordInfo
+
+    def get_analysis_dimensions(self):
+        """Returns a tuple with the dimensions analyzed for informative
+        purposes or for database construction.
+        """
+
+        return self.analysisDimensions
 
 if __name__ == "__main__":
-    analysis = WordAnalysis()
+    wordanalyzer = WordAnalyzer()

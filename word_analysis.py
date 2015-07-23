@@ -1,16 +1,17 @@
 #! "C:\Python33\Python.exe"
 # -*- coding: utf-8 -*-
 
-import iofiles
-import analysis
+import libraryext.iofiles as iofiles
+import analyzer
 
 
 class WordAnalysis():
     def __init__(self):
+        print("Bienvenido Análisis de Palabras\n")
         self.fileName = self.get_file_name()
         self.fileName = "{}.txt".format(self.fileName)
         self.words = self.get_words(self.fileName)
-        self.wordanalysis = analysis.WordAnalysis(self.words)
+        self.wordanalyzer = analyzer.WordAnalyzer(self.words)
 
         self.interface()
 
@@ -23,12 +24,17 @@ class WordAnalysis():
             elif desiredAnalysis in ("1", "2", "3", "4", "5"):
                 self.run_analysis(desiredAnalysis)
             else:
-                print("Opción inválida. Intente nuevamente")
+                print("Opción inválida. Intente nuevamente.")
+                print("\n" * 2)
+                print("-" * 75)
+
+        self.export_to_csv()
 
     def print_menu(self):
         """Print the anaylsis options to the user."""
 
-        print("Bienvenido Análisis de Palabras\n")
+        print("\n")
+        print("-" * 75)
         print("Presione el número que identifica el análisis deseado")
         print("Las opciones de análisis son las siguientes:")
         print("1. Identificar palabras inválidas")
@@ -50,19 +56,19 @@ class WordAnalysis():
         """Runs the analysis desired by the user."""
 
         if desiredAnalysis == "1":
-            self.wordanalysis.check_special_characters()
+            self.wordanalyzer.check_special_characters()
         elif desiredAnalysis == "2":
-            self.wordanalysis.length()
-            self.wordLengthInfo = self.wordanalysis.get_length_info()
+            self.wordanalyzer.length()
+            self.wordLengthInfo = self.wordanalyzer.get_length_info()
         elif desiredAnalysis == "3":
-            self.wordanalysis.check_silent_letters()
-            self.silentInfo = self.wordanalysis.get_silent_letter_info()
+            self.wordanalyzer.check_silent_letters()
+            self.silentInfo = self.wordanalyzer.get_silent_letter_info()
         elif desiredAnalysis == "4":
-            self.wordanalysis.check_same_sound_letter()
-            self.sameSoundInfo = self.wordanalysis.get_same_sound_letter_info()
+            self.wordanalyzer.check_same_sound_letter()
+            self.sameSoundInfo = self.wordanalyzer.get_same_sound_letter_info()
         elif desiredAnalysis == "5":
-            self.wordanalysis.check_anagrams()
-            self.anagramInfo = self.wordanalysis.get_anagrams_info()
+            self.wordanalyzer.check_anagrams()
+            self.anagramInfo = self.wordanalyzer.get_anagrams_info()
 
     def get_file_name(self):
         """Aks the user for the name of the file with the words to be
@@ -74,11 +80,11 @@ class WordAnalysis():
         return fileName
 
     def get_words(self, fileName):
-        """ Get the words from the file specified by get_file_name."""
+        """Get the words from the file specified by get_file_name."""
 
-        iodata = iofiles.IOData()
-        words = iodata.read_sequence(fileName)
-        words = iodata.get_data()
+        self.iodata = iofiles.IOData()
+        words = self.iodata.read_file_lines(fileName)
+        words = self.iodata.get_data()
         words = self.clean_words(words)
 
         return words
@@ -93,10 +99,36 @@ class WordAnalysis():
 
         return words
 
+    def prepare_data(self, wordInfo):
+        """Converts each key and value pair into tuple."""
+
+        wordInfo = [(k, ) + tuple(v) for k, v in wordInfo.items()]
+
+        return wordInfo
+
+    def get_data(self):
+        """Gets the results of the analysis from the analyzer class."""
+
+        self.wordanalyzer.integrate_word_information()
+        wordInfo = self.wordanalyzer.get_word_info()
+
+        return self.prepare_data(wordInfo)
+
+    def prepare_header(self):
+        """Prepares the header that will be used in the csv file."""
+
+        header = self.wordanalyzer.get_analysis_dimensions()
+
+        return (("words", ) + header + ("difficulty index", ))
+
     def export_to_csv(self):
         """Exports the information of the analyzed words into a csv file."""
 
-        pass
+        wordInfo = self.get_data()
+        header = self.prepare_header()
+        self.iodata.write_csv_row(file="results", data=header)
+        self.iodata.write_csv_rows(file="results", data=wordInfo, mode="a")
 
 wordanalysis = WordAnalysis()
 end = input("press enter")
+
