@@ -9,7 +9,6 @@ class WordAnalysis():
     def __init__(self):
         print("Bienvenido Análisis de Palabras\n")
         self.fileName = self.get_file_name()
-        self.fileName = "{}.txt".format(self.fileName)
         self.words = self.get_words(self.fileName)
         self.wordanalyzer = analyzer.WordAnalyzer(self.words)
 
@@ -76,6 +75,8 @@ class WordAnalysis():
         """
 
         fileName = input("Escribe el nombre del documento con las palabras: ")
+        fileName = fileName.strip()
+        fileName = "{}.txt".format(fileName)
 
         return fileName
 
@@ -83,11 +84,21 @@ class WordAnalysis():
         """Get the words from the file specified by get_file_name."""
 
         self.iodata = iofiles.IOData()
-        words = self.iodata.read_file_lines(fileName)
-        words = self.iodata.get_data()
-        words = self.clean_words(words)
 
-        return words
+        validFile = 0
+        while not validFile:
+            try:
+                words = self.iodata.read_file_lines(fileName)
+                validFile = 1
+
+            except FileNotFoundError:
+                print("No existe ningún file con ese nombre.")
+                print("Intente nuevamente.")
+                fileName = self.get_file_name()
+
+        words = self.iodata.get_data()
+
+        return self.clean_words(words)
 
     def clean_words(self, words):
         """Eliminates empty strings from the word list (sometimes happens)."""
@@ -102,8 +113,8 @@ class WordAnalysis():
     def prepare_data(self, wordInfo):
         """Converts each key and value pair into tuple."""
 
-        wordInfo = [(k, ) + tuple(v) for k, v in wordInfo.items()]
-
+        wordInfo = [(k, ) + v for k, v in wordInfo.items()]
+        print(wordInfo)
         return wordInfo
 
     def get_data(self):
@@ -131,4 +142,3 @@ class WordAnalysis():
 
 wordanalysis = WordAnalysis()
 end = input("press enter")
-

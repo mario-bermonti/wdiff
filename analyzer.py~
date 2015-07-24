@@ -68,12 +68,9 @@ class WordAnalyzer(object):
 
         self.lengthInfo = dict()
         difficultyweight = 1
-        for word in self.words:
-            # the difficultyLevel is the same as the length of the word,
-            # so no additional calculation is needed.
-            self.lengthInfo[word] = len(word)
 
-        # just fo debugging purposes
+        for word in self.words:
+            self.lengthInfo[word] = len(word)
 
     def check_silent_letters(self):
         """Uses has_silent_letters to determine if the words in self.words
@@ -106,6 +103,7 @@ class WordAnalyzer(object):
         if "h" in word:
             hCount = word.count("h")
             start = 0
+
             while hCount > 0:
                 hPosition = word.find("h", start)
                 if not word[hPosition-1] == "c":
@@ -127,6 +125,7 @@ class WordAnalyzer(object):
         if "u" in word:
             uCount = word.count("u")
             start = 0
+
             while uCount > 0:
                 uPosition = word.find("u", start)
                 if ((word[uPosition-1] == "q" or word[uPosition-1] == 'g') and
@@ -151,7 +150,6 @@ class WordAnalyzer(object):
             sameSoundLetterOcurrences = self.has_same_sound_letters(word)
             difficultyIndex = difficultyweight * sameSoundLetterOcurrences
             self.sameSoundLetterInfo[word] = difficultyIndex
-
 
     def has_same_sound_letters(self, word):
         """Returns the total difficulty points for the word passed in
@@ -442,11 +440,12 @@ class WordAnalyzer(object):
 
     def determine_total_difficulty_index(self):
         """Determines the total difficulty index for each word and appends it
-        to the properties of each word."""
+        to the properties of each word.
+        """
 
         for k, v in self.wordInfo.items():
             total = sum(v)
-            self.wordInfo[k].append(total)
+            self.wordInfo[k] = v + (total, )
 
     def integrate_word_information(self):
         """Integrates information  the work information for each dictionary
@@ -455,12 +454,12 @@ class WordAnalyzer(object):
 
         self.wordInfo = dict()
         for word in self.words:
-            self.wordInfo[word] = [
+            self.wordInfo[word] = (
                 self.lengthInfo[word],
                 self.silentLetterInfo[word],
                 self.sameSoundLetterInfo[word],
                 self.anagramsInfo[word]
-            ]
+            )
 
         self.determine_total_difficulty_index()
 
