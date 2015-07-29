@@ -38,8 +38,8 @@ class WordAnalyzer(object):
         if self.wordsWithSpecialCharacters:
             self.iodata = iofiles.IOData()
             writeWord = self.iodata.write_lines_to_file(
-                self.wordsWithSpecialCharacters,
-                "invalid words.txt"
+                "invalid words.txt",
+                self.wordsWithSpecialCharacters
             )
 
             self.eliminate_invalid_words(self.wordsWithSpecialCharacters)
@@ -49,10 +49,10 @@ class WordAnalyzer(object):
         character.
         """
 
-        self.acceptedSymbols = ("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
+        self.acceptedSymbols = ("abcdefghijklmnñopqrstuvwxyz")
         for letter in word:
-            upperCaseLetter = letter.upper()
-            if upperCaseLetter not in self.acceptedSymbols:
+            lowerCaseLetter = letter.lower()
+            if lowerCaseLetter not in self.acceptedSymbols:
                 return True
 
     def eliminate_invalid_words(self, words):

@@ -49,10 +49,10 @@ class WordAnalyzer(object):
         character.
         """
 
-        self.acceptedSymbols = ("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
+        self.acceptedSymbols = ("abcdefghijklmnñopqrstuvwxyz")
         for letter in word:
-            upperCaseLetter = letter.upper()
-            if upperCaseLetter not in self.acceptedSymbols:
+            lowerCaseLetter = letter.lower()
+            if lowerCaseLetter not in self.acceptedSymbols:
                 return True
 
     def eliminate_invalid_words(self, words):
@@ -68,7 +68,6 @@ class WordAnalyzer(object):
 
         self.lengthInfo = dict()
         difficultyweight = 1
-
         for word in self.words:
             self.lengthInfo[word] = len(word)
 
