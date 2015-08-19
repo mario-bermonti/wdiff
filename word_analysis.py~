@@ -103,7 +103,7 @@ class WordAnalysis():
     def clean_words(self, words):
         """Eliminates empty strings from the word list (sometimes happens)."""
 
-        words = [word.upper() for word in words]
+        words = [word.lower() for word in words]
         for word in words[:]:
             if word == "":
                 words.remove(word)

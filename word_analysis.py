@@ -114,7 +114,6 @@ class WordAnalysis():
         """Converts each key and value pair into tuple."""
 
         wordInfo = [(k, ) + v for k, v in wordInfo.items()]
-        print(wordInfo)
         return wordInfo
 
     def get_data(self):
