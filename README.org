@@ -1,0 +1,64 @@
+* Word Analysis
+
+This modules has a set of functions to analyze Spanish words and determine
+their difficulty level based on the following dimensions:
+1) Word length
+2) Silent letters
+3) Different letters with the same sound
+4) Anagrams
+
+It also has a special function to eliminate words that don't comply with
+the accepted characters.
+
+The module can be used to analyze a specific dimension and retrieve its result
+or multiple analysis can be conducted and the results integrated. If multiple
+dimensions are analyzed, the results of the analysis for every dimension,
+as well as a word difficult index will be calculated. The results can be
+saved to a CSV file.
+
+** Usage
+To use Word Analysis, instantiate the =WordAnalyzer= class, passing the list
+of words as an argument to the object and call any of the following methods:
+*** Functions for analyzing words
+The =check_special_characters= method checks every word and eliminates
+words that have any characters other than the accepted ones. Only regular
+Spanish language characters are accepted, excluding accented characters.
+
+The =check_length= method determines the length of every word.
+
+The =check_silent_letters= method determines the number of silent letters
+in each word.
+
+The =check_same_sound_letter= determines the number of letters with the same
+sound present in each word.
+
+The =check_anagrams= checks if words are anagrams of other words in the
+database.
+
+*** Functions for extracting results
+The following methods return the results for the analysis of the specified
+dimension:
+
+- =get_length_info=
+
+- =get_silent_letter_info=
+
+- =get_same_sound_letter_info=
+
+- =get_anagrams_info=
+
+More importantly, the =integrate_word_information= method integrated the
+results for the different dimensions and the =get_word_info= returns the
+results.
+
+* Getting Started
+**  Prerequisites
+** Installing
+** Running the Tests
+* Contributing
+* Author
+  Mario E. Bermonti-Perez. Feel free to contact me at mbermonti1132@gmail.com.
+* License
+This project is licensed under the GPL License. See the file:license.txt for
+details.
+* Acknowledgments
