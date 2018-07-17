@@ -61,7 +61,7 @@ class WordAnalyzer(object):
         for word in words:
             self.words.remove(word)
 
-    def length(self):
+    def check_length(self):
         """Calculates the length of each word in words and includes in the
         dictionary wordInfo.
         """
