@@ -7,16 +7,16 @@ their difficulty level based on the following dimensions:
 3) Different letters with the same sound
 4) Anagrams
 
-It also has a special function to eliminate words that don't comply with
-the accepted characters.
+* Getting Started
+**  Prerequisites
+** Installing
 
+** Usage
 The module can be used to analyze a specific dimension and retrieve its result
 or multiple analysis can be conducted and the results integrated. If multiple
 dimensions are analyzed, the results of the analysis for every dimension,
-as well as a word difficult index will be calculated. The results can be
-saved to a CSV file.
+as well as a word difficult index will be calculated.
 
-** Usage
 To use Word Analysis, instantiate the =WordAnalyzer= class, passing the list
 of words as an argument to the object and call any of the following methods:
 *** Functions for analyzing words
@@ -51,14 +51,13 @@ More importantly, the =integrate_word_information= method integrated the
 results for the different dimensions and the =get_word_info= returns the
 results.
 
-* Getting Started
-**  Prerequisites
-** Installing
-** Running the Tests
 * Contributing
+  If you encounter any bugs, please open an issue on github. To contribute to
+this project, clone the repository and submit a pull request. If you wish to
+become an active maintainer of the project, you can contact me
+at mbermonti1132@gmail.com
 * Author
   Mario E. Bermonti-Perez. Feel free to contact me at mbermonti1132@gmail.com.
 * License
-This project is licensed under the GPL License. See the file:license.txt for
+This project is licensed under the GPL License. See the readme.org file for
 details.
-* Acknowledgments
