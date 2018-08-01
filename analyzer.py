@@ -23,44 +23,6 @@ class WordAnalyzer(object):
             "difficulty index"
         )
 
-    def check_special_characters(self):
-        """Uses has_special_characters to determine if any word has special
-        characters. If the word has any of the special characters they are
-        included in the wordsWithSpecialCharacters list, which will be
-        written to the file file, so the user can check them.
-        """
-
-        self.wordsWithSpecialCharacters = list()
-        for word in self.words:
-            if self.has_special_characters(word):
-                self.wordsWithSpecialCharacters.append(word)
-
-        if self.wordsWithSpecialCharacters:
-            self.iodata = iofiles.IOData()
-            writeWord = self.iodata.write_lines_to_file(
-                "invalid words.txt",
-                self.wordsWithSpecialCharacters
-            )
-
-            self.eliminate_invalid_words(self.wordsWithSpecialCharacters)
-
-    def has_special_characters(self, word):
-        """Returns True if any of the letters of the word is not a valid
-        character.
-        """
-
-        self.acceptedSymbols = ("abcdefghijklmnñopqrstuvwxyz")
-        for letter in word:
-            lowerCaseLetter = letter.lower()
-            if lowerCaseLetter not in self.acceptedSymbols:
-                return True
-
-    def eliminate_invalid_words(self, words):
-        """Eliminates invalid words from self.words."""
-
-        for word in words:
-            self.words.remove(word)
-
     def check_length(self):
         """Calculates the length of each word in words and includes in the
         dictionary wordInfo.
