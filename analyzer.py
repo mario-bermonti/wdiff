@@ -29,9 +29,9 @@ class WordAnalyzer(object):
         """
 
         self.lengthInfo = dict()
-        difficultyweight = 1
+        difficultyweight = 3
         for word in self.words:
-            self.lengthInfo[word] = len(word)
+            self.lengthInfo[word] = len(word) * difficultyweight
 
     def check_silent_letters(self):
         """Uses has_silent_letters to determine if the words in self.words
@@ -39,7 +39,7 @@ class WordAnalyzer(object):
         on the presence of silent letters.
         """
 
-        difficultyweight = 1
+        difficultyweight = 2
         self.silentLetterInfo = dict()
 
         for word in self.words:
@@ -372,7 +372,7 @@ class WordAnalyzer(object):
         it creates one in order to read the anagram database.
         """
 
-        difficultyweight = 3
+        difficultyweight = 1
         self.anagramsInfo = dict()
 
         if "iodata" not in locals():
