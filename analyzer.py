@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 
-import libraryext.iofiles as iofiles
-
-
 class WordAnalyzer(object):
     """Analyzes words on the dimensions of: number of letters, if letters have
     special characters, silent letters, different letters with the same sound,
@@ -374,13 +371,6 @@ class WordAnalyzer(object):
 
         difficultyweight = 1
         self.anagramsInfo = dict()
-
-        if "iodata" not in locals():
-            self.iodata = iofiles.IOData()
-        self.iodata.read_file_lines("anagrams.txt")
-        self.iodata.split_lines(sep=",")
-        anagramList = self.iodata.get_data()
-
         for word in self.words:
             anagramCount = self.in_anagrams_list(word, anagramList)
             difficultyIndex = anagramCount * difficultyweight
