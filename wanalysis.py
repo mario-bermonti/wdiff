@@ -448,5 +448,6 @@ class WordAnalyzer(object):
 
         return self.analysisDimensions
 
+
 if __name__ == "__main__":
     wordanalyzer = WordAnalyzer()
