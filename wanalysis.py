@@ -20,25 +20,23 @@ class WordAnalyzer(object):
             "difficulty index"
         )
 
-    def check_length(self):
+    def check_length(self, difficultyweight=3):
         """Calculates the length of each word in words and includes in the
         dictionary wordInfo.
         """
 
         self.lengthInfo = dict()
-        difficultyweight = 3
         for word in self.words:
             self.lengthInfo[word] = len(word) * difficultyweight
 
-    def check_silent_letters(self):
+    def check_silent_letters(self, difficultyweight=2):
+
         """Uses has_silent_letters to determine if the words in self.words
         have silent letters. Assigns a difficulty index to each word based
         on the presence of silent letters.
         """
 
-        difficultyweight = 2
         self.silentLetterInfo = dict()
-
         for word in self.words:
             silentLetterOcurrences = self.has_silent_letters(word)
             difficultyIndex = difficultyweight * silentLetterOcurrences
@@ -94,16 +92,14 @@ class WordAnalyzer(object):
 
         return silentuCount
 
-    def check_same_sound_letter(self):
+    def check_same_sound_letter(self, difficultyweight=2):
         """Uses has_same_sound_letters to determine if the words in self.words
         have different letters that can be swapped by mistake, because they
         have the same sound. Assigns a difficulty index to each word based
         on the occurrences of "same sound letters".
         """
 
-        difficultyweight = 2
         self.sameSoundLetterInfo = dict()
-
         for word in self.words:
             sameSoundLetterOcurrences = self.has_same_sound_letters(word)
             difficultyIndex = difficultyweight * sameSoundLetterOcurrences
@@ -360,7 +356,7 @@ class WordAnalyzer(object):
 
         return lCompliantCount
 
-    def check_anagrams(self):
+    def check_anagrams(self, difficultyweight=1):
         """It uses in_anagrams_list to determine if any of the words is an
         anagram and determines a difficulty index for each word for the anagram
         dimension. Stores the word info in the dict anagramsInfo.
@@ -369,7 +365,6 @@ class WordAnalyzer(object):
         it creates one in order to read the anagram database.
         """
 
-        difficultyweight = 1
         self.anagramsInfo = dict()
         for word in self.words:
             anagramCount = self.in_anagrams_list(word, anagramList)
