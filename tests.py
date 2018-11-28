@@ -306,3 +306,37 @@ class TestWordAnalyzer():
         analyzer = wanalysis.WordAnalyzer(words)
         analyzer.check_same_sound_letter()
         assert analyzer.get_same_sound_letter_info() == words
+
+    def test_integrate_word_information(self):
+        """Tests integrate_word_information method."""
+
+        words = {
+            '': (0, 0, 0),
+            'hguicokocese': (36, 4, 4),
+            'hgui': (12, 4, 0)
+        }
+
+        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.check_length()
+        analyzer.check_silent_letters()
+        analyzer.check_same_sound_letter()
+        word_info = analyzer.integrate_word_information()
+
+        assert words == word_info
+
+    def test_determine_total_difficulty_index(self):
+        """Tests determine_total_difficulty_index method."""
+
+        words = {
+            '': 0,
+            'hguicokocese': 44,
+            'hgui': 16
+        }
+
+        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.check_length()
+        analyzer.check_silent_letters()
+        analyzer.check_same_sound_letter()
+        analyzer.determine_total_difficulty_index()
+
+        assert words == analyzer.get_word_difficulty()
