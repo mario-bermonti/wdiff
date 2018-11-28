@@ -1,5 +1,5 @@
-* Project’s plan [11%]
-** TODO Develop tests [50%]
+* Project’s plan [33%]
+** TODO Develop tests [80%]
 *** DONE Determine length - SPECIFY DIFFICULTY WEIGHT
 *** DONE Check silent letters [100%]
 **** DONE has_silent_letters - SPECIFY DIFFICULTY WEIGHT
@@ -19,16 +19,19 @@
 **** DONE check_y_sound
 **** DONE swap_y_for_y_check
 **** DONE swap_l_for_y_check
-*** TODO Anagrams
-**** check_anagrams - SPECIFY DIFFICULTY WEIGHT
+*** DONE Anagrams [100%]
+**** DONE count_anagrams
+**** DONE check_anagrams
 *** TODO Difficulty index [75%]
 **** DONE General to the next methods: the user should call determine_total_difficulty_index and that method calls integrate
 **** DONE determine_total_difficulty_index
 **** DONE integrate_word_information
 **** TODO Add the check_anagrams method and test it
-** TODO Adjust difficulty weights
+** DONE Adjust difficulty weights
 ** DONE Specify the difficulty weights as parameters
-** TODO Update checking anagram algorithm
+** DONE Update checking anagram algorithm
+*** DONE count_anagrams
+*** DONE check_anagrams
 ** TODO Use pandas to store data
 ** TODO Better names (variables)
 ** TODO Update documentation (docstring)
