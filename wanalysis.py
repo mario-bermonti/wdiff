@@ -1,6 +1,8 @@
 #! "C:\Python33\python.exe"
 # -*- coding: utf-8 -*-
 
+import collections
+
 
 class WordAnalyzer(object):
     """Analyzes words on the dimensions of: number of letters, if letters have
@@ -372,21 +374,46 @@ class WordAnalyzer(object):
 
         self.anagramsInfo = dict()
         for word in self.words:
-            anagramCount = self.in_anagrams_list(word, anagramList)
-            difficultyIndex = anagramCount * difficultyweight
+            anagramCount = self.count_anagrams(word)
+            # if the letters of the word can only form 1 word (itself) then its
+            # difficulty should be 0.
+
+            if anagramCount == 1:
+                difficultyIndex = 0
+            else:
+                difficultyIndex = anagramCount * difficultyweight
             self.anagramsInfo[word] = difficultyIndex
 
-    def in_anagrams_list(self, word, anagramList):
-        """Checks if the word word is in any of the lines in anagramList.
-        If it is in any line, it counts the number of words on that line
-        to determine how many words can the letters of the word be scrambled
-        to make.
+    def count_anagrams(self, word):
+        """Counts the number of anagrams for each word in the list. It only
+        considers the words in the list.
+
+        Parameter
+        _________
+        word: str
+            word to analyze
+
+        Returns
+        _______
+        anagramCount: int
+            Indicates the number of anagrams that can be
+            created (including the word itself)
+
+        Notes
+        _____
+        1) This method assumes the word passed in and self.words contain valid
+        words. It will consider nonvalid words as anagrams of each other if
+        they contain the same letter count, regardless of the validity.
+        2) Because this algorithm only considers each word in the list against
+        other words in the list the accuracy of the estimation improves as the
+        number of words in the list is larger.
         """
 
         anagramCount = 0
-        for line in anagramList:
-            if word in line:
-                anagramCount = len(line)
+        for w in list(self.words):
+            if collections.Counter(word) == collections.Counter(w):
+                anagramCount += 1
+
         return anagramCount
 
     def determine_total_difficulty_index(self):
