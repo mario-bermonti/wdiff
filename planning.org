@@ -1,0 +1,38 @@
+* Project’s plan [11%]
+** TODO Develop tests [50%]
+*** DONE Determine length - SPECIFY DIFFICULTY WEIGHT
+*** DONE Check silent letters [100%]
+**** DONE has_silent_letters - SPECIFY DIFFICULTY WEIGHT
+**** DONE has_silent_h
+**** DONE has_silent_u
+*** DONE Same sound letters - SPECIFY DIFFICULTY WEIGHT [100%]
+**** DONE check_same_sound_letter
+**** DONE has_same_sound_letters
+**** DONE check_b_sound_swapping
+**** DONE check_j_sound
+**** DONE swap_g_for_j_check
+**** DONE check_s_sound
+**** DONE swap_c_for_s_check
+**** DONE check_k_sound
+**** DONE swap_q_for_k_check
+**** DONE swap_c_for_k_check
+**** DONE check_y_sound
+**** DONE swap_y_for_y_check
+**** DONE swap_l_for_y_check
+*** TODO Anagrams
+**** check_anagrams - SPECIFY DIFFICULTY WEIGHT
+*** TODO Difficulty index [75%]
+**** DONE General to the next methods: the user should call determine_total_difficulty_index and that method calls integrate
+**** DONE determine_total_difficulty_index
+**** DONE integrate_word_information
+**** TODO Add the check_anagrams method and test it
+** TODO Adjust difficulty weights
+** DONE Specify the difficulty weights as parameters
+** TODO Update checking anagram algorithm
+** TODO Use pandas to store data
+** TODO Better names (variables)
+** TODO Update documentation (docstring)
+** TODO Change how words are passed to the object (currently at init (makes debuggin inneficient))
+*** If changed, update tests
+** TODO Improve codes efficiency and readability
+*** Most methods count the number of occurences using the same algorithm (use function)
