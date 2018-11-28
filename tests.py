@@ -29,8 +29,8 @@ class TestWordAnalyzer():
             'oso': 0,
             'habichuela': 1  # Has 2 h but the second one changes the sound
         }
-        analyzer = wanalysis.WordAnalyzer(words)
 
+        analyzer = wanalysis.WordAnalyzer(words)
         for word in words:
             assert analyzer.has_silent_h(word) == words[word]
 
@@ -340,3 +340,45 @@ class TestWordAnalyzer():
         analyzer.determine_total_difficulty_index()
 
         assert words == analyzer.get_word_difficulty()
+
+    def test_count_anagrams(self):
+        """Tests the count_anagram method."""
+
+        words = {
+            '': 1,
+            'tu': 1,
+            'fresa': 2,
+            'frase': 2,
+            'arma': 3,
+            'rama': 3,
+            'amar': 3,
+            'acre': 4,
+            'caer': 4,
+            'cera': 4,
+            'crea': 4
+        }
+
+        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        for word in words:
+            assert analyzer.count_anagrams(word) == words[word]
+
+    def test_check_anagrams(self):
+        """Tests the check_anagram method."""
+
+        words = {
+            '': 0,
+            'tu': 0,
+            'fresa': 2,
+            'frase': 2,
+            'arma': 3,
+            'rama': 3,
+            'amar': 3,
+            'acre': 4,
+            'caer': 4,
+            'cera': 4,
+            'crea': 4
+        }
+
+        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.check_anagrams()
+        assert words == analyzer.get_anagrams_info()
