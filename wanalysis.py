@@ -327,6 +327,10 @@ class WordAnalyzer(object):
             start = yPosition + 1
             yCount -= 1
 
+        # Improve
+        # Could be improve if 1 was taken from the
+        # count if length - 1 is in the list of
+        # position
         for position in yPositions:
             if position != (len(word) - 1):
                 yCompliantCount += 1
@@ -390,25 +394,27 @@ class WordAnalyzer(object):
         to the properties of each word.
         """
 
-        for k, v in self.wordInfo.items():
-            total = sum(v)
-            self.wordInfo[k] = v + (total, )
+        wordInfo = self.integrate_word_information()
+        self.word_difficulty = {}
+        for word, difficultyIndexes in wordInfo.items():
+            total = sum(difficultyIndexes)
+            self.word_difficulty[word] = total
 
     def integrate_word_information(self):
         """Integrates information  the work information for each dictionary
         into a single dictionary.
         """
 
-        self.wordInfo = dict()
+        wordInfo = dict()
         for word in self.words:
-            self.wordInfo[word] = (
+            wordInfo[word] = (
                 self.lengthInfo[word],
                 self.silentLetterInfo[word],
-                self.sameSoundLetterInfo[word],
-                self.anagramsInfo[word]
+                self.sameSoundLetterInfo[word]
+                # self.anagramsInfo[word]
             )
 
-        self.determine_total_difficulty_index()
+        return wordInfo
 
     def get_length_info(self):
         """Returns a dict with the info of the length of every word."""
@@ -432,17 +438,10 @@ class WordAnalyzer(object):
 
         return self.anagramsInfo
 
-    def get_word_info(self):
-        """Returns a dictionary with the info for every word."""
+    def get_word_difficulty(self):
+        """Returns a dictionary with the difficulty index for each word."""
 
-        return self.wordInfo
-
-    def get_analysis_dimensions(self):
-        """Returns a tuple with the dimensions analyzed for informative
-        purposes or for database construction.
-        """
-
-        return self.analysisDimensions
+        return self.word_difficulty
 
 
 if __name__ == "__main__":
