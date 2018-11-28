@@ -111,14 +111,15 @@ class WordAnalyzer(object):
         """
 
         return(
-            self.check_b_sound(word) + self.check_j_sound(word) +
+            self.check_b_sound_swapping(word) + self.check_j_sound(word) +
             self.check_s_sound(word) + self.check_k_sound(word) +
             self.check_y_sound(word)
         )
 
-    def check_b_sound(self, word):
+    def check_b_sound_swapping(self, word):
         """Determines the number of occurrences in the word word of different
-        letters with the sound /b/ that can be swapped by mistake.
+        letters with the sound /b/ that can be swapped by mistake 'v' for 'b'
+        and vice-versa.
         """
 
         bSwappableCount = 0
@@ -142,7 +143,7 @@ class WordAnalyzer(object):
         return jSwappableCount
 
     def swap_g_for_j_check(self, word):
-        """Checks how many g's in the word word sound like j's so they can be
+        """Checks how many g's in the word word sound like j's so they could be
         swapped with j's by mistake.
         """
 
@@ -311,8 +312,8 @@ class WordAnalyzer(object):
         return ySwappableCount
 
     def swap_y_for_y_check(self, word):
-        """Checks how many c's in the word word sound like k's so they can be
-        swapped with k's by mistake.
+        """Checks how many y's in the word word sound like /y/'s so they could be
+        swapped with ll's by mistake.
         """
 
         yCompliantCount = 0
@@ -333,8 +334,8 @@ class WordAnalyzer(object):
         return yCompliantCount
 
     def swap_l_for_y_check(self, word):
-        """Checks how many c's in the word word sound like k's so they can be
-        swapped with k's by mistake.
+        """Checks how many l's in the word word sound like /y/'s so they can be
+        swapped with l's by mistake.
         """
 
         lCompliantCount = 0
