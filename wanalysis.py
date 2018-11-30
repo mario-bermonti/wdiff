@@ -1,59 +1,79 @@
 #! "C:\Python33\python.exe"
 # -*- coding: utf-8 -*-
 
+"""
+Provides a class to analyze a list of words on specific criteria in order
+to determine their difficulty and provides a class to save the data to an
+Excel file.
+"""
+
 import collections
 
 
 class WordAnalyzer(object):
-    """Analyzes words on the dimensions of: number of letters, if letters have
-    special characters, silent letters, different letters with the same sound,
-    and letters visually similar. It will assign different difficulty points
-    to the letters depending on the dimension. The total difficulty level will
-    help organize words in ascending (or descending) ordering of difficulty.
+    """Interface to analyze words on the following dimensions:
+    1) length: number of letters,
+    2) silent letters: letters that have no sound (e.g. /h/),
+    3) same sound letters: different letters with the same sound (e.g. s and
+       z),
+    4) anagrams: words that may form other words if its letters are reorganized
     """
 
-    def __init__(self, words):
-        self.words = words
-        self.analysisDimensions = (
-            "length",
-            "silent letters",
-            "same sound letters",
-            "anagrams"
-            "difficulty index"
-        )
+    def set_words(self, words):
+        """Sets up the words that are going to be analyzed, passing a
+        list-like object of words.
 
-    def check_length(self, difficultyweight=3):
-        """Calculates the length of each word in words and includes in the
-        dictionary wordInfo.
+
+        Notes
+        _____
+        1) This methods was added so the WordAnalyzer doesn't have to be
+        instantiated for running every test.
+        """
+
+        self.words = words
+
+    def check_length(self, difficultyWeight=3):
+        """Determines the difficulty in each word associated with its length
+        and stores the results.
+
+        Parameter
+        _________
+        difficultyWeight: int
+            Indicates the relative contribution of this variable to
+            the total word difficulty
         """
 
         self.lengthInfo = dict()
         for word in self.words:
-            self.lengthInfo[word] = len(word) * difficultyweight
+            self.lengthInfo[word] = len(word) * difficultyWeight
 
-    def check_silent_letters(self, difficultyweight=2):
+    def check_silent_letters(self, difficultyWeight=2):
+        """Determines the difficulty in each word associated with the presence
+        of silent letters and stores the results.
 
-        """Uses has_silent_letters to determine if the words in self.words
-        have silent letters. Assigns a difficulty index to each word based
-        on the presence of silent letters.
+        Parameter
+        _________
+        difficultyWeight: int
+            Indicates the relative contribution of this variable to
+            the total word difficulty
         """
 
         self.silentLetterInfo = dict()
         for word in self.words:
             silentLetterOcurrences = self.has_silent_letters(word)
-            difficultyIndex = difficultyweight * silentLetterOcurrences
+            difficultyIndex = difficultyWeight * silentLetterOcurrences
             self.silentLetterInfo[word] = difficultyIndex
 
     def has_silent_letters(self, word):
-        """Returns the total difficulty points for the word passed in."""
+        """Determines the total number of silent letters in the word and
+        returns it as an int.
+        """
 
         return self.has_silent_h(word) + self.has_silent_u(word)
 
     def has_silent_h(self, word):
         """Determines the occurences of silent h's in the word based on the
-        spanish language rules.
-
-        returns: the number of silent h's in the word.
+        Spanish language rules and returns it as an int.
         """
 
         silenthCount = 0
@@ -73,9 +93,7 @@ class WordAnalyzer(object):
 
     def has_silent_u(self, word):
         """Determines the occurences of silent u's in the word based on the
-        spanish language rules.
-
-        returns: the number of silent u's in the word.
+        Spanish language rules and returns it as an int.
         """
 
         silentuCount = 0
@@ -94,22 +112,26 @@ class WordAnalyzer(object):
 
         return silentuCount
 
-    def check_same_sound_letter(self, difficultyweight=2):
-        """Uses has_same_sound_letters to determine if the words in self.words
-        have different letters that can be swapped by mistake, because they
-        have the same sound. Assigns a difficulty index to each word based
-        on the occurrences of "same sound letters".
+    def check_same_sound_letter(self, difficultyWeight=2):
+        """Determines the difficulty in each word associated with the presence
+        of same sound letters and stores the results.
+
+        Parameter
+        _________
+        difficultyWeight: int
+            Indicates the relative contribution of this variable to
+            the total word difficulty
         """
 
         self.sameSoundLetterInfo = dict()
         for word in self.words:
             sameSoundLetterOcurrences = self.has_same_sound_letters(word)
-            difficultyIndex = difficultyweight * sameSoundLetterOcurrences
+            difficultyIndex = difficultyWeight * sameSoundLetterOcurrences
             self.sameSoundLetterInfo[word] = difficultyIndex
 
     def has_same_sound_letters(self, word):
-        """Returns the total difficulty points for the word passed in
-        based on "same sound letter" occurrences.
+        """Determines the total number of same sound letters in the word and
+        returns it as an int.
         """
 
         return(
@@ -119,9 +141,8 @@ class WordAnalyzer(object):
         )
 
     def check_b_sound_swapping(self, word):
-        """Determines the number of occurrences in the word word of different
-        letters with the sound /b/ that can be swapped by mistake 'v' for 'b'
-        and vice-versa.
+        """Determines the number of letters that could be swapped because
+        they represent they same /b/ phoneme and returns it as an int.
         """
 
         bSwappableCount = 0
@@ -131,10 +152,8 @@ class WordAnalyzer(object):
         return bSwappableCount
 
     def check_j_sound(self, word):
-        """Determines the number of occurrences in the word word of different
-        letters with the sound /j/ that can be swapped by mistake. Uses
-        the gswappable_check method to determine if there are any g's that
-        sound like j's.
+        """Determines the number of letters that could be swapped because
+        they represent they same /j/ phoneme and returns it as an int.
         """
 
         jSwappableCount = 0
@@ -145,8 +164,8 @@ class WordAnalyzer(object):
         return jSwappableCount
 
     def swap_g_for_j_check(self, word):
-        """Checks how many g's in the word word sound like j's so they could be
-        swapped with j's by mistake.
+        """Determines the number of letter g's that have a /j/ sound and returns
+        it as an int.
         """
 
         gCompliantCount = 0
@@ -169,10 +188,8 @@ class WordAnalyzer(object):
         return gCompliantCount
 
     def check_s_sound(self, word):
-        """Determines the number of occurrences in the word word of different
-        letters with the sound /s/ that can be swapped by mistake. Uses
-        the cSwappable_check method to determine if there are any c's
-        that sound like s's.
+        """Determines the number of letters that could be swapped because
+        they represent they same /s/ phoneme and returns it as an int.
         """
 
         sSwappableCount = 0
@@ -196,8 +213,8 @@ class WordAnalyzer(object):
         return sSwappableCount
 
     def swap_c_for_s_check(self, word):
-        """Checks how many c's in the word word sound like s's so they can be
-        swapped with s's by mistake.
+        """Determines the number of c's that have an /s/ sound and returns
+        it as an int.
         """
 
         cCompliantCount = 0
@@ -220,10 +237,8 @@ class WordAnalyzer(object):
         return cCompliantCount
 
     def check_k_sound(self, word):
-        """Determines the number of occurrences in the word word of different
-        letters with the sound /k/ that can be swapped by mistake. Uses
-        the cSwappable_check qSwappable_check methods to determine if there are
-        any c's or q's that sound like k's.
+        """Determines the number of letters that could be swapped because
+        they represent they same /k/ phoneme and returns it as an int.
         """
 
         kSwappableCount = 0
@@ -249,8 +264,8 @@ class WordAnalyzer(object):
         return kSwappableCount
 
     def swap_q_for_k_check(self, word):
-        """Checks how many q's in the word word sound like k's so they can be
-        swapped with k's by mistake.
+        """Determines the number of q's that have an /k/ sound and returns
+        it as an int.
         """
 
         qCompliantCount = 0
@@ -274,8 +289,8 @@ class WordAnalyzer(object):
         return qCompliantCount
 
     def swap_c_for_k_check(self, word):
-        """Checks how many c's in the word word sound like k's so they can be
-        swapped with k's by mistake.
+        """Determines the number of c's that have an /k/ sound and returns
+        it as an int.
         """
 
         cCompliantCount = 0
@@ -299,10 +314,8 @@ class WordAnalyzer(object):
         return cCompliantCount
 
     def check_y_sound(self, word):
-        """Determines the number of occurrences in the word word of different
-        letters with the sound /y/ that can be swapped by mistake. Uses
-        the swap_y_for_y_check and swap_l_for_y_check methods to determine
-        if there are any y's or ll's that sound like y's.
+        """Determines the number of letters that could be swapped because
+        they represent they same /ll/ phoneme and returns it as an int.
         """
 
         ySwappableCount = 0
@@ -314,8 +327,8 @@ class WordAnalyzer(object):
         return ySwappableCount
 
     def swap_y_for_y_check(self, word):
-        """Checks how many y's in the word word sound like /y/'s so they could be
-        swapped with ll's by mistake.
+        """Determines the number of y's that have an /ll/ sound and returns
+        it as an int.
         """
 
         yCompliantCount = 0
@@ -340,8 +353,8 @@ class WordAnalyzer(object):
         return yCompliantCount
 
     def swap_l_for_y_check(self, word):
-        """Checks how many l's in the word word sound like /y/'s so they can be
-        swapped with l's by mistake.
+        """Determines the number of l's that have an /ll/ sound and returns
+        it as an int.
         """
 
         lCompliantCount = 0
@@ -363,13 +376,15 @@ class WordAnalyzer(object):
 
         return lCompliantCount
 
-    def check_anagrams(self, difficultyweight=1):
-        """It uses in_anagrams_list to determine if any of the words is an
-        anagram and determines a difficulty index for each word for the anagram
-        dimension. Stores the word info in the dict anagramsInfo.
+    def check_anagrams(self, difficultyWeight=1):
+        """Determines the difficulty in each word associated with the word
+        being and anagram of another word.
 
-        Checks to see if an instance of IOData already exists and if it doesn't
-        it creates one in order to read the anagram database.
+        Parameter
+        _________
+        difficultyWeight: int
+            Indicates the relative contribution of this variable to
+            the total word difficulty
         """
 
         self.anagramsInfo = dict()
@@ -381,12 +396,12 @@ class WordAnalyzer(object):
             if anagramCount == 1:
                 difficultyIndex = 0
             else:
-                difficultyIndex = anagramCount * difficultyweight
+                difficultyIndex = anagramCount * difficultyWeight
             self.anagramsInfo[word] = difficultyIndex
 
     def count_anagrams(self, word):
-        """Counts the number of anagrams for each word in the list. It only
-        considers the words in the list.
+        """Determines the number of words that are anagrams of this word and
+        returns it as an int.
 
         Parameter
         _________
@@ -417,19 +432,17 @@ class WordAnalyzer(object):
         return anagramCount
 
     def determine_total_difficulty_index(self):
-        """Determines the total difficulty index for each word and appends it
-        to the properties of each word.
-        """
+        """Determines the total difficulty index for each word."""
 
         wordInfo = self.integrate_word_information()
-        self.word_difficulty = {}
+        self.word_total_difficulty = {}
         for word, difficultyIndexes in wordInfo.items():
             total = sum(difficultyIndexes)
-            self.word_difficulty[word] = total
+            self.word_total_difficulty[word] = total
 
     def integrate_word_information(self):
-        """Integrates information  the work information for each dictionary
-        into a single dictionary.
+        """Integrates the difficulty index from each analysis into
+        a single dictionary and returns it.
         """
 
         wordInfo = dict()
@@ -444,32 +457,37 @@ class WordAnalyzer(object):
         return wordInfo
 
     def get_length_info(self):
-        """Returns a dict with the info of the length of every word."""
+        """Returns a dict object where the keys are the words and the values
+        are the difficulty associated with its length.
+        """
 
         return self.lengthInfo
 
     def get_silent_letter_info(self):
-        """Returns a dict with the silent letter info for every word."""
+        """Returns a dict object where the keys are the words and the values
+        are the difficulty associated with the presence of silent letters.
+        """
 
         return self.silentLetterInfo
 
     def get_same_sound_letter_info(self):
-        """Returns a dict with the same sound letters info for
-        every word.
+        """Returns a dict object where the keys are the words and the values
+        are the difficulty associated with the presence of same sound letters.
         """
 
         return self.sameSoundLetterInfo
 
     def get_anagrams_info(self):
-        """Returns a dict with the anagrams info for every word."""
+        """Returns a dict object where the keys are the words and the values
+        are the difficulty associated with the number of anagrams that can be
+        made from this word's letters.
+        """
 
         return self.anagramsInfo
 
     def get_word_difficulty(self):
-        """Returns a dictionary with the difficulty index for each word."""
+        """Returns a dict object where the keys are the words and the values
+        are the total difficulty indexes.
+        """
 
-        return self.word_difficulty
-
-
-if __name__ == "__main__":
-    wordanalyzer = WordAnalyzer()
+        return self.word_total_difficulty
