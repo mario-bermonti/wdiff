@@ -4,7 +4,7 @@
 import wanalysis
 
 
-class TestWordAnalyzer():
+class TestWordAnalyzerUnit():
     def test_check_length(self):
         """Tests the check_length method of the WordAnalyzer class. Values
         are 3 times the actual length because they are multipled by the
@@ -50,51 +50,6 @@ class TestWordAnalyzer():
 
         for word in words:
             assert analyzer.has_silent_u(word) == words[word]
-
-    def test_has_silent_letters(self):
-        """Tests the has_silent_letters method."""
-
-        words = {
-            'guineo': 1,
-            'guerra': 1,
-            'ques': 1,
-            'quine': 1,
-            'gato': 0,
-            'güiro': 0,
-            'ungüento': 0,
-            'hambre': 1,
-            'oso': 0,
-            'habichuela': 1,  # Has 2 h but the second one changes the sound
-            'hoguera': 2,
-            'riachuelo': 0
-        }
-
-        analyzer = wanalysis.WordAnalyzer(words)
-
-        for word in words:
-            assert analyzer.has_silent_letters(word) == words[word]
-
-    def test_check_silent_letters(self):
-        """Tests the has_silent_letters method."""
-
-        words = {
-            'guineo': 1,
-            'guerra': 1,
-            'queso': 1,
-            'quine': 1,
-            'gato': 0,
-            'güiro': 0,
-            'ungüento': 0,
-            'hambre': 1,
-            'oso': 0,
-            'habichuela': 1,  # Has 2 h but the second one changes the sound
-            'hoguera': 2,
-            'riachuelo': 0
-        }
-        analyzer = wanalysis.WordAnalyzer(words)
-
-        for word in words:
-            assert analyzer.has_silent_letters(word) == words[word]
 
     def test_check_b_sound_swapping(self):
         """Tests the check_b_sound_swapping method."""
@@ -154,23 +109,6 @@ class TestWordAnalyzer():
         for word in words.keys():
             assert words[word] == analyzer.swap_c_for_s_check(word)
 
-    def test_check_s_sound(self):
-        """Tests check_s_sound method."""
-
-        # Uses nonwords that meet the specifications
-        words = {
-            'cese': 1,
-            'cisi': 1,
-            'sizice': 3,
-            'zecese': 3,
-            'zecuse': 1,
-            'casa': 0,
-            '': 0
-        }
-
-        analyzer = wanalysis.WordAnalyzer(words)
-        for word in words.keys():
-            assert words[word] == analyzer.check_s_sound(word)
 
     def test_swap_q_for_k_check(self):
         """Tests swap_q_for_k_check method."""
@@ -277,69 +215,6 @@ class TestWordAnalyzer():
         for word in words.keys():
             assert words[word] == analyzer.check_y_sound(word)
 
-    def test_has_same_sound_letters(self):
-        """Tests the has_same_sound_letters method."""
-
-        # Uses nonwords that meet the specifications
-        words = {
-            'bota': 0,
-            'bovasazeyollo': 3,
-            'bovajigisazekocoyollo': 5,
-            '': 0
-        }
-
-        analyzer = wanalysis.WordAnalyzer(words)
-        for word in words.keys():
-            assert words[word] == analyzer.has_same_sound_letters(word)
-
-    def test_check_same_sound_letter(self):
-        """Tests check_same_sound_letter method."""
-
-        # Uses nonwords that meet the specifications
-        words = {
-            'bota': 0,
-            'bovasazeyollo': 6,
-            'bovajigisazekocoyollo': 10,
-            '': 0
-        }
-
-        analyzer = wanalysis.WordAnalyzer(words)
-        analyzer.check_same_sound_letter()
-        assert analyzer.get_same_sound_letter_info() == words
-
-    def test_integrate_word_information(self):
-        """Tests integrate_word_information method."""
-
-        words = {
-            '': (0, 0, 0),
-            'hguicokocese': (36, 4, 4),
-            'hgui': (12, 4, 0)
-        }
-
-        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
-        analyzer.check_length()
-        analyzer.check_silent_letters()
-        analyzer.check_same_sound_letter()
-        word_info = analyzer.integrate_word_information()
-
-        assert words == word_info
-
-    def test_determine_total_difficulty_index(self):
-        """Tests determine_total_difficulty_index method."""
-
-        words = {
-            '': 0,
-            'hguicokocese': 44,
-            'hgui': 16
-        }
-
-        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
-        analyzer.check_length()
-        analyzer.check_silent_letters()
-        analyzer.check_same_sound_letter()
-        analyzer.determine_total_difficulty_index()
-
-        assert words == analyzer.get_word_difficulty()
 
     def test_count_anagrams(self):
         """Tests the count_anagram method."""
@@ -382,3 +257,117 @@ class TestWordAnalyzer():
         analyzer = wanalysis.WordAnalyzer(list(words.keys()))
         analyzer.check_anagrams()
         assert words == analyzer.get_anagrams_info()
+
+
+class TestWordAnalyzerIntegration:
+    def test_has_silent_letters(self):
+        """Tests the has_silent_letters method."""
+
+        words = {
+            'guineo': 1,
+            'guerra': 1,
+            'ques': 1,
+            'quine': 1,
+            'gato': 0,
+            'güiro': 0,
+            'ungüento': 0,
+            'hambre': 1,
+            'oso': 0,
+            'habichuela': 1,  # Has 2 h but the second one changes the sound
+            'hoguera': 2,
+            'riachuelo': 0
+        }
+
+        analyzer = wanalysis.WordAnalyzer(words)
+
+        for word in words:
+            assert analyzer.has_silent_letters(word) == words[word]
+
+    def test_check_silent_letters(self):
+        """Tests the has_silent_letters method."""
+
+        words = {
+            'guineo': 1,
+            'guerra': 1,
+            'queso': 1,
+            'quine': 1,
+            'gato': 0,
+            'güiro': 0,
+            'ungüento': 0,
+            'hambre': 1,
+            'oso': 0,
+            'habichuela': 1,  # Has 2 h but the second one changes the sound
+            'hoguera': 2,
+            'riachuelo': 0
+        }
+        analyzer = wanalysis.WordAnalyzer(words)
+
+        for word in words:
+            assert analyzer.has_silent_letters(word) == words[word]
+
+    def test_has_same_sound_letters(self):
+        """Tests the has_same_sound_letters method."""
+
+        # Uses nonwords that meet the specifications
+        words = {
+            'bota': 0,
+            'bovasazeyollo': 3,
+            'bovajigisazekocoyollo': 5,
+            '': 0
+        }
+
+        analyzer = wanalysis.WordAnalyzer(words)
+        for word in words.keys():
+            assert words[word] == analyzer.has_same_sound_letters(word)
+
+    def test_check_same_sound_letter(self):
+        """Tests check_same_sound_letter method."""
+
+        # Uses nonwords that meet the specifications
+        words = {
+            'bota': 0,
+            'bovasazeyollo': 6,
+            'bovajigisazekocoyollo': 10,
+            '': 0
+        }
+
+        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.check_same_sound_letter()
+        assert analyzer.get_same_sound_letter_info() == words
+
+    def test_integrate_word_information(self):
+        """Tests integrate_word_information method."""
+
+        words = {
+            '': (0, 0, 0, 0),
+            'hguicokocese': (36, 4, 4, 0),
+            'hgui': (12, 4, 0, 0)
+        }
+
+        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.check_length()
+        analyzer.check_silent_letters()
+        analyzer.check_same_sound_letter()
+        analyzer.check_anagrams()
+        word_info = analyzer.integrate_word_information()
+
+        print(analyzer.integrate_word_information())
+        assert words == word_info
+
+    def test_determine_total_difficulty_index(self):
+        """Tests determine_total_difficulty_index method."""
+
+        words = {
+            '': 0,
+            'hguicokocese': 44,
+            'hgui': 16
+        }
+
+        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.check_length()
+        analyzer.check_silent_letters()
+        analyzer.check_same_sound_letter()
+        analyzer.check_anagrams()
+        analyzer.determine_total_difficulty_index()
+
+        assert words == analyzer.get_word_difficulty()
