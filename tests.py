@@ -4,6 +4,9 @@
 import wanalysis
 
 
+analyzer = wanalysis.WordAnalyzer()
+
+
 class TestWordAnalyzerUnit():
     def test_check_length(self):
         """Tests the check_length method of the WordAnalyzer class. Values
@@ -16,8 +19,8 @@ class TestWordAnalyzerUnit():
             '': 0,
             'electroencefalografista': 69
         }
-        analyzer = wanalysis.WordAnalyzer(words)
 
+        analyzer.set_words(words)
         analyzer.check_length()
         assert analyzer.get_length_info() == words
 
@@ -30,7 +33,7 @@ class TestWordAnalyzerUnit():
             'habichuela': 1  # Has 2 h but the second one changes the sound
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words:
             assert analyzer.has_silent_h(word) == words[word]
 
@@ -46,7 +49,7 @@ class TestWordAnalyzerUnit():
             'güiro': 0,
             'ungüento': 0,
         }
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
 
         for word in words:
             assert analyzer.has_silent_u(word) == words[word]
@@ -62,7 +65,7 @@ class TestWordAnalyzerUnit():
             'babevi': 2,
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.check_b_sound_swapping(word)
 
@@ -76,7 +79,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.swap_g_for_j_check(word)
 
@@ -91,7 +94,7 @@ class TestWordAnalyzerUnit():
             '': 0,
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.check_j_sound(word)
 
@@ -105,7 +108,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.swap_c_for_s_check(word)
 
@@ -123,7 +126,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.swap_q_for_k_check(word)
 
@@ -139,7 +142,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.swap_c_for_k_check(word)
 
@@ -161,7 +164,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.check_k_sound(word)
 
@@ -175,7 +178,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.swap_y_for_y_check(word)
 
@@ -190,7 +193,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.swap_l_for_y_check(word)
 
@@ -211,7 +214,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.check_y_sound(word)
 
@@ -233,7 +236,7 @@ class TestWordAnalyzerUnit():
             'crea': 4
         }
 
-        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.set_words(list(words.keys()))
         for word in words:
             assert analyzer.count_anagrams(word) == words[word]
 
@@ -254,7 +257,7 @@ class TestWordAnalyzerUnit():
             'crea': 4
         }
 
-        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.set_words(list(words.keys()))
         analyzer.check_anagrams()
         assert words == analyzer.get_anagrams_info()
 
@@ -278,7 +281,7 @@ class TestWordAnalyzerIntegration:
             'riachuelo': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
 
         for word in words:
             assert analyzer.has_silent_letters(word) == words[word]
@@ -300,7 +303,7 @@ class TestWordAnalyzerIntegration:
             'hoguera': 2,
             'riachuelo': 0
         }
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
 
         for word in words:
             assert analyzer.has_silent_letters(word) == words[word]
@@ -316,7 +319,7 @@ class TestWordAnalyzerIntegration:
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.has_same_sound_letters(word)
 
@@ -331,7 +334,7 @@ class TestWordAnalyzerIntegration:
             '': 0
         }
 
-        analyzer = wanalysis.WordAnalyzer(words)
+        analyzer.set_words(words)
         analyzer.check_same_sound_letter()
         assert analyzer.get_same_sound_letter_info() == words
 
@@ -344,7 +347,7 @@ class TestWordAnalyzerIntegration:
             'hgui': (12, 4, 0, 0)
         }
 
-        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.set_words(list(words.keys()))
         analyzer.check_length()
         analyzer.check_silent_letters()
         analyzer.check_same_sound_letter()
@@ -363,7 +366,7 @@ class TestWordAnalyzerIntegration:
             'hgui': 16
         }
 
-        analyzer = wanalysis.WordAnalyzer(list(words.keys()))
+        analyzer.set_words(list(words.keys()))
         analyzer.check_length()
         analyzer.check_silent_letters()
         analyzer.check_same_sound_letter()
