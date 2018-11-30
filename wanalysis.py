@@ -437,8 +437,8 @@ class WordAnalyzer(object):
             wordInfo[word] = (
                 self.lengthInfo[word],
                 self.silentLetterInfo[word],
-                self.sameSoundLetterInfo[word]
-                # self.anagramsInfo[word]
+                self.sameSoundLetterInfo[word],
+                self.anagramsInfo[word]
             )
 
         return wordInfo
