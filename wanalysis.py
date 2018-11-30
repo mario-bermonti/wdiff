@@ -32,7 +32,7 @@ class WordAnalyzer(object):
 
         self.words = words
 
-    def check_length(self, difficultyWeight=3):
+    def determine_length_difficulty(self, difficultyWeight=3):
         """Determines the difficulty in each word associated with its length
         and stores the results.
 
@@ -47,7 +47,7 @@ class WordAnalyzer(object):
         for word in self.words:
             self.lengthInfo[word] = len(word) * difficultyWeight
 
-    def check_silent_letters(self, difficultyWeight=2):
+    def determine_silent_letter_difficulty(self, difficultyWeight=2):
         """Determines the difficulty in each word associated with the presence
         of silent letters and stores the results.
 
@@ -60,23 +60,23 @@ class WordAnalyzer(object):
 
         self.silentLetterInfo = dict()
         for word in self.words:
-            silentLetterOcurrences = self.has_silent_letters(word)
+            silentLetterOcurrences = self.determine_total_silent_letters(word)
             difficultyIndex = difficultyWeight * silentLetterOcurrences
             self.silentLetterInfo[word] = difficultyIndex
 
-    def has_silent_letters(self, word):
+    def determine_total_silent_letters(self, word):
         """Determines the total number of silent letters in the word and
         returns it as an int.
         """
 
-        return self.has_silent_h(word) + self.has_silent_u(word)
+        return self.count_silent_h(word) + self.count_silent_u(word)
 
-    def has_silent_h(self, word):
+    def count_silent_h(self, word):
         """Determines the occurences of silent h's in the word based on the
         Spanish language rules and returns it as an int.
         """
 
-        silenthCount = 0
+        silentHCount = 0
 
         if "h" in word:
             hCount = word.count("h")
@@ -85,18 +85,18 @@ class WordAnalyzer(object):
             while hCount > 0:
                 hPosition = word.find("h", start)
                 if not word[hPosition-1] == "c":
-                    silenthCount += 1
+                    silentHCount += 1
                 hCount -= 1
                 start = hPosition + 1
 
-        return silenthCount
+        return silentHCount
 
-    def has_silent_u(self, word):
+    def count_silent_u(self, word):
         """Determines the occurences of silent u's in the word based on the
         Spanish language rules and returns it as an int.
         """
 
-        silentuCount = 0
+        silentUCount = 0
 
         if "u" in word:
             uCount = word.count("u")
@@ -106,13 +106,13 @@ class WordAnalyzer(object):
                 uPosition = word.find("u", start)
                 if ((word[uPosition-1] == "q" or word[uPosition-1] == 'g') and
                         (word[uPosition+1] == "e" or word[uPosition+1] == "i")):
-                    silentuCount += 1
+                    silentUCount += 1
                 uCount -= 1
                 start = uPosition + 1
 
-        return silentuCount
+        return silentUCount
 
-    def check_same_sound_letter(self, difficultyWeight=2):
+    def determine_same_sound_letter_difficulty(self, difficultyWeight=2):
         """Determines the difficulty in each word associated with the presence
         of same sound letters and stores the results.
 
@@ -125,22 +125,22 @@ class WordAnalyzer(object):
 
         self.sameSoundLetterInfo = dict()
         for word in self.words:
-            sameSoundLetterOcurrences = self.has_same_sound_letters(word)
+            sameSoundLetterOcurrences = self.determine_total_same_sound_letters(word)
             difficultyIndex = difficultyWeight * sameSoundLetterOcurrences
             self.sameSoundLetterInfo[word] = difficultyIndex
 
-    def has_same_sound_letters(self, word):
+    def determine_total_same_sound_letters(self, word):
         """Determines the total number of same sound letters in the word and
         returns it as an int.
         """
 
         return(
-            self.check_b_sound_swapping(word) + self.check_j_sound(word) +
-            self.check_s_sound(word) + self.check_k_sound(word) +
-            self.check_y_sound(word)
+            self.count_swappable_b_sounds(word) + self.count_swappable_j_sounds(word) +
+            self.count_swappable_s_sounds(word) + self.count_swappable_k_sounds(word) +
+            self.count_swappable_ll_sounds(word)
         )
 
-    def check_b_sound_swapping(self, word):
+    def count_swappable_b_sounds(self, word):
         """Determines the number of letters that could be swapped because
         they represent they same /b/ phoneme and returns it as an int.
         """
@@ -151,19 +151,19 @@ class WordAnalyzer(object):
 
         return bSwappableCount
 
-    def check_j_sound(self, word):
+    def count_swappable_j_sounds(self, word):
         """Determines the number of letters that could be swapped because
         they represent they same /j/ phoneme and returns it as an int.
         """
 
         jSwappableCount = 0
         if "j" in word and "g" in word:
-            ruleCompliantGs = self.swap_g_for_j_check(word)
+            ruleCompliantGs = self.count_g_with_j_sound(word)
             jSwappableCount = word.count("j") * ruleCompliantGs
 
         return jSwappableCount
 
-    def swap_g_for_j_check(self, word):
+    def count_g_with_j_sound(self, word):
         """Determines the number of letter g's that have a /j/ sound and returns
         it as an int.
         """
@@ -187,7 +187,7 @@ class WordAnalyzer(object):
 
         return gCompliantCount
 
-    def check_s_sound(self, word):
+    def count_swappable_s_sounds(self, word):
         """Determines the number of letters that could be swapped because
         they represent they same /s/ phoneme and returns it as an int.
         """
@@ -196,7 +196,7 @@ class WordAnalyzer(object):
         if (("s" in word and "c" in word) or ("s" in word and "z" in word) or
                 ("c" in word and "z" in word)):
             if "c" in word:
-                ruleCompliantCs = self.swap_c_for_s_check(word)
+                ruleCompliantCs = self.count_c_with_s_sound(word)
             if "s" in word and "c" in word and "z" in word:
                 sSwappableCount = (
                     (word.count("s") * ruleCompliantCs) +
@@ -212,7 +212,7 @@ class WordAnalyzer(object):
 
         return sSwappableCount
 
-    def swap_c_for_s_check(self, word):
+    def count_c_with_s_sound(self, word):
         """Determines the number of c's that have an /s/ sound and returns
         it as an int.
         """
@@ -236,7 +236,7 @@ class WordAnalyzer(object):
 
         return cCompliantCount
 
-    def check_k_sound(self, word):
+    def count_swappable_k_sounds(self, word):
         """Determines the number of letters that could be swapped because
         they represent they same /k/ phoneme and returns it as an int.
         """
@@ -245,9 +245,9 @@ class WordAnalyzer(object):
         if (("k" in word and "q" in word) or ("k" in word and "c" in word) or
                 ("q" in word and "c" in word)):
             if "q" in word:
-                ruleCompliantQs = self.swap_q_for_k_check(word)
+                ruleCompliantQs = self.count_q_with_k_sound(word)
             if "c" in word:
-                ruleCompliantCs = self.swap_c_for_k_check(word)
+                ruleCompliantCs = self.count_c_with_k_sound(word)
             if "k" in word and "q" in word and "c" in word:
                 kSwappableCount = (
                     (word.count("k") * ruleCompliantQs) +
@@ -263,7 +263,7 @@ class WordAnalyzer(object):
 
         return kSwappableCount
 
-    def swap_q_for_k_check(self, word):
+    def count_q_with_k_sound(self, word):
         """Determines the number of q's that have an /k/ sound and returns
         it as an int.
         """
@@ -288,7 +288,7 @@ class WordAnalyzer(object):
 
         return qCompliantCount
 
-    def swap_c_for_k_check(self, word):
+    def count_c_with_k_sound(self, word):
         """Determines the number of c's that have an /k/ sound and returns
         it as an int.
         """
@@ -313,20 +313,20 @@ class WordAnalyzer(object):
 
         return cCompliantCount
 
-    def check_y_sound(self, word):
+    def count_swappable_ll_sounds(self, word):
         """Determines the number of letters that could be swapped because
         they represent they same /ll/ phoneme and returns it as an int.
         """
 
-        ySwappableCount = 0
+        llSwappableCount = 0
         if "y" in word and "l" in word:
-            ruleCompliantYs = self.swap_y_for_y_check(word)
-            ruleCompliantLs = self.swap_l_for_y_check(word)
-            ySwappableCount = ruleCompliantYs * ruleCompliantLs
+            ruleCompliantYs = self.count_y_with_ll_sound(word)
+            ruleCompliantLs = self.count_l_with_ll_sound(word)
+            llSwappableCount = ruleCompliantYs * ruleCompliantLs
 
-        return ySwappableCount
+        return llSwappableCount
 
-    def swap_y_for_y_check(self, word):
+    def count_y_with_ll_sound(self, word):
         """Determines the number of y's that have an /ll/ sound and returns
         it as an int.
         """
@@ -352,7 +352,7 @@ class WordAnalyzer(object):
 
         return yCompliantCount
 
-    def swap_l_for_y_check(self, word):
+    def count_l_with_ll_sound(self, word):
         """Determines the number of l's that have an /ll/ sound and returns
         it as an int.
         """
@@ -376,7 +376,7 @@ class WordAnalyzer(object):
 
         return lCompliantCount
 
-    def check_anagrams(self, difficultyWeight=1):
+    def determine_anagrams_difficulty(self, difficultyWeight=1):
         """Determines the difficulty in each word associated with the word
         being and anagram of another word.
 
@@ -392,7 +392,6 @@ class WordAnalyzer(object):
             anagramCount = self.count_anagrams(word)
             # if the letters of the word can only form 1 word (itself) then its
             # difficulty should be 0.
-
             if anagramCount == 1:
                 difficultyIndex = 0
             else:

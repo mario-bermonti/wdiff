@@ -8,8 +8,8 @@ analyzer = wanalysis.WordAnalyzer()
 
 
 class TestWordAnalyzerUnit():
-    def test_check_length(self):
-        """Tests the check_length method of the WordAnalyzer class. Values
+    def test_determine_length_difficulty(self):
+        """Tests the determine_length_difficulty method of the WordAnalyzer class. Values
         are 3 times the actual length because they are multipled by the
         difficulty index (in this case the default = 3).
         """
@@ -21,11 +21,11 @@ class TestWordAnalyzerUnit():
         }
 
         analyzer.set_words(words)
-        analyzer.check_length()
+        analyzer.determine_length_difficulty()
         assert analyzer.get_length_info() == words
 
-    def test_has_silent_h(self):
-        """Tests the has_silent_h method."""
+    def test_count_silent_h(self):
+        """Tests the count_silent_h method."""
 
         words = {
             'hambre': 1,
@@ -35,10 +35,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words:
-            assert analyzer.has_silent_h(word) == words[word]
+            assert analyzer.count_silent_h(word) == words[word]
 
-    def test_has_silent_u(self):
-        """Tests the has_silent_u method."""
+    def test_count_silent_u(self):
+        """Tests the count_silent_u method."""
 
         words = {
             'guineo': 1,
@@ -52,10 +52,10 @@ class TestWordAnalyzerUnit():
         analyzer.set_words(words)
 
         for word in words:
-            assert analyzer.has_silent_u(word) == words[word]
+            assert analyzer.count_silent_u(word) == words[word]
 
-    def test_check_b_sound_swapping(self):
-        """Tests the check_b_sound_swapping method."""
+    def test_count_swappable_b_sounds(self):
+        """Tests the count_swappable_b_sounds method."""
 
         words = {
             'absolver': 1,
@@ -67,10 +67,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.check_b_sound_swapping(word)
+            assert words[word] == analyzer.count_swappable_b_sounds(word)
 
-    def test_swap_g_for_j_check(self):
-        """Tests swap_g_for_j_check."""
+    def test_count_g_with_j_sound(self):
+        """Tests count_g_with_j_sound."""
 
         words = {
             'gentil': 1,
@@ -81,10 +81,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.swap_g_for_j_check(word)
+            assert words[word] == analyzer.count_g_with_j_sound(word)
 
-    def test_check_j_sound(self):
-        """Tests check_j_sound method."""
+    def test_count_swappable_j_sounds(self):
+        """Tests count_swappable_j_sounds method."""
 
         # Uses nonwords that meet the specifications
         words = {
@@ -96,10 +96,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.check_j_sound(word)
+            assert words[word] == analyzer.count_swappable_j_sounds(word)
 
-    def test_swap_c_for_s_check(self):
-        """Tests swap_c_for_s_check method."""
+    def test_count_c_with_s_sound(self):
+        """Tests count_c_with_s_sound method."""
 
         words = {
             'ceda': 1,
@@ -110,11 +110,11 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.swap_c_for_s_check(word)
+            assert words[word] == analyzer.count_c_with_s_sound(word)
 
 
-    def test_swap_q_for_k_check(self):
-        """Tests swap_q_for_k_check method."""
+    def test_count_q_with_k_sound(self):
+        """Tests count_q_with_k_sound method."""
 
         # Uses nonwords that meet the specifications
         words = {
@@ -128,10 +128,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.swap_q_for_k_check(word)
+            assert words[word] == analyzer.count_q_with_k_sound(word)
 
-    def test_swap_c_for_k_check(self):
-        """Tests swap_c_for_k_check method."""
+    def test_count_c_with_k_sound(self):
+        """Tests count_c_with_k_sound method."""
 
         words = {
             'casa': 1,
@@ -144,10 +144,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.swap_c_for_k_check(word)
+            assert words[word] == analyzer.count_c_with_k_sound(word)
 
-    def test_check_k_sound(self):
-        """Tests check_k_sound method."""
+    def test_count_swappable_k_sounds(self):
+        """Tests count_swappable_k_sounds method."""
 
         # Uses nonwords that meet the specifications
         words = {
@@ -166,10 +166,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.check_k_sound(word)
+            assert words[word] == analyzer.count_swappable_k_sounds(word)
 
-    def test_swap_y_for_y_check(self):
-        """Tests swap_y_for_y_check method."""
+    def test_count_y_with_ll_sound(self):
+        """Tests count_y_with_ll_sound method."""
 
         words = {
             'carey': 0,
@@ -180,10 +180,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.swap_y_for_y_check(word)
+            assert words[word] == analyzer.count_y_with_ll_sound(word)
 
-    def test_swap_l_for_y_check(self):
-        """Tests swap_l_for_y_check method."""
+    def test_count_l_with_ll_sound(self):
+        """Tests count_l_with_ll_sound method."""
 
         words = {
             'llanto': 1,
@@ -195,10 +195,10 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.swap_l_for_y_check(word)
+            assert words[word] == analyzer.count_l_with_ll_sound(word)
 
-    def test_check_y_sound(self):
-        """Tests check_y_sound method."""
+    def test_count_swappable_ll_sounds(self):
+        """Tests count_swappable_ll_sounds method."""
 
         # Uses nonwords that meet the specifications
         words = {
@@ -216,7 +216,7 @@ class TestWordAnalyzerUnit():
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.check_y_sound(word)
+            assert words[word] == analyzer.count_swappable_ll_sounds(word)
 
 
     def test_count_anagrams(self):
@@ -240,7 +240,7 @@ class TestWordAnalyzerUnit():
         for word in words:
             assert analyzer.count_anagrams(word) == words[word]
 
-    def test_check_anagrams(self):
+    def test_determine_anagrams_difficulty(self):
         """Tests the check_anagram method."""
 
         words = {
@@ -258,13 +258,13 @@ class TestWordAnalyzerUnit():
         }
 
         analyzer.set_words(list(words.keys()))
-        analyzer.check_anagrams()
+        analyzer.determine_anagrams_difficulty()
         assert words == analyzer.get_anagrams_info()
 
 
 class TestWordAnalyzerIntegration:
-    def test_has_silent_letters(self):
-        """Tests the has_silent_letters method."""
+    def test_determine_total_silent_letters(self):
+        """Tests the determine_total_silent_letters method."""
 
         words = {
             'guineo': 1,
@@ -284,10 +284,10 @@ class TestWordAnalyzerIntegration:
         analyzer.set_words(words)
 
         for word in words:
-            assert analyzer.has_silent_letters(word) == words[word]
+            assert analyzer.determine_total_silent_letters(word) == words[word]
 
-    def test_check_silent_letters(self):
-        """Tests the has_silent_letters method."""
+    def test_determine_silent_letter_difficulty(self):
+        """Tests the determine_total_silent_letters method."""
 
         words = {
             'guineo': 1,
@@ -306,10 +306,10 @@ class TestWordAnalyzerIntegration:
         analyzer.set_words(words)
 
         for word in words:
-            assert analyzer.has_silent_letters(word) == words[word]
+            assert analyzer.determine_total_silent_letters(word) == words[word]
 
-    def test_has_same_sound_letters(self):
-        """Tests the has_same_sound_letters method."""
+    def test_determine_total_same_sound_letters(self):
+        """Tests the determine_total_same_sound_letters method."""
 
         # Uses nonwords that meet the specifications
         words = {
@@ -321,10 +321,10 @@ class TestWordAnalyzerIntegration:
 
         analyzer.set_words(words)
         for word in words.keys():
-            assert words[word] == analyzer.has_same_sound_letters(word)
+            assert words[word] == analyzer.determine_total_same_sound_letters(word)
 
-    def test_check_same_sound_letter(self):
-        """Tests check_same_sound_letter method."""
+    def test_determine_same_sound_letter_difficulty(self):
+        """Tests determine_same_sound_letter_difficulty method."""
 
         # Uses nonwords that meet the specifications
         words = {
@@ -335,7 +335,7 @@ class TestWordAnalyzerIntegration:
         }
 
         analyzer.set_words(words)
-        analyzer.check_same_sound_letter()
+        analyzer.determine_same_sound_letter_difficulty()
         assert analyzer.get_same_sound_letter_info() == words
 
     def test_integrate_word_information(self):
@@ -348,10 +348,10 @@ class TestWordAnalyzerIntegration:
         }
 
         analyzer.set_words(list(words.keys()))
-        analyzer.check_length()
-        analyzer.check_silent_letters()
-        analyzer.check_same_sound_letter()
-        analyzer.check_anagrams()
+        analyzer.determine_length_difficulty()
+        analyzer.determine_silent_letter_difficulty()
+        analyzer.determine_same_sound_letter_difficulty()
+        analyzer.determine_anagrams_difficulty()
         word_info = analyzer.integrate_word_information()
 
         print(analyzer.integrate_word_information())
@@ -367,10 +367,10 @@ class TestWordAnalyzerIntegration:
         }
 
         analyzer.set_words(list(words.keys()))
-        analyzer.check_length()
-        analyzer.check_silent_letters()
-        analyzer.check_same_sound_letter()
-        analyzer.check_anagrams()
+        analyzer.determine_length_difficulty()
+        analyzer.determine_silent_letter_difficulty()
+        analyzer.determine_same_sound_letter_difficulty()
+        analyzer.determine_anagrams_difficulty()
         analyzer.determine_total_difficulty_index()
 
         assert words == analyzer.get_word_difficulty()
