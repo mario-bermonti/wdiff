@@ -1,4 +1,4 @@
-* Project’s plan [44%]
+* Project’s plan [55%]
 ** DONE Develop tests [100%]
 *** DONE Determine length - SPECIFY DIFFICULTY WEIGHT
 *** DONE Check silent letters [100%]
@@ -34,7 +34,7 @@
 *** DONE check_anagrams
 ** TODO Use pandas to store data
 ** TODO Better names (variables)
-** TODO Update documentation (docstring)
+** DONE Update documentation (docstring)
 ** TODO Change how words are passed to the object (currently at init (makes debuggin inneficient))
 *** If changed, update tests
 ** TODO Improve codes efficiency and readability
