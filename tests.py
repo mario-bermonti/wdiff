@@ -342,9 +342,9 @@ class TestWordAnalyzerIntegration:
         """Tests integrate_word_information method."""
 
         words = {
-            '': (0, 0, 0, 0),
-            'hguicokocese': (36, 4, 4, 0),
-            'hgui': (12, 4, 0, 0)
+            '': [0, 0, 0, 0],
+            'hguicokocese': [36, 4, 4, 0],
+            'hgui': [12, 4, 0, 0]
         }
 
         analyzer.set_words(list(words.keys()))
@@ -361,9 +361,9 @@ class TestWordAnalyzerIntegration:
         """Tests determine_total_difficulty_index method."""
 
         words = {
-            '': 0,
-            'hguicokocese': 44,
-            'hgui': 16
+            '': [0, 0, 0, 0, 0],
+            'hguicokocese': [36, 4, 4, 0, 44],
+            'hgui': [12, 4, 0, 0, 16]
         }
 
         analyzer.set_words(list(words.keys()))
