@@ -19,6 +19,9 @@ class WordAnalyzer(object):
     4) anagrams: words that may form other words if its letters are reorganized
     """
 
+    def __init__(self):
+        self.completedAnalysis = []
+
     def set_words(self, words):
         """Sets up the words that are going to be analyzed, passing a
         list-like object of words.
@@ -43,6 +46,7 @@ class WordAnalyzer(object):
             the total word difficulty
         """
 
+        self.completedAnalysis.append('length_difficulty')
         self.lengthInfo = dict()
         for word in self.words:
             self.lengthInfo[word] = len(word) * difficultyWeight
@@ -58,6 +62,7 @@ class WordAnalyzer(object):
             the total word difficulty
         """
 
+        self.completedAnalysis.append('silent_letter_difficulty')
         self.silentLetterInfo = dict()
         for word in self.words:
             silentLetterOcurrences = self.determine_total_silent_letters(word)
@@ -123,6 +128,8 @@ class WordAnalyzer(object):
             the total word difficulty
         """
 
+
+        self.completedAnalysis.append('same_sound_difficulty')
         self.sameSoundLetterInfo = dict()
         for word in self.words:
             sameSoundLetterOcurrences = self.determine_total_same_sound_letters(word)
@@ -387,6 +394,7 @@ class WordAnalyzer(object):
             the total word difficulty
         """
 
+        self.completedAnalysis.append('anagrams_difficulty')
         self.anagramsInfo = dict()
         for word in self.words:
             anagramCount = self.count_anagrams(word)
