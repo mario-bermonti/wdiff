@@ -8,7 +8,6 @@ Excel file.
 """
 
 import collections
-import csv
 import pandas as pd
 
 
