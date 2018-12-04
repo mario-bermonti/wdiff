@@ -4,9 +4,6 @@
 import wanalysis
 
 
-analyzer = wanalysis.WordAnalyzer()
-
-
 class TestWordAnalyzerUnit():
     def test_determine_length_difficulty(self):
         """Tests the determine_length_difficulty method of the WordAnalyzer class. Values
@@ -20,6 +17,7 @@ class TestWordAnalyzerUnit():
             'electroencefalografista': 69
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         analyzer.determine_length_difficulty()
         assert analyzer.get_length_info() == words
@@ -33,6 +31,7 @@ class TestWordAnalyzerUnit():
             'habichuela': 1  # Has 2 h but the second one changes the sound
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words:
             assert analyzer.count_silent_h(word) == words[word]
@@ -49,6 +48,7 @@ class TestWordAnalyzerUnit():
             'güiro': 0,
             'ungüento': 0,
         }
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
 
         for word in words:
@@ -65,6 +65,7 @@ class TestWordAnalyzerUnit():
             'babevi': 2,
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_swappable_b_sounds(word)
@@ -79,6 +80,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_g_with_j_sound(word)
@@ -94,6 +96,7 @@ class TestWordAnalyzerUnit():
             '': 0,
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_swappable_j_sounds(word)
@@ -108,6 +111,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_c_with_s_sound(word)
@@ -126,6 +130,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_q_with_k_sound(word)
@@ -142,6 +147,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_c_with_k_sound(word)
@@ -164,6 +170,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_swappable_k_sounds(word)
@@ -178,6 +185,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_y_with_ll_sound(word)
@@ -193,6 +201,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_l_with_ll_sound(word)
@@ -214,6 +223,7 @@ class TestWordAnalyzerUnit():
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.count_swappable_ll_sounds(word)
@@ -236,6 +246,7 @@ class TestWordAnalyzerUnit():
             'crea': 4
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(list(words.keys()))
         for word in words:
             assert analyzer.count_anagrams(word) == words[word]
@@ -257,6 +268,7 @@ class TestWordAnalyzerUnit():
             'crea': 4
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(list(words.keys()))
         analyzer.determine_anagrams_difficulty()
         assert words == analyzer.get_anagrams_info()
@@ -281,6 +293,7 @@ class TestWordAnalyzerIntegration:
             'riachuelo': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
 
         for word in words:
@@ -303,6 +316,7 @@ class TestWordAnalyzerIntegration:
             'hoguera': 2,
             'riachuelo': 0
         }
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
 
         for word in words:
@@ -319,6 +333,7 @@ class TestWordAnalyzerIntegration:
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         for word in words.keys():
             assert words[word] == analyzer.determine_total_same_sound_letters(word)
@@ -334,12 +349,15 @@ class TestWordAnalyzerIntegration:
             '': 0
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(words)
         analyzer.determine_same_sound_letter_difficulty()
         assert analyzer.get_same_sound_letter_info() == words
 
-    def test_integrate_word_information(self):
-        """Tests integrate_word_information method."""
+    def test_integrate_word_information_all_analysis(self):
+        """Tests integrate_word_information method when all analysis
+        conducted.
+        """
 
         words = {
             '': [0, 0, 0, 0],
@@ -347,6 +365,7 @@ class TestWordAnalyzerIntegration:
             'hgui': [12, 4, 0, 0]
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(list(words.keys()))
         analyzer.determine_length_difficulty()
         analyzer.determine_silent_letter_difficulty()
@@ -366,6 +385,7 @@ class TestWordAnalyzerIntegration:
             'hgui': [12, 4, 0, 0, 16]
         }
 
+        analyzer = wanalysis.WordAnalyzer()
         analyzer.set_words(list(words.keys()))
         analyzer.determine_length_difficulty()
         analyzer.determine_silent_letter_difficulty()
