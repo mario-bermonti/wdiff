@@ -9,7 +9,9 @@ their difficulty level based on the following dimensions:
 
 * Getting Started
 **  Prerequisites
+You will need to install the pandas package to be able to use this module.
 ** Installing
+pip install word-analysis
 
 ** Usage
 The module can be used to analyze a specific dimension and retrieve its result
@@ -17,25 +19,31 @@ or multiple analysis can be conducted and the results integrated. If multiple
 dimensions are analyzed, the results of the analysis for every dimension,
 as well as a word difficult index will be calculated.
 
-To use Word Analysis, instantiate the =WordAnalyzer= class, passing the list
-of words as an argument to the object and call any of the following methods:
+To use Word Analysis, instantiate the =WordAnalyzer= class. Then use its
+=set_words= method to pass a list of words as an argument.
+
 *** Functions for analyzing words
-The =check_special_characters= method checks every word and eliminates
-words that have any characters other than the accepted ones. Only regular
-Spanish language characters are accepted, excluding accented characters.
+To analyze the words, call the desired method.
 
-The =check_length= method determines the length of every word.
+The =determine_length_difficulty= method determines the length of every word.
 
-The =check_silent_letters= method determines the number of silent letters
+The =determine_silent_letter_difficulty= method determines the number of silent letters
 in each word.
 
-The =check_same_sound_letter= determines the number of letters with the same
-sound present in each word.
+The =determine_same_sound_letter_difficulty= method determines the number of letters with the same
+sound present in each word that could be swapped by mistake.
 
-The =check_anagrams= checks if words are anagrams of other words in the
+The =determine_anagrams_difficulty= method checks if words are anagrams of other words in the
 database.
 
+The =determine_total_difficulty_index= method integrates the result of
+every analysis conducted and calculates the total difficulty for each word.
+
 *** Functions for extracting results
+There are two ways to extract the results: 1) use the getter methods, or 2) save
+the results to a csv file.
+
+*** Getter methods
 The following methods return the results for the analysis of the specified
 dimension:
 
@@ -47,9 +55,11 @@ dimension:
 
 - =get_anagrams_info=
 
-More importantly, the =integrate_word_information= method integrates the
-results for the different dimensions and the =get_word_info= returns the
-results.
+- =get_word_difficulty= : Returns the results for every analysis conducted
+
+*** Save results
+The =save_results= method saves the result of every analysis conducted and
+the total difficulty for each word to a CSV file.
 
 * Contributing to this project
   If you encounter any bugs, please open an issue on github. To contribute to
@@ -61,5 +71,5 @@ at mbermonti1132@gmail.com
 * Author
   Mario E. Bermonti-Perez. Feel free to contact me at mbermonti1132@gmail.com.
 * License
-This project is licensed under the GPL License. See the readme.org file for
+This project is licensed under the GPL License. See the LICENSE.txt file for
 details.
