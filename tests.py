@@ -373,7 +373,26 @@ class TestWordAnalyzerIntegration:
         analyzer.determine_anagrams_difficulty()
         word_info = analyzer.integrate_word_information()
 
-        print(analyzer.integrate_word_information())
+        assert words == word_info
+
+    def test_integrate_word_information_some_analysis(self):
+        """Tests integrate_word_information method when some analysis
+        conducted.
+        """
+
+        words = {
+            '': [0, 0, 0],
+            'hguicokocese': [36, 4, 0],
+            'hgui': [12, 0, 0]
+        }
+
+        analyzer = wanalysis.WordAnalyzer()
+        analyzer.set_words(list(words.keys()))
+        analyzer.determine_length_difficulty()
+        analyzer.determine_same_sound_letter_difficulty()
+        analyzer.determine_anagrams_difficulty()
+        word_info = analyzer.integrate_word_information()
+
         assert words == word_info
 
     def test_determine_total_difficulty_index(self):
