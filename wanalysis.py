@@ -8,6 +8,8 @@ Excel file.
 """
 
 import collections
+import csv
+import pandas as pd
 
 
 class WordAnalyzer(object):
@@ -502,3 +504,31 @@ class WordAnalyzer(object):
         """
 
         return self.wordInfo
+
+    def save_results(self, filename='results.csv'):
+        """Save the results for each dimension analyzed and the total word
+        difficulty to a file.
+
+        Parameter:
+        _________
+        filename: str; name of the file to save the results to
+        """
+
+        results = self.format_data()
+        results.to_csv(filename)
+
+    def format_data(self):
+        """Integrates all data into a pd dataframe to facilitate saving
+        it to disk. It uses the data stored in self.wordInfo.
+
+        Returns
+        _______
+        formatted_data: pandas dataframe
+             Pandas dataframe that has the analyzed dimensions as
+        columns and the words as the index.
+        """
+
+        formattedData = pd.DataFrame.from_dict(self.wordInfo, orient='index')
+        formattedData.columns = self.completedAnalysis
+
+        return formattedData
