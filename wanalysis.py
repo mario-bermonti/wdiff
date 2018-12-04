@@ -441,11 +441,12 @@ class WordAnalyzer(object):
     def determine_total_difficulty_index(self):
         """Determines the total difficulty index for each word."""
 
-        wordInfo = self.integrate_word_information()
-        self.word_total_difficulty = {}
-        for word, difficultyIndexes in wordInfo.items():
-            total = sum(difficultyIndexes)
-            self.word_total_difficulty[word] = total
+        self.completedAnalysis.append('total difficulty')
+        self.wordInfo = self.integrate_word_information()
+        for word, difficultyIndexes in self.wordInfo.items():
+            self.wordInfo[word].append(
+                sum(difficultyIndexes)
+            )
 
     def integrate_word_information(self):
         """Integrates the difficulty index from each analysis into
@@ -454,12 +455,12 @@ class WordAnalyzer(object):
 
         wordInfo = dict()
         for word in self.words:
-            wordInfo[word] = (
+            wordInfo[word] = [
                 self.lengthInfo[word],
                 self.silentLetterInfo[word],
                 self.sameSoundLetterInfo[word],
                 self.anagramsInfo[word]
-            )
+            ]
 
         return wordInfo
 
@@ -497,4 +498,4 @@ class WordAnalyzer(object):
         are the total difficulty indexes.
         """
 
-        return self.word_total_difficulty
+        return self.wordInfo
