@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import wanalysis
+import pandas as pd
 
 
 class TestWordAnalyzerUnit():
@@ -413,3 +414,86 @@ class TestWordAnalyzerIntegration:
         analyzer.determine_total_difficulty_index()
 
         assert words == analyzer.get_word_difficulty()
+
+
+class TestSaveResults():
+    def test_save_results(self):
+        """Tests the save_results method."""
+
+        data = {
+            '': [0, 0, 0, 0, 0],
+            'hguicokocese': [36, 4, 4, 0, 44],
+            'hgui': [12, 4, 0, 0, 16]
+        }
+
+        analyzer = wanalysis.WordAnalyzer()
+        analyzer.set_words(list(data.keys()))
+        analyzer.determine_length_difficulty()
+        analyzer.determine_silent_letter_difficulty()
+        analyzer.determine_same_sound_letter_difficulty()
+        analyzer.determine_anagrams_difficulty()
+        analyzer.determine_total_difficulty_index()
+        analyzer.save_results('results_test.csv')
+        results_saved = pd.read_csv('results_test.csv', index_col=0, keep_default_na=False)
+
+        results_expected = pd.DataFrame(
+            list(data.values()),
+            index=list(data.keys()),
+            columns=[
+                'length_difficulty', 'silent_letter_difficulty', 'same_sound_difficulty', 'anagrams_difficulty', 'total difficulty']
+        )
+
+        assert results_expected.equals(results_saved)
+
+    def test_format_all_analysis(self):
+        """Tests the format_data method with all analysis conducted."""
+
+        data = {
+            '': [0, 0, 0, 0, 0],
+            'hguicokocese': [36, 4, 4, 0, 44],
+            'hgui': [12, 4, 0, 0, 16]
+        }
+
+        formattedDataExpected = pd.DataFrame(
+            list(data.values()),
+            index=list(data.keys()),
+            columns=[
+                'length_difficulty', 'silent_letter_difficulty', 'same_sound_difficulty', 'anagrams_difficulty', 'total difficulty']
+        )
+
+        analyzer = wanalysis.WordAnalyzer()
+        analyzer.set_words(list(data.keys()))
+        analyzer.determine_length_difficulty()
+        analyzer.determine_silent_letter_difficulty()
+        analyzer.determine_same_sound_letter_difficulty()
+        analyzer.determine_anagrams_difficulty()
+        analyzer.determine_total_difficulty_index()
+        formattedData = analyzer.format_data()
+
+        assert formattedData.equals(formattedDataExpected)
+
+    def test_format_some_analysis(self):
+        """Tests the format_data method with just some analysis conducted ."""
+
+        data = {
+            '': [0, 0, 0, 0],
+            'hguicokocese': [36, 4, 0, 40],
+            'hgui': [12, 0, 0, 12]
+        }
+
+        formattedDataExpected = pd.DataFrame(
+            list(data.values()),
+            index=list(data.keys()),
+            columns=[
+                'length_difficulty', 'same_sound_difficulty', 'anagrams_difficulty', 'total difficulty']
+        )
+
+        analyzer = wanalysis.WordAnalyzer()
+        analyzer.set_words(list(data.keys()))
+        analyzer.determine_length_difficulty()
+        analyzer.determine_same_sound_letter_difficulty()
+        analyzer.determine_anagrams_difficulty()
+        analyzer.determine_total_difficulty_index()
+        formattedData = analyzer.format_data()
+
+        assert formattedDataExpected.equals(formattedData)
