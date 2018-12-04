@@ -455,12 +455,15 @@ class WordAnalyzer(object):
 
         wordInfo = dict()
         for word in self.words:
-            wordInfo[word] = [
-                self.lengthInfo[word],
-                self.silentLetterInfo[word],
-                self.sameSoundLetterInfo[word],
-                self.anagramsInfo[word]
-            ]
+            wordInfo[word] = []
+            if 'length_difficulty' in self.completedAnalysis:
+                wordInfo[word].append(self.lengthInfo[word])
+            if 'silent_letter_difficulty' in self.completedAnalysis:
+                wordInfo[word].append(self.silentLetterInfo[word])
+            if 'same_sound_difficulty' in self.completedAnalysis:
+                wordInfo[word].append(self.sameSoundLetterInfo[word])
+            if 'anagrams_difficulty' in self.completedAnalysis:
+                wordInfo[word].append(self.anagramsInfo[word])
 
         return wordInfo
 
