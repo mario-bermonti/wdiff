@@ -1,4 +1,4 @@
-* Project’s plan [70%]
+* Project’s plan [81%]
 ** DONE Develop tests [100%]
 *** DONE Determine length - SPECIFY DIFFICULTY WEIGHT
 *** DONE Check silent letters [100%]
@@ -36,7 +36,7 @@
 ** DONE Better names (methods)
 ** DONE Better names (variables)
 ** DONE Update documentation (docstring)
-** TODO Change how words are passed to the object (currently at init (makes debuggin inneficient))
-*** If changed, update tests
+** DONE Change how words are passed to the object (currently at init (makes debuggin inneficient))
 ** TODO Improve codes efficiency and readability
 *** Most methods count the number of occurences using the same algorithm (use function)
+** DONE Save results to file
