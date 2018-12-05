@@ -11,6 +11,7 @@ class TestWordAnalyzerUnit():
         are 3 times the actual length because they are multipled by the
         difficulty index (in this case the default = 3).
         """
+
         words = {
             'gato': 12,
             'oso': 9,
