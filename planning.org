@@ -1,4 +1,4 @@
-* Project’s plan [81%]
+* Project’s development plan [75%]
 ** DONE Develop tests [100%]
 *** DONE Determine length - SPECIFY DIFFICULTY WEIGHT
 *** DONE Check silent letters [100%]
@@ -39,4 +39,52 @@
 ** DONE Change how words are passed to the object (currently at init (makes debuggin inneficient))
 ** TODO Improve codes efficiency and readability
 *** Most methods count the number of occurences using the same algorithm (use function)
+*** Improve efficency (especially for checking anagrams) because it takes way too long for relative large databases
+**** Ideas (in steps of complexity)
+***** check word length before analyzing if words are anagrams
+***** Filtering words by word length and only check for anagrams for words of same length (requieres using pandas from beginning)
+***** Use parallel processing for the different lengths (described above)
 ** DONE Save results to file
+** Features
+*** TODO Allow the user to specify path
+*** TODO Use module as CLI script (using main)
+**** Requires the user to specify filename
+** Tests [%]
+*** Structure tests by testcases
+*** Identify other test cases (edge cases)
+* Documentation development
+** TODO Improve documentation
+*** Usage section
+* Bug fixes
+** Bug found
+*** Words that have same sound but do not meet criteria (logical error)
+There is a bug when checking letters with same sound that only have the
+specified sound when a rule is met.
+
+Currently, only the letter that actually needs to meet the rule is checked
+to determine if it meets the rule, but the letter for which it would be
+swapped is not checked and it needs to be.
+
+E.g., The word conceptuoso has a c with an /s/ sound and a letter s. The letter c meets
+the criteria because it is followed by the letter 'e' but the letter 's' is not followed
+by a weak vocal and if swapped by the 'c' it would sound as a /k/ (conseptuoko), which is
+not possible.
+
+**** Proposed correction:
+Use str.count() method with the actual substring that meets the criteria and the substring
+for which it could be swapped and meets the criteria. The following code snippets proves this works.
+
+#+begin_src python :exports none :session :results output
+  # should not swapped
+  word = 'conceptuoso'
+  (word.count('ce') + word.count('ci')) * (word.count('se') + word.count('si'))
+
+
+  # should swap
+  word = 'conceptuosi'
+  (word.count('ce') + word.count('ci')) * (word.count('se') + word.count('si'))
+#+end_src
+
+#+RESULTS:
+: 0
+: 1

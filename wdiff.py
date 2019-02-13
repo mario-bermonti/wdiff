@@ -164,12 +164,12 @@ class WordAnalyzer(object):
         they represent they same /j/ phoneme and returns it as an int.
         """
 
-        jSwappableCount = 0
+        swappableCount = 0
         if "j" in word and "g" in word:
-            ruleCompliantGs = self.count_g_with_j_sound(word)
-            jSwappableCount = word.count("j") * ruleCompliantGs
+            swappableCount = (word.count("ji") + word.count('je')) \
+                * (word.count('ge') + word.count('gi'))
 
-        return jSwappableCount
+        return swappableCount
 
     def count_g_with_j_sound(self, word):
         """Determines the number of letter g's that have a /j/ sound and returns
@@ -203,20 +203,20 @@ class WordAnalyzer(object):
         sSwappableCount = 0
         if (("s" in word and "c" in word) or ("s" in word and "z" in word) or
                 ("c" in word and "z" in word)):
-            if "c" in word:
-                ruleCompliantCs = self.count_c_with_s_sound(word)
-            if "s" in word and "c" in word and "z" in word:
-                sSwappableCount = (
-                    (word.count("s") * ruleCompliantCs) +
-                    (word.count("s") * word.count("z")) +
-                    (ruleCompliantCs * word.count("z"))
-                )
-            elif "s" in word and "c" in word:
-                sSwappableCount = word.count("s") * ruleCompliantCs
-            elif "s" in word and "z" in word:
-                sSwappableCount = word.count("s") * word.count("z")
-            elif "c" in word and "z" in word:
-                sSwappableCount = ruleCompliantCs * word.count("z")
+            if 'ce' in word or 'ci' in word:
+                ruleCompliantCs = word.count('ce') + word.count('ci')
+                sSwappableByC = word.count("si") + word.count('se')
+                zSwappableByC = word.count("zi") + word.count('ze')
+            else:
+                ruleCompliantCs = 0
+                # it's not technically 0 but it doesn't matter
+                sSwappableByC = 0
+                zSwappableByC = 0
+            sSwappableCount = (
+                (sSwappableByC * ruleCompliantCs) +
+                (word.count("s") * word.count("z")) +
+                (zSwappableByC * ruleCompliantCs)
+            )
 
         return sSwappableCount
 
@@ -247,27 +247,38 @@ class WordAnalyzer(object):
     def count_swappable_k_sounds(self, word):
         """Determines the number of letters that could be swapped because
         they represent they same /k/ phoneme and returns it as an int.
+
+        Notes:
+        -----
+        There may not be any real words that meet the pattern specified for 'q'
+        but it's still used because children may swap them by mistake.
         """
 
         kSwappableCount = 0
         if (("k" in word and "q" in word) or ("k" in word and "c" in word) or
                 ("q" in word and "c" in word)):
-            if "q" in word:
-                ruleCompliantQs = self.count_q_with_k_sound(word)
-            if "c" in word:
-                ruleCompliantCs = self.count_c_with_k_sound(word)
-            if "k" in word and "q" in word and "c" in word:
-                kSwappableCount = (
-                    (word.count("k") * ruleCompliantQs) +
-                    (word.count("k") * ruleCompliantCs) +
-                    (ruleCompliantQs * ruleCompliantCs)
+            if "ca" in word or 'co' in word or 'cu' in word:
+                ruleCompliantCs = (
+                    word.count('ca') + word.count('co') + word.count('cu')
                 )
-            elif "k" in word and "q" in word:
-                kSwappableCount = word.count("k") * ruleCompliantQs
-            elif "k" in word and "c" in word:
-                kSwappableCount = word.count("k") * ruleCompliantCs
-            elif "q" in word and "c" in word:
-                kSwappableCount = ruleCompliantQs * ruleCompliantCs
+                qSwappableByC = (
+                    word.count('qua') + word.count('quo') + word.count('quu')
+                )
+                kSwappableByC = (
+                    word.count('ka') + word.count('ko') + word.count('ku')
+                )
+            else:
+                ruleCompliantCs = 0
+                # it's not technically 0 but it doesn't matter
+                qSwappableByC = 0
+                kSwappableByC = 0
+            qCount = word.count('qu')
+            kCount = word.count("k")
+            kSwappableCount = (
+                (qCount * kCount) +
+                (kSwappableByC * ruleCompliantCs) +
+                (qSwappableByC * ruleCompliantCs)
+            )
 
         return kSwappableCount
 
