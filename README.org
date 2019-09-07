@@ -1,66 +1,48 @@
+* General functions                                                :noexport:
+#+begin_src ipython :exports none :session   :results drawer output
+  from stats import formatting
+  formatting.add_org_formatter_ipython()
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
 * Word Analysis
 
 This modules has a set of functions to analyze Spanish words and determine
 their difficulty level based on the following dimensions:
 1) Word length
-2) Silent letters
-3) Different letters with the same sound
-4) Anagrams
+2) Number of silent letters
+3) Number of different letters with the same sound: e.g., /s/ and /z/ 
+4) Number of anagrams: words that can be made with its letters
 
 * Getting Started
-**  Prerequisites
-You will need to install the pandas package to be able to use this module.
+** Prerequisites
+You will need to install the pandas package to be able to use this
+module. To install it use =pip install pandas=.
 ** Installing
-pip install word-analysis
+=pip install wdiff=
 
 ** Usage
-The module can be used to analyze a specific dimension and retrieve its result
-or multiple analysis can be conducted and the results integrated. If multiple
-dimensions are analyzed, the results of the analysis for every dimension,
-as well as a word difficult index will be calculated.
+#+begin_src ipython :exports code :session :results drawer output
+  import wdiff
+  words = ['perro', 'gato', 'serpiente']
+  wanalyzer = wdiff.WordAnalyzer()
+  wanalyzer.set_words(words)
+  wanalyzer.determine_length_difficulty(difficultyWeight=1)
+  wanalyzer.determine_silent_letter_difficulty(difficultyWeight=1)
+  wanalyzer.determine_same_sound_letter_difficulty(difficultyWeight=1)
+  wanalyzer.determine_anagrams_difficulty(difficultyWeight=1)
+  wanalyzer.determine_total_difficulty_index()
+  wanalyzer.save_results()
+#+end_src
 
-To use Word Analysis, instantiate the =WordAnalyzer= class. Then use its
-=set_words= method to pass a list of words as an argument.
+#+RESULTS:
+:results:
+:end:
 
-*** Functions for analyzing words
-To analyze the words, call the desired method.
-
-The =determine_length_difficulty= method determines the length of every word.
-
-The =determine_silent_letter_difficulty= method determines the number of silent letters
-in each word.
-
-The =determine_same_sound_letter_difficulty= method determines the number of letters with the same
-sound present in each word that could be swapped by mistake.
-
-The =determine_anagrams_difficulty= method checks if words are anagrams of other words in the
-database.
-
-The =determine_total_difficulty_index= method integrates the result of
-every analysis conducted and calculates the total difficulty for each word.
-
-*** Functions for extracting results
-There are two ways to extract the results: 1) use the getter methods, or 2) save
-the results to a csv file.
-
-*** Getter methods
-The following methods return the results for the analysis of the specified
-dimension:
-
-- =get_length_info=
-
-- =get_silent_letter_info=
-
-- =get_same_sound_letter_info=
-
-- =get_anagrams_info=
-
-- =get_word_difficulty= : Returns the results for every analysis conducted
-
-*** Save results
-The =save_results= method saves the result of every analysis conducted and
-the total difficulty for each word to a CSV file.
-
+Results will be saved in the current directory as a CSV file.
 * Contributing to this project
   If you encounter any bugs, please open an issue on github. To contribute to
 this project, clone the repository and submit a pull request. If you wish to
