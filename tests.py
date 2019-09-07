@@ -95,8 +95,6 @@ class TestWordAnalyzerUnit():
             'geje': 1,
             'jengibre': 1,
             'gegijije': 4,
-            'gejuco': 0,
-            'gijuco': 0,
             '': 0,
         }
 
@@ -120,42 +118,6 @@ class TestWordAnalyzerUnit():
         for word in words.keys():
             assert words[word] == analyzer.count_c_with_s_sound(word)
 
-    def test_count_swappable_s_sounds(self):
-        """Tests the count_swappable_s_sounds method."""
-
-        words = {
-            'cese': 1,
-            'ceze': 1,
-            'cisi': 1,
-            'cizi': 1,
-            'seze': 1,
-            'sizi': 1,
-            'saza': 1,
-            'sazo': 1,
-            'sazu': 1,
-            'soza': 1,
-            'sozo': 1,
-            'sozu': 1,
-            'suza': 1,
-            'suzo': 1,
-            'suzu': 1,
-            'ceso': 0,
-            'ciso': 0,
-            'cezo': 0,
-            'cizo': 0,
-            'cice': 0,
-            'sosa': 0,
-            'zuzo': 0,
-            'suzusi': 2,
-            'cezese': 3,
-            'cezosu': 1,
-            '': 0
-        }
-
-        analyzer = wdiff.WordAnalyzer()
-        analyzer.set_words(words)
-        for word in words.keys():
-            assert words[word] == analyzer.count_swappable_s_sounds(word)
 
     def test_count_q_with_k_sound(self):
         """Tests count_q_with_k_sound method."""
@@ -197,24 +159,16 @@ class TestWordAnalyzerUnit():
 
         # Uses nonwords that meet the specifications
         words = {
-            'caka': 1,
-            'coka': 1,
-            'cuko': 1,
-            'caqua': 1,
-            'coqua': 1,
-            'cuquo': 1,
-            'queko': 1,
-            'caki': 0,
-            'coke': 0,
-            'cuke': 0,
-            'caque': 0,
-            'coqui': 0,
-            'cuque': 0,
-            'kacoquo': 3,
-            'kecoquo': 2,
-            'keke': 0,
-            'quiqui': 0,
-            'caco': 0,          #
+            'queso': 0,
+            'quiero': 0,
+            'cosa': 0,
+            'coco': 0,
+            'cocina': 0,
+            'quicoka': 3,
+            'quecaki': 3,
+            'cacique': 1,
+            'kacuci': 1,
+            'jaula': 0,
             '': 0
         }
 
