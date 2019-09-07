@@ -1,4 +1,3 @@
-#! "C:\Python33\python.exe"
 # -*- coding: utf-8 -*-
 
 """
