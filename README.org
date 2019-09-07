@@ -26,7 +26,7 @@ module. To install it use =pip install pandas=.
 
 ** Usage
 #+begin_src ipython :exports code :session :results drawer output
-  import wdiff
+  import wdiff.wdiff as wdiff
   words = ['perro', 'gato', 'serpiente']
   wanalyzer = wdiff.WordAnalyzer()
   wanalyzer.set_words(words)
