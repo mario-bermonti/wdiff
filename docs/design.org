@@ -1,0 +1,54 @@
+* General purpose
+Analyze the characteristics of words and determine their difficulty. 
+* Requirements
++ Needs to analyze an arbitrary large number of words
++ User should be able to customize which analyses to conduct
++ The results should be retrievable at any point
++ The user should have the option of saving the results to a file
++ Results should be formatted as a pd.DataFrame: flexible, easy to use, and powerful
+* Components
+** Analyzer 
+   Purpose: Provides a public interface for the user 
+
+   This object is a pandas.DataFrame and all interactions should be made through
+   the the df.apply's method.
+*** Fields
+   - results: pandas.DataFrame
+*** Actions
+   - Create word objects
+   - Run analyses specified by the user
+   - Transform the str into word objects
+   - Store the results of each analysis 
+   - Returns the results without the word objects
+   - Saves results to file
+   - Communicates with word
+** Word
+  Purpose: Knows how to analyze its characterstics and stores them
+*** Fields
+    - text
+    - silent letters
+    - letter with same phoneme
+    - letter length
+    - total dificulty
+*** Actions
+**** Analysis
+     The interface to the analyses should be properties because it is a
+     property of the word (characteristic) that the user is requiring. It should
+     cache the results of the analyses so that they are not rerun if the user
+     calls them again.
+****** check word length
+****** Silent letters
+******* check silent h
+******* check silent u
+****** check same sound letters
+******* check \/s/ sounds
+******* check \/ʎ/ sounds
+******* check \/x/ sounds
+******* check \/k/ sounds
+******* check \/Y/ sounds
+******* check \/B/ sounds
+****** calculate overall difficulty
+**** General
+    - Validate word
+    - Communicates with analyzer
+    - Caches the data
