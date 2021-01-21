@@ -5,7 +5,7 @@ import pytest
 @pytest.mark.parametrize(
     ("text", "expected"),
     [
-        # no hs
+        # none
         ("oso", 0),
         ("perro", 0),
         # non silent hs
@@ -32,7 +32,7 @@ def test_check_silent_h(text, expected):
 @pytest.mark.parametrize(
     ("text", "expected"),
     [
-        # no us
+        # none
         ("oso", 0),
         ("perro", 0),
         # non silent us
@@ -64,8 +64,9 @@ def test_check_silent_u(text, expected):
 @pytest.mark.parametrize(
     ("text", "expected"),
     [
-        # s
+        # none
         ("perro", 0),
+        # s
         ("sopa", 1),
         ("salsa", 2),
         # z
@@ -99,8 +100,9 @@ def test_check_shared_phoneme_s(text, expected):
 @pytest.mark.parametrize(
     ("text", "expected"),
     [
-        # b
+        # none
         ("perro", 0),
+        # b
         ("bola", 1),
         ("burbuja", 2),
         # v
