@@ -142,3 +142,27 @@ def test_check_shared_phoneme_y(text, expected):
     observed = word._check_shared_phoneme_y()
 
     assert observed == expected
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        # none
+        ("perro", 0),
+        # j
+        ("jaula", 1),
+        # g
+        ("girar", 1),
+        ("gato", 0),
+        # mixed
+        ("jengibre", 2),
+        ("jaguar", 1),
+        ("juguete", 1),
+    ]
+)
+def test_check_shared_phoneme_j(text, expected):
+    """Test the _check_shared_phoneme_j function with different types of cases."""
+
+    word = Word(text)
+    observed = word._check_shared_phoneme_j()
+
+    assert observed == expected
