@@ -17,7 +17,6 @@ class Word(object):
         self._length = len(text)
         self._silent_letters = None
         self._shared_phonemes = None
-        self._shared_phonemes = None
         self._total_difficulty = None
 
     def check_silent_letters(self):
