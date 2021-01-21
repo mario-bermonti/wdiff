@@ -20,6 +20,53 @@ class Word(object):
         self._shared_phonemes = None
         self._total_difficulty = None
 
+    def check_silent_letters(self):
+        """Count how many silent letters there are in the word.
+
+        Returns
+        -------
+        None
+        """
+
+        silent_u_count = self._check_silent_u()
+        silent_h_count = self._check_silent_h()
+
+        self._silent_letters = silent_u_count + silent_h_count
+
+    def _check_silent_u(self):
+        """Count how many silent letters *u* there are in the word.
+
+        Returns
+        -------
+        silent_u_count: int
+            Number of silent letters u in the word
+        """
+
+        silent_u_count = (
+            self._text.count("que")
+            + self._text.count("qui")
+            + self._text.count("gue")
+            + self._text.count("gui")
+        )
+
+        return silent_u_count
+
+    def _check_silent_h(self):
+        """Count how many silent letters *h* there are in the word.
+
+        Returns
+        -------
+        silent_h_count: int
+            Number of silent letters h in the word
+        """
+
+        h_count = self._text.count("h")
+        h_noncomplian_count = self._text.count("ch")
+
+        silent_h_count = h_count - h_noncomplian_count
+
+        return silent_h_count
+
     @property
     def text(self):
         return self._text
