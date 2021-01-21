@@ -72,7 +72,7 @@ class Word(object):
         Returns
         -------
         shared_phoneme_s_count: int
-"            Number of graphemes that share the /s/ phoneme in the word
+            Number of graphemes that share the /s/ phoneme in the word
         """
 
         z_count = self._text.count("z")
@@ -87,7 +87,7 @@ class Word(object):
         Returns
         -------
         shared_phoneme_b_count: int
-"            Number of graphemes that share the /b/ phoneme in the word
+            Number of graphemes that share the /b/ phoneme in the word
         """
 
         b_count = self._text.count("b")
