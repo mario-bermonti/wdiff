@@ -21,7 +21,7 @@ import pytest
         ("chihuahua", 2),
     ]
 )
-def test_check_silent_h_(text, expected):
+def test_check_silent_h(text, expected):
     """Test the check_silent_h function with different types of cases."""
 
     word = Word(text)
