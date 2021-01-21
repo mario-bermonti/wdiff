@@ -131,6 +131,26 @@ class Word(object):
 
         return shared_phoneme_j_count
 
+    def _check_shared_phoneme_k(self):
+        """Count how many graphemes that share the /k/ phoneme are in the word.
+
+        Returns
+        -------
+        shared_phoneme_k_count: int
+            Number of graphemes that share the /k/ phoneme in the word
+        """
+
+        k_count = self._text.count("k")
+        q_count = self._text.count("q") 
+        c_compliant_count = (
+            self._text.count("ca")
+            + self._text.count("co")
+            + self._text.count("cu")
+        )
+        shared_phoneme_k_count = k_count + q_count + c_compliant_count
+
+        return shared_phoneme_k_count
+
     @property
     def text(self):
         return self._text
