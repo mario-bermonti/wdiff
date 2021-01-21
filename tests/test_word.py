@@ -60,3 +60,39 @@ def test_check_silent_u(text, expected):
     observed = word._check_silent_u()
 
     assert observed == expected
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        # s
+        ("perro", 0),
+        ("sopa", 1),
+        ("salsa", 2),
+        # z
+        ("zanahoria", 1),
+        ("zarpazo", 2),
+        # c compliant
+        ("citronela", 1),
+        ("celda", 1),
+        ("decencia", 2),
+        # c non compliant
+        ("carro", 0),
+        ("educador", 0),
+        # c compliant and non compliant
+        ("concurrencia", 1),
+        ("convivencia", 1),
+        # combined 
+        ("adolescencia", 3),
+        ("adolescencia", 3),
+        ("acidez", 2),
+        ("castizo", 2),
+    ]
+)
+def test_check_shared_phoneme_s(text, expected):
+    """Test the _check_shared_phoneme_s function with different types of cases."""
+
+    word = Word(text)
+    observed = word._check_shared_phoneme_s()
+
+    assert observed == expected
+
