@@ -43,7 +43,6 @@ Analyze the characteristics of words and determine their difficulty.
 ****** check same sound letters
 ******* check \/s/ sounds
 ******* check \/ʎ/ sounds
-******* check \/x/ sounds
 ******* check \/k/ sounds
 ******* check \/Y/ sounds
 ******* check \/B/ sounds
