@@ -81,6 +81,7 @@ class Word(object):
         shared_phoneme_s_count = z_count + s_count + c_with_s_sound_count
 
         return shared_phoneme_s_count
+
     def _check_shared_phoneme_b(self):
         """Count how many graphemes that share the /b/ phoneme are in the word.
 
@@ -95,6 +96,25 @@ class Word(object):
         shared_phoneme_b_count = b_count + v_count
 
         return shared_phoneme_b_count
+
+    def _check_shared_phoneme_y(self):
+        """Count how many graphemes that share the /y/ phoneme are in the word.
+
+        Returns
+        -------
+        shared_phoneme_y_count: int
+            Number of graphemes that share the /y/ phoneme in the word
+        """
+
+        ll_count = self._text.count("ll")
+
+        y_count = self._text.count("y")
+        if self._text[-1] == "y":
+            y_count -= 1
+
+        shared_phoneme_y_count = ll_count + y_count
+
+        return shared_phoneme_y_count
 
     @property
     def text(self):
