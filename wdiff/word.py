@@ -66,6 +66,29 @@ class Word(object):
 
         return silent_h_count
 
+    def check_shared_phonemes(self):
+        """Count how many graphemes that share phonemes with other graphemes
+        are in the word.
+
+        Returns
+        -------
+        None
+        """
+
+        shared_phoneme_s_count = self._check_shared_phoneme_s()
+        shared_phoneme_j_count = self._check_shared_phoneme_j()
+        shared_phoneme_k_count = self._check_shared_phoneme_k()
+        shared_phoneme_y_count = self._check_shared_phoneme_y()
+        shared_phoneme_b_count = self._check_shared_phoneme_b()
+
+        self._shared_phonemes = (
+            shared_phoneme_s_count
+            + shared_phoneme_j_count
+            + shared_phoneme_k_count
+            + shared_phoneme_y_count
+            + shared_phoneme_b_count
+        )
+
     def _check_shared_phoneme_s(self):
         """Count how many graphemes that share the /s/ phoneme are in the word.
 
