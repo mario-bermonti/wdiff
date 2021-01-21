@@ -26,9 +26,9 @@ Analyze the characteristics of words and determine their difficulty.
   Purpose: Knows how to analyze its characterstics and stores them
 *** Fields
     - text
+    - letter length
     - silent letters
     - letter with same phoneme
-    - letter length
     - total dificulty
 *** Actions
 **** Analysis
@@ -52,3 +52,4 @@ Analyze the characteristics of words and determine their difficulty.
     - Validate word
     - Communicates with analyzer
     - Caches the data
+      
