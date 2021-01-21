@@ -116,6 +116,21 @@ class Word(object):
 
         return shared_phoneme_y_count
 
+    def _check_shared_phoneme_j(self):
+        """Count how many graphemes that share the /j/ phoneme are in the word.
+
+        Returns
+        -------
+        shared_phoneme_j_count: int
+            Number of graphemes that share the /j/ phoneme in the word
+        """
+
+        j_count = self._text.count("j")
+        g_compliant_count = self._text.count("ge") + self._text.count("gi")
+        shared_phoneme_j_count = j_count + g_compliant_count
+
+        return shared_phoneme_j_count
+
     @property
     def text(self):
         return self._text
