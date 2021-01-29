@@ -14,7 +14,7 @@ class Word(object):
 
     def __init__(self, text):
         self._text = text
-        self._length = len(text)
+        self._length = None
         self._silent_letters = None
         self._shared_phonemes = None
         self._total_difficulty = None
@@ -180,7 +180,7 @@ class Word(object):
 
     @property
     def length(self):
-        return self._length
+        return len(self._text)
 
     @property
     def silent_letters(self):
