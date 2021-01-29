@@ -195,3 +195,43 @@ def test_check_shared_phoneme_k(text, expected):
     observed = word._check_shared_phoneme_k()
 
     assert observed == expected
+
+@pytest.mark.parametrize(
+    ("difficulty_length", "difficulty_silent", "difficulty_shared_phonemes", "total_difficulty_expected"),
+    [
+        # all ints
+        (1, 2, 3, 6),
+        # mixed
+        (1, None, 3, 4),
+    ]
+)
+def test_calculate_overall_difficulty(
+        difficulty_length,
+        difficulty_silent,
+        difficulty_shared_phonemes,
+        total_difficulty_expected
+):
+    """Test the _calculate_overall_difficulty."""
+
+    word = Word("ejemplo")
+    word._length = difficulty_length
+    word._silent_letters = difficulty_silent
+    word._shared_phonemes = difficulty_shared_phonemes
+    total_difficulty_observed = word._calculate_total_difficulty()
+
+    assert total_difficulty_observed == total_difficulty_expected
+
+
+def test_calculate_overall_difficulty_none_valid():
+    """Test the _calculate_overall_difficulty when none of the
+    characteristics are valid.
+    """
+
+    word = Word("ejemplo")
+    word._length = None
+    word._silent_letters = None
+    word._shared_phonemes = None
+
+    with pytest.raises(ValueError):
+        total_difficulty_observed = word._calculate_total_difficulty()
+
