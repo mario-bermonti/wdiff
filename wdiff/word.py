@@ -174,6 +174,37 @@ class Word(object):
 
         return shared_phoneme_k_count
 
+    def _calculate_total_difficulty(self):
+        """Calculate the total difficulty for the word.
+
+        Only the characteristics that have a value that is a str (not None) are
+        used.
+
+        Returns
+        -------
+        int
+            Total difficulty for the word
+
+        Raises
+        ------
+        ValueError
+            If none of the analyses has been run.
+        """
+
+        characteristics = [self._length, self._silent_letters, self._shared_phonemes]
+
+        if characteristics.count(None) == len(characteristics):
+            print("ValueError: total_dificulty cannot be calculated because no analysis has been conducted")
+            raise ValueError
+
+        characteristic_valid = [characteristic
+                                for characteristic in characteristics
+                                if characteristic is not None
+                                ]
+        total_difficulty = sum(characteristic_valid)
+
+        return total_difficulty
+
     @property
     def text(self):
         return self._text
