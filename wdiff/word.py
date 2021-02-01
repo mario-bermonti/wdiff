@@ -14,7 +14,7 @@ class Word(object):
 
     def __init__(self, text):
         text = self._normalize_text(text)
-        # validate text
+        self._validate_word(text)
         self._text = text
         self._length = None
         self._silent_letters = None
@@ -38,6 +38,33 @@ class Word(object):
         word_normalized = text.strip().lower()
 
         return word_normalized
+
+
+    def _validate_word(self, text):
+        """Validate that the word's text meets minimal requirements.
+
+        Parameters
+        ----------
+        text: str
+            Spanish word to build for analysis
+
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        ValueError
+            If _word_length_is_invalid or if _word_contains_invalid_character
+            return True
+        """
+
+        if (
+            self._word_length_is_invalid(text)
+            or self._word_contains_invalid_character(text)
+        ):
+            print("ValueError: text", f"text", "is invalid for creating word")
+            raise ValueError
 
 
     def _word_length_is_invalid(self, text):
