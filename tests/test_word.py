@@ -256,3 +256,38 @@ def test_normalize_text(text_original, text_expected):
     text_observed = word._normalize_text(text_original)
 
     assert text_observed == text_expected
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("perro", False),
+        ("", True),
+    ]
+)
+def test_word_length_is_invalid(text, expected):
+    """Test the _word_length_is_invalid with different cases."""
+
+    word = Word("ejemplo")
+    assert word._word_length_is_invalid(text) == expected
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        # valid
+        ("perro", False),
+        ("canción", False),
+        ("güiro", False),
+        # edge case; this is the expected behavior
+        # blank spaces are handled by other methods
+        ("perro ", False), 
+        # invalid
+        ("perro8", True),
+        ("perro{", True),
+    ]
+)
+def test_word_contains_invalid_character(text, expected):
+    """Test the _word_contains_invalid_character with different cases."""
+
+    word = Word("ejemplo")
+    assert word._word_contains_invalid_character(text) == expected
