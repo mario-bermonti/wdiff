@@ -304,12 +304,22 @@ class Word(object):
 
     @property
     def silent_letters(self):
+        if self._silent_letters is None:
+            self._silent_letters = self._check_silent_letters()
+
         return self._silent_letters
 
     @property
     def shared_phonemes(self):
+        if self._shared_phonemes is None:
+            self._shared_phonemes = self._check_shared_phonemes()
+
         return self._shared_phonemes
 
     @property
     def total_difficulty(self):
+        if self._total_difficulty is None:
+            self._total_difficulty = self._calculate_total_difficulty()
+
         return self._total_difficulty
+
