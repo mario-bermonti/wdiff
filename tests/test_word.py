@@ -205,13 +205,13 @@ def test_check_shared_phoneme_k(text, expected):
         (1, None, 3, 4),
     ]
 )
-def test_calculate_overall_difficulty(
+def test_calculate_total_difficulty(
         difficulty_length,
         difficulty_silent,
         difficulty_shared_phonemes,
         total_difficulty_expected
 ):
-    """Test the _calculate_overall_difficulty."""
+    """Test the _calculate_total_difficulty."""
 
     word = Word("ejemplo")
     word._length = difficulty_length
@@ -222,8 +222,8 @@ def test_calculate_overall_difficulty(
     assert total_difficulty_observed == total_difficulty_expected
 
 
-def test_calculate_overall_difficulty_none_valid():
-    """Test the _calculate_overall_difficulty when none of the
+def test_calculate_total_difficulty_none_valid():
+    """Test the _calculate_total_difficulty when none of the
     characteristics are valid.
     """
 
