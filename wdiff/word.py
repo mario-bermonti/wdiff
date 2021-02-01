@@ -108,7 +108,7 @@ class Word(object):
         return False
 
 
-    def check_silent_letters(self):
+    def _check_silent_letters(self):
         """Count how many silent letters there are in the word.
 
         Returns
@@ -155,7 +155,7 @@ class Word(object):
 
         return silent_h_count
 
-    def check_shared_phonemes(self):
+    def _check_shared_phonemes(self):
         """Count how many graphemes that share phonemes with other graphemes
         are in the word.
 
