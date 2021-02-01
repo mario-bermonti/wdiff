@@ -13,11 +13,33 @@ class Word(object):
     """
 
     def __init__(self, text):
+        text = self._normalize_text(text)
+        # validate text
         self._text = text
         self._length = None
         self._silent_letters = None
         self._shared_phonemes = None
         self._total_difficulty = None
+
+    def _normalize_text(self, text):
+        """Normalize text so it is properly formatted.
+
+        Parameters
+        ----------
+        text : str
+            word's text
+
+        Returns
+        -------
+        word_normalized : str
+            word's text
+        """
+
+        word_normalized = text.strip().lower()
+
+        return word_normalized
+
+
 
     def check_silent_letters(self):
         """Count how many silent letters there are in the word.
