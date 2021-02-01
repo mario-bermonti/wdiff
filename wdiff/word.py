@@ -58,6 +58,29 @@ class Word(object):
 
         return len(text) == 0
 
+    def _word_contains_invalid_character(self, text):
+        """Checks whether the text provided for the word contains invalid characters.
+
+        Parameters
+        ----------
+        text : str
+            Spanish word to build for analysis
+
+        Returns
+        -------
+        True
+            If the text is contains invalid characters
+        False
+            If the text does not contains invalid characters
+        """
+
+        valid_characters = "aábcdeéfghiíjklmnñoópqrstuúüvwxyz "
+        for char in text:
+            if char not in valid_characters:
+                return True
+        return False
+
+
     def check_silent_letters(self):
         """Count how many silent letters there are in the word.
 
