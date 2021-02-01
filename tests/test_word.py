@@ -235,3 +235,24 @@ def test_calculate_overall_difficulty_none_valid():
     with pytest.raises(ValueError):
         total_difficulty_observed = word._calculate_total_difficulty()
 
+
+@pytest.mark.parametrize(
+    ("text_original", "text_expected"),
+    [
+        # none
+        ("perro", "perro"),
+        # upper
+        ("PErrO", "perro"),
+        # space
+        ("   perro   ", "perro"),
+        # mixed
+        ("  PErrO", "perro"),
+    ]
+)
+def test_normalize_text(text_original, text_expected):
+    """Test the _normalize_text with different cases."""
+
+    word = Word("ejemplo")
+    text_observed = word._normalize_text(text_original)
+
+    assert text_observed == text_expected
