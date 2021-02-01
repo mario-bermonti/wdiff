@@ -40,6 +40,23 @@ class Word(object):
         return word_normalized
 
 
+    def _word_length_is_invalid(self, text):
+        """Checks whether the word's text length is invalid.
+
+        Parameters
+        ----------
+        text : str
+            Spanish word to build for analysis
+
+        Returns
+        -------
+        True
+            If the length is 0 
+        False
+            If the length is different than 0
+        """
+
+        return len(text) == 0
 
     def check_silent_letters(self):
         """Count how many silent letters there are in the word.
