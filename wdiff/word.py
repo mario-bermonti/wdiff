@@ -113,13 +113,16 @@ class Word(object):
 
         Returns
         -------
-        None
+        silent_letter_count : int
+            Number of silent letters.
         """
 
         silent_u_count = self._check_silent_u()
         silent_h_count = self._check_silent_h()
 
-        self._silent_letters = silent_u_count + silent_h_count
+        silent_letter_count = silent_u_count + silent_h_count
+
+        return silent_letter_count
 
     def _check_silent_u(self):
         """Count how many silent letters *u* there are in the word.
@@ -161,7 +164,8 @@ class Word(object):
 
         Returns
         -------
-        None
+        shared_phoneme_count : int
+            Number of shared phonemes.
         """
 
         shared_phoneme_s_count = self._check_shared_phoneme_s()
@@ -170,13 +174,15 @@ class Word(object):
         shared_phoneme_y_count = self._check_shared_phoneme_y()
         shared_phoneme_b_count = self._check_shared_phoneme_b()
 
-        self._shared_phonemes = (
+        shared_phoneme_count = (
             shared_phoneme_s_count
             + shared_phoneme_j_count
             + shared_phoneme_k_count
             + shared_phoneme_y_count
             + shared_phoneme_b_count
         )
+
+        return shared_phoneme_count
 
     def _check_shared_phoneme_s(self):
         """Count how many graphemes that share the /s/ phoneme are in the word.
