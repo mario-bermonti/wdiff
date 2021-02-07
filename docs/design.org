@@ -17,7 +17,6 @@ Analyze the characteristics of words and determine their difficulty.
 *** Actions
    - Create word objects
    - Run analyses specified by the user
-   - Transform the str into word objects
    - Store the results of each analysis 
    - Returns the results without the word objects
    - Saves results to file
