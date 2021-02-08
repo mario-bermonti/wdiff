@@ -43,3 +43,24 @@ class Analyzer(object):
         word_objs = [Word(text) for text in text_for_words]
 
         return word_objs
+
+    def _get_property_from_words(self, word_property):
+        """Get property of all words.
+
+        Parameters
+        ----------
+        word_property : str
+            Property to be extracted from word.
+
+        Returns
+        -------
+        word_properties : pandas.Series
+            Series containing the property of each words.
+        """
+
+        word_objs = self._results["word_objs"]
+        function_for_extracting_property = lambda w: getattr(w, word_property)
+        word_properties = word_objs.apply(function_for_extracting_property)
+
+        return word_properties
+
