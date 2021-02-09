@@ -21,7 +21,7 @@ class Analyzer(object):
         self._results = pd.DataFrame()
         word_objs = self._create_word_objs(words)
         self._results["word_objs"] = word_objs
-
+        self._add_words_text_to_results()
 
     def _create_word_objs(self, text_for_words):
         """Create a word object for each text.
