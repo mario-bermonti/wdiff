@@ -1,5 +1,6 @@
 import pytest
 
+from wdiff.analyzer import Analyzer
 from wdiff.word import Word
 
 import pytest
