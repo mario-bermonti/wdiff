@@ -16,11 +16,8 @@ class Analyzer(object):
         ----------
         words : iterable, list-like object
             Contains the words to be analyzed.
-
-        Returns
-        -------
-        None
         """
+
         self._results = pd.DataFrame()
         word_objs = self._create_word_objs(words)
         self._results["word_objs"] = word_objs
