@@ -1,10 +1,9 @@
 import pytest
+import pandas as pd
 
 from wdiff.analyzer import Analyzer
 from wdiff.word import Word
 
-import pytest
-import pandas as pd
 
 @pytest.mark.parametrize("text", ["perro", "gato", "pájaro"])
 def test_create_word_objects(text):
