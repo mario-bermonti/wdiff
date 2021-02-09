@@ -71,3 +71,17 @@ class Analyzer(object):
 
         word_text = self._get_property_from_words(word_property="text")
         self._results["text"] = word_text
+
+    def check_length_difficulty(self):
+        """Determine the difficulty associated with the length of the words.
+
+        # TODO add the docstring of word's analog attribute.
+
+        Returns
+        -------
+        None
+        """
+
+        word_lengths = self._get_property_from_words(word_property="length")
+        self._results["length"] = word_lengths
+
