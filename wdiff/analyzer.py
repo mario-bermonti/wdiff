@@ -61,3 +61,13 @@ class Analyzer(object):
 
         return word_properties
 
+    def _add_words_text_to_results(self):
+        """Add the word's text to the results object.
+
+        Returns
+        -------
+        None
+        """
+
+        word_text = self._get_property_from_words(word_property="text")
+        self._results["text"] = word_text
