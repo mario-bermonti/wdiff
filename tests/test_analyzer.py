@@ -1,5 +1,4 @@
 import pytest
-import pandas as pd
 
 from wdiff.analyzer import Analyzer
 from wdiff.word import Word
