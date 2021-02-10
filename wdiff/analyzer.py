@@ -1,6 +1,6 @@
 import pandas as pd
 
-from word import Word
+from .word import Word
 
 
 class Analyzer(object):
@@ -84,4 +84,3 @@ class Analyzer(object):
 
         word_lengths = self._get_property_from_words(word_property="length")
         self._results["length"] = word_lengths
-
