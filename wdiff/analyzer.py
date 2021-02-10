@@ -110,3 +110,23 @@ class Analyzer(object):
 
         word_shared_phonemes = self._get_property_from_words(word_property="shared_phonemes")
         self._results["shared_phonemes"] = word_shared_phonemes
+
+    def determine_total_difficulty(self):
+        """Determine each word's total difficulty.
+
+        # TODO add the docstring of word's analog attribute.
+
+        Returns
+        -------
+        None
+        """
+
+        word_total_difficulty = self._get_property_from_words(
+            word_property="total_difficulty"
+        )
+        self._results["total_difficulty"] = word_total_difficulty
+        # valid_cols = self._results.iloc[:, 2:]
+        # print(valid_cols)
+        # # total_difficulty = valid_cols.sum()
+        # self._results["total_difficulty"] = valid_cols.sum()
+
