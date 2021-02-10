@@ -84,3 +84,16 @@ class Analyzer(object):
 
         word_lengths = self._get_property_from_words(word_property="length")
         self._results["length"] = word_lengths
+
+    def check_silent_letter_difficulty(self):
+        """Determine each word's difficulty associated with silent letters.
+
+        # TODO add the docstring of word's analog attribute.
+
+        Returns
+        -------
+        None
+        """
+
+        word_silent_letters = self._get_property_from_words(word_property="silent_letters")
+        self._results["silent_letters"] = word_silent_letters
