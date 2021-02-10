@@ -14,11 +14,6 @@ def test_create_word_objects(text):
     assert word.text == text
 
 
-# para cada posible prop: total, shared, silent, length, text
-# iterable de textos para crear palabras
-# property str
-# series con los prop esperados
-
 @pytest.mark.parametrize(
     ("word_property", "word_properties_exp"), 
     [
