@@ -306,7 +306,10 @@ class Word(object):
 
     @property
     def length(self):
-        return len(self._text)
+        if self._length is None:
+            self._length = len(self._text)
+
+        return self._length
 
     @property
     def silent_letters(self):
