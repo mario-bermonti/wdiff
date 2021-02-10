@@ -143,3 +143,14 @@ class Analyzer(object):
         results_formatted = results.drop(columns="word_objs")
 
         return results_formatted
+
+    @property
+    def results(self):
+        """Return the results
+
+        Returns
+        -------
+        results : pandas.DataFrame
+        """
+
+        return self._format_results()
