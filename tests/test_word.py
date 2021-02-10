@@ -1,6 +1,7 @@
+import pytest
+
 from wdiff.word import Word
 
-import pytest
 
 @pytest.mark.parametrize(
     ("text", "expected"),
@@ -28,6 +29,7 @@ def test_check_silent_h(text, expected):
     observed = word._check_silent_h()
 
     assert observed == expected
+
 
 @pytest.mark.parametrize(
     ("text", "expected"),
@@ -61,6 +63,7 @@ def test_check_silent_u(text, expected):
 
     assert observed == expected
 
+
 @pytest.mark.parametrize(
     ("text", "expected"),
     [
@@ -82,7 +85,7 @@ def test_check_silent_u(text, expected):
         # c compliant and non compliant
         ("concurrencia", 1),
         ("convivencia", 1),
-        # combined 
+        # combined
         ("adolescencia", 3),
         ("adolescencia", 3),
         ("acidez", 2),
@@ -90,12 +93,13 @@ def test_check_silent_u(text, expected):
     ]
 )
 def test_check_shared_phoneme_s(text, expected):
-    """Test the _check_shared_phoneme_s function with different types of cases."""
+    """Test the _check_shared_phoneme_s function with different cases."""
 
     word = Word(text)
     observed = word._check_shared_phoneme_s()
 
     assert observed == expected
+
 
 @pytest.mark.parametrize(
     ("text", "expected"),
@@ -114,12 +118,13 @@ def test_check_shared_phoneme_s(text, expected):
     ]
 )
 def test_check_shared_phoneme_b(text, expected):
-    """Test the _check_shared_phoneme_b function with different types of cases."""
+    """Test the _check_shared_phoneme_b function with different cases."""
 
     word = Word(text)
     observed = word._check_shared_phoneme_b()
 
     assert observed == expected
+
 
 @pytest.mark.parametrize(
     ("text", "expected"),
@@ -136,12 +141,13 @@ def test_check_shared_phoneme_b(text, expected):
     ]
 )
 def test_check_shared_phoneme_y(text, expected):
-    """Test the _check_shared_phoneme_y function with different types of cases."""
+    """Test the _check_shared_phoneme_y function with different cases."""
 
     word = Word(text)
     observed = word._check_shared_phoneme_y()
 
     assert observed == expected
+
 
 @pytest.mark.parametrize(
     ("text", "expected"),
@@ -160,12 +166,13 @@ def test_check_shared_phoneme_y(text, expected):
     ]
 )
 def test_check_shared_phoneme_j(text, expected):
-    """Test the _check_shared_phoneme_j function with different types of cases."""
+    """Test the _check_shared_phoneme_j function with different cases."""
 
     word = Word(text)
     observed = word._check_shared_phoneme_j()
 
     assert observed == expected
+
 
 @pytest.mark.parametrize(
     ("text", "expected"),
@@ -189,15 +196,21 @@ def test_check_shared_phoneme_j(text, expected):
     ]
 )
 def test_check_shared_phoneme_k(text, expected):
-    """Test the _check_shared_phoneme_k function with different types of cases."""
+    """Test the _check_shared_phoneme_k function with different cases."""
 
     word = Word(text)
     observed = word._check_shared_phoneme_k()
 
     assert observed == expected
 
+
 @pytest.mark.parametrize(
-    ("difficulty_length", "difficulty_silent", "difficulty_shared_phonemes", "total_difficulty_expected"),
+    (
+        "difficulty_length",
+        "difficulty_silent",
+        "difficulty_shared_phonemes",
+        "total_difficulty_expected",
+    ),
     [
         # all ints
         (1, 2, 3, 6),
@@ -233,7 +246,7 @@ def test_calculate_total_difficulty_none_valid():
     word._shared_phonemes = None
 
     with pytest.raises(ValueError):
-        total_difficulty_observed = word._calculate_total_difficulty()
+        word._calculate_total_difficulty()
 
 
 @pytest.mark.parametrize(
@@ -256,6 +269,7 @@ def test_normalize_text(text_original, text_expected):
     text_observed = word._normalize_text(text_original)
 
     assert text_observed == text_expected
+
 
 @pytest.mark.parametrize(
     ("text", "expected"),
@@ -280,7 +294,7 @@ def test_word_length_is_invalid(text, expected):
         ("güiro", False),
         # edge case; this is the expected behavior
         # blank spaces are handled by other methods
-        ("perro ", False), 
+        ("perro ", False),
         # invalid
         ("perro8", True),
         ("perro{", True),
