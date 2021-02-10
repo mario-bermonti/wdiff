@@ -130,3 +130,16 @@ class Analyzer(object):
         # # total_difficulty = valid_cols.sum()
         # self._results["total_difficulty"] = valid_cols.sum()
 
+    def _format_results(self):
+        """Format the results before making them public.
+
+        Returns
+        -------
+        results_formatted : pandas.DataFrame
+            Formatted results
+        """
+
+        results = self._results.copy()
+        results_formatted = results.drop(columns="word_objs")
+
+        return results_formatted
