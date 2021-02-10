@@ -36,8 +36,14 @@ def test_get_property_from_words(word_property, word_properties_exp):
     # verify
     assert word_properties_obs.to_list() == word_properties_exp
 
+
 @pytest.mark.parametrize(
-    ("difficulty_length", "difficulty_silent", "difficulty_shared_phonemes", "total_difficulty_exp"),
+    (
+        "difficulty_length",
+        "difficulty_silent",
+        "difficulty_shared_phonemes",
+        "total_difficulty_exp",
+    ),
     [
         # all ints
         (1, 2, 3, 6),
@@ -64,6 +70,8 @@ def test_calculate_total_difficulty(
     word_obj._length = difficulty_length
     word_obj._silent_letters = difficulty_silent
     word_obj._shared_phonemes = difficulty_shared_phonemes
-    total_difficulty_obs = analyzer._get_property_from_words("total_difficulty")
+    total_difficulty_obs = analyzer._get_property_from_words(
+        "total_difficulty"
+    )
 
     assert total_difficulty_obs.to_list()[0] == total_difficulty_exp
