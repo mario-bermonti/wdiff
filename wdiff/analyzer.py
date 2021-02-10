@@ -154,3 +154,23 @@ class Analyzer(object):
         """
 
         return self._format_results()
+
+    def save_results(self, filename="results"):
+        """Save the results to a CSV file.
+
+        Parameters
+        ----------
+        filename : str
+            Filename. If a complete path is provided, it will be saved
+            in the specific path. It must not include the file's extension.
+
+        Returns
+        -------
+        None
+        """
+
+        results_formatted = self._format_results()
+        filename = f"{filename}.csv"
+        results_formatted.to_csv(filename, index=False)
+
+
