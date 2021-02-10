@@ -97,3 +97,16 @@ class Analyzer(object):
 
         word_silent_letters = self._get_property_from_words(word_property="silent_letters")
         self._results["silent_letters"] = word_silent_letters
+
+    def check_shared_phonemes_difficulty(self):
+        """Determine each word's difficulty associated with shared phonemes.
+
+        # TODO add the docstring of word's analog attribute.
+
+        Returns
+        -------
+        None
+        """
+
+        word_shared_phonemes = self._get_property_from_words(word_property="shared_phonemes")
+        self._results["shared_phonemes"] = word_shared_phonemes
