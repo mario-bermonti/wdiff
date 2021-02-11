@@ -36,7 +36,7 @@ class Analyzer(object):
         Returns
         -------
         word_objs : List of Words
-            List of word objects
+            Word objects
         """
 
         word_objs = [Word(text) for text in text_for_words]
@@ -54,7 +54,7 @@ class Analyzer(object):
         Returns
         -------
         word_properties : pandas.Series
-            Series containing the property of each words.
+            The property of all words.
         """
 
         word_objs = self._results["word_objs"]
@@ -75,7 +75,7 @@ class Analyzer(object):
         self._results["text"] = word_text
 
     def check_length_difficulty(self):
-        """Determine the difficulty associated with the length of the words.
+        """Determine the difficulty of each word associated with its length.
 
         # TODO add the docstring of word's analog attribute.
 
@@ -88,7 +88,7 @@ class Analyzer(object):
         self._results["length"] = word_lengths
 
     def check_silent_letter_difficulty(self):
-        """Determine each word's difficulty associated with silent letters.
+        """Determine the difficulty of each word associated with silent letters.
 
         # TODO add the docstring of word's analog attribute.
 
@@ -101,7 +101,7 @@ class Analyzer(object):
         self._results["silent_letters"] = word_silent_letters
 
     def check_shared_phonemes_difficulty(self):
-        """Determine each word's difficulty associated with shared phonemes.
+        """Determine the difficulty of each word associated with shared phonemes.
 
         # TODO add the docstring of word's analog attribute.
 
