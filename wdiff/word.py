@@ -7,14 +7,22 @@ class Word(object):
     The Word class is aware of its characteristics and knows how to determine
     them.
 
-    The word's features supported are:
+    The following word features are supported:
     - word length
     - silent letters
-    - graphemes that share phonemes with other graphemes (grapheme-to-phoneme correspondence)
+    - shared phonemes: graphemes that share phonemes with other graphemes
+      This is related to the grapheme-to-phoneme correspondence.
     - total difficulty
     """
 
     def __init__(self, text):
+        """
+        Parameters
+        ----------
+        text: str
+            Text to use for creating the Word object.
+        """
+
         text = self._normalize_text(text)
         self._validate_word(text)
         self._text = text
