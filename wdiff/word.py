@@ -141,14 +141,14 @@ class Word(object):
 
         Rules
         -----
-        - Silent letter *u*: letter *u* that is preceded by an *g* or *q* and
-        followed by a *i* or *e*. These follow the pattern *gui*, *gue*,
-        *que*, *qui*. 
+        - *u*: when preceded by an *g* or *q* and
+            followed by a *i* or *e*. These follow the pattern *gui*, *gue*,
+            *que*, *qui*. 
 
         Returns
         -------
         silent_u_count: int
-            Number of silent letters u in the word
+            Number of silent letters *u* in the word
         """
 
         silent_u_count = (
@@ -165,12 +165,12 @@ class Word(object):
 
         Rules
         -----
-        - Silent letter *h*: letter *h* that is not preceded by a letter *c*.
+        - *h*: when is not preceded by a letter *c*.
 
         Returns
         -------
         silent_h_count: int
-            Number of silent letters h in the word
+            Number of silent letters *h* in the word
         """
 
         h_count = self._text.count("h")
@@ -218,14 +218,14 @@ class Word(object):
 
         Rules
         -----
-        - Any letter *z*
-        - Any letter *s*
-        - Letter *c* that is followed by an *i* or *e*
+        - *z*: Any letter *z*
+        - *s*: Any letter *s*
+        - *c*: when followed by an *i* or *e*
 
         Returns
         -------
         shared_phoneme_s_count: int
-            Number of graphemes that share the /s/ phoneme in the word
+            Number of graphemes that represent the /s/ phoneme
         """
 
         z_count = self._text.count("z")
@@ -240,13 +240,13 @@ class Word(object):
 
         Rules
         -----
-        - Any letter *b*
-        - Any letter *v*
+        - *b*: Any letter *b*
+        - *v*: Any letter *v*
 
         Returns
         -------
         shared_phoneme_b_count: int
-            Number of graphemes that share the /b/ phoneme in the word
+            Number of graphemes that represent the /b/ phoneme.
         """
 
         b_count = self._text.count("b")
@@ -260,13 +260,13 @@ class Word(object):
 
         Rules
         -----
-        - Letter *l*: If it is next to another letter *l* (i.e., *ll*)
-        - Letter *y*: Any letter *y* that is not at the end of the word
+        - *l*: If it is next to another letter *l* (i.e., *ll*)
+        - *y*: Any letter *y* that is not at the end of the word
 
         Returns
         -------
         shared_phoneme_y_count: int
-            Number of graphemes that share the /y/ phoneme in the word
+            Number of graphemes that represent the /y/ phoneme.
         """
 
         ll_count = self._text.count("ll")
@@ -284,13 +284,13 @@ class Word(object):
 
         Rules
         -----
-        - Any letter *j*
-        - Letter *g*: when followed by an *e* or *i*
+        - *j*: Any letter *j*
+        - *g*: when followed by an *e* or *i*
 
         Returns
         -------
         shared_phoneme_j_count: int
-            Number of graphemes that share the /j/ phoneme in the word
+            Number of graphemes that represent the /j/ phoneme.
         """
 
         j_count = self._text.count("j")
@@ -304,14 +304,14 @@ class Word(object):
 
         Rules
         -----
-        - Any letter *k*
-        - Any letter *q*
-        - Letter *c*: when followed by an *a*, *o* or *u*
+        - *k*: Any letter *k*
+        - *q*: Any letter *q*
+        - *c*: when followed by an *a*, *o* or *u*
 
         Returns
         -------
         shared_phoneme_k_count: int
-            Number of graphemes that share the /k/ phoneme in the word
+            Number of graphemes that represent the /k/ phoneme.
         """
 
         k_count = self._text.count("k")
