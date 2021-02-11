@@ -162,7 +162,7 @@ class Analyzer(object):
 
         Parameters
         ----------
-        filename : str
+        filename : str, default="results"
             Filename. If a complete path is provided, it will be saved
             in the specific path. It must not include the file's extension.
 
