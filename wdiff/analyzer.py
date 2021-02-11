@@ -146,17 +146,6 @@ class Analyzer(object):
 
         return results_formatted
 
-    @property
-    def results(self):
-        """Return the results
-
-        Returns
-        -------
-        results : pandas.DataFrame
-        """
-
-        return self._format_results()
-
     def save_results(self, filename="results"):
         """Save the results to a CSV file.
 
@@ -175,4 +164,14 @@ class Analyzer(object):
         filename = f"{filename}.csv"
         results_formatted.to_csv(filename, index=False)
 
+    @property
+    def results(self):
+        """Return the results.
 
+        Returns
+        -------
+        results : pandas.DataFrame
+            Formatted results
+        """
+
+        return self._format_results()
