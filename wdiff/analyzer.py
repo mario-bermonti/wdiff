@@ -173,4 +173,18 @@ class Analyzer(object):
         filename = f"{filename}.csv"
         results_formatted.to_csv(filename, index=False)
 
+    def run_all_analyses(self):
+        """Run all analyses.
 
+        This is a convenient function to run all analyses and simplify
+        the process for the user.
+
+        Returns
+        -------
+        None
+        """
+
+        self.check_length_difficulty()
+        self.check_silent_letter_difficulty()
+        self.check_shared_phonemes_difficulty()
+        self.determine_total_difficulty()
