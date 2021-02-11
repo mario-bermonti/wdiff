@@ -87,13 +87,13 @@ class Word(object):
         Returns
         -------
         Bool 
-            True if the length is 0 False; False if it is different than 0
+            True if the length is 0 False; False if it is not 0
         """
 
         return len(text) == 0
 
     def _word_contains_invalid_character(self, text):
-        """Checks whether the text provided for the word contains invalid characters.
+        """Checks whether the word's text contains invalid characters.
 
         Parameters
         ----------
@@ -103,7 +103,7 @@ class Word(object):
         Returns
         -------
         Bool
-            True if the text is contains invalid characters; False otherwise
+            True if the text contains invalid characters; False otherwise
         """
 
         valid_characters = "aábcdeéfghiíjklmnñoópqrstuúüvwxyz "
@@ -114,7 +114,7 @@ class Word(object):
 
 
     def _check_silent_letters(self):
-        """Count the number of silent letters in the word.
+        """Count the number of silent letters.
 
         Silent letters are graphemes that do not have a phonemic representation.
         In Spanish, silent letters are *h*s and *u*s that meet certain criteria. 
@@ -137,7 +137,7 @@ class Word(object):
         return silent_letter_count
 
     def _check_silent_u(self):
-        """Count how many silent letters *u* there are in the word.
+        """Count the number of silent letters *u*.
 
         Rules
         -----
@@ -161,7 +161,7 @@ class Word(object):
         return silent_u_count
 
     def _check_silent_h(self):
-        """Count how many silent letters *h* there are in the word.
+        """Count the number of silent letters *h*.
 
         Rules
         -----
@@ -181,8 +181,7 @@ class Word(object):
         return silent_h_count
 
     def _check_shared_phonemes(self):
-        """Count how many graphemes that share phonemes with other graphemes
-        are in the word.
+        """Count the number of graphemes that share phonemes with other graphemes.
 
         Graphemes that share phonemes with other graphemes are 
         letters or combination of letters that represent the same sound
@@ -215,7 +214,7 @@ class Word(object):
         return shared_phoneme_count
 
     def _check_shared_phoneme_s(self):
-        """Count how many graphemes that share the /s/ phoneme are in the word.
+        """Count the number of graphemes that represent the /s/ phoneme.
 
         Rules
         -----
@@ -237,7 +236,7 @@ class Word(object):
         return shared_phoneme_s_count
 
     def _check_shared_phoneme_b(self):
-        """Count how many graphemes that share the /b/ phoneme are in the word.
+        """Count the number of graphemes that represent the /b/ phoneme.
 
         Rules
         -----
@@ -257,7 +256,7 @@ class Word(object):
         return shared_phoneme_b_count
 
     def _check_shared_phoneme_y(self):
-        """Count how many graphemes that share the /y/ phoneme are in the word.
+        """Count the number of graphemes that represent the /y/ phoneme.
 
         Rules
         -----
@@ -281,7 +280,7 @@ class Word(object):
         return shared_phoneme_y_count
 
     def _check_shared_phoneme_j(self):
-        """Count how many graphemes that share the /j/ phoneme are in the word.
+        """Count the number of graphemes that represent the /j/ phoneme.
 
         Rules
         -----
@@ -301,7 +300,7 @@ class Word(object):
         return shared_phoneme_j_count
 
     def _check_shared_phoneme_k(self):
-        """Count how many graphemes that share the /k/ phoneme are in the word.
+        """Count the number of graphemes that represent the /k/ phoneme.
 
         Rules
         -----
@@ -363,10 +362,14 @@ class Word(object):
 
     @property
     def text(self):
+        """Word's text."""
+
         return self._text
 
     @property
     def length(self):
+        """Number of letters in the word."""
+
         if self._length is None:
             self._length = len(self._text)
 
