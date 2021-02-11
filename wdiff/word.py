@@ -5,11 +5,11 @@ class Word(object):
     The Word class is aware of its characteristics and knows how to determine
     them.
 
-    The word features are:
+    The word's features supported are:
     - word length
-    - silent letters: u, h
+    - silent letters
     - graphemes that share phonemes with other graphemes (grapheme-to-phoneme correspondence)
-    - total difficulty: the sum of all other characteristics
+    - total difficulty
     """
 
     def __init__(self, text):
@@ -76,10 +76,8 @@ class Word(object):
 
         Returns
         -------
-        True
-            If the length is 0 
-        False
-            If the length is different than 0
+        Bool 
+            True if the length is 0 False; False if it is different than 0
         """
 
         return len(text) == 0
@@ -94,10 +92,8 @@ class Word(object):
 
         Returns
         -------
-        True
-            If the text is contains invalid characters
-        False
-            If the text does not contains invalid characters
+        Bool
+            True if the text is contains invalid characters; False otherwise
         """
 
         valid_characters = "aábcdeéfghiíjklmnñoópqrstuúüvwxyz "
@@ -108,7 +104,14 @@ class Word(object):
 
 
     def _check_silent_letters(self):
-        """Count how many silent letters there are in the word.
+        """Count the number of silent letters in the word.
+
+        Silent letters are graphemes that do not have a phonemic representation.
+        In Spanish, silent letters are *h*s and *u*s that meet certain criteria. 
+
+        Rules
+        -----
+        TODO Add reference to rules
 
         Returns
         -------
@@ -125,6 +128,12 @@ class Word(object):
 
     def _check_silent_u(self):
         """Count how many silent letters *u* there are in the word.
+
+        Rules
+        -----
+        - Silent letter *u*: letter *u* that is preceded by an *g* or *q* and
+        followed by a *i* or *e*. These follow the pattern *gui*, *gue*,
+        *que*, *qui*. 
 
         Returns
         -------
@@ -144,6 +153,10 @@ class Word(object):
     def _check_silent_h(self):
         """Count how many silent letters *h* there are in the word.
 
+        Rules
+        -----
+        - Silent letter *h*: letter *h* that is not preceded by a letter *c*.
+
         Returns
         -------
         silent_h_count: int
@@ -160,6 +173,14 @@ class Word(object):
     def _check_shared_phonemes(self):
         """Count how many graphemes that share phonemes with other graphemes
         are in the word.
+
+        Graphemes that share phonemes with other graphemes are 
+        letters or combination of letters that represent the same sound
+        as other letters or combination of letters.
+
+        Rules
+        -----
+        TODO Add reference to rules
 
         Returns
         -------
@@ -186,6 +207,12 @@ class Word(object):
     def _check_shared_phoneme_s(self):
         """Count how many graphemes that share the /s/ phoneme are in the word.
 
+        Rules
+        -----
+        - Any letter *z*
+        - Any letter *s*
+        - Letter *c* that is followed by an *i* or *e*
+
         Returns
         -------
         shared_phoneme_s_count: int
@@ -202,6 +229,11 @@ class Word(object):
     def _check_shared_phoneme_b(self):
         """Count how many graphemes that share the /b/ phoneme are in the word.
 
+        Rules
+        -----
+        - Any letter *b*
+        - Any letter *v*
+
         Returns
         -------
         shared_phoneme_b_count: int
@@ -217,6 +249,11 @@ class Word(object):
     def _check_shared_phoneme_y(self):
         """Count how many graphemes that share the /y/ phoneme are in the word.
 
+        Rules
+        -----
+        - Letter *l*: If it is next to another letter *l* (i.e., *ll*)
+        - Letter *y*: Any letter *y* that is not at the end of the word
+
         Returns
         -------
         shared_phoneme_y_count: int
@@ -225,7 +262,7 @@ class Word(object):
 
         ll_count = self._text.count("ll")
 
-        y_count = self._text.count("y")
+        y_count = self._text.count("y")  # TODO improve algorithm
         if self._text[-1] == "y":
             y_count -= 1
 
@@ -235,6 +272,11 @@ class Word(object):
 
     def _check_shared_phoneme_j(self):
         """Count how many graphemes that share the /j/ phoneme are in the word.
+
+        Rules
+        -----
+        - Any letter *j*
+        - Letter *g*: when followed by an *e* or *i*
 
         Returns
         -------
@@ -250,6 +292,12 @@ class Word(object):
 
     def _check_shared_phoneme_k(self):
         """Count how many graphemes that share the /k/ phoneme are in the word.
+
+        Rules
+        -----
+        - Any letter *k*
+        - Any letter *q*
+        - Letter *c*: when followed by an *a*, *o* or *u*
 
         Returns
         -------
@@ -271,8 +319,12 @@ class Word(object):
     def _calculate_total_difficulty(self):
         """Calculate the total difficulty for the word.
 
-        Only the characteristics that have a value that is a str (not None) are
-        used.
+        This is the sum of all other characteristics. It is taken to indicate
+        how difficult is to spell a word. This information can be particularly
+        useful if this *difficulty index* is compared to the index of
+        other words.
+
+        Only the characteristics that have a value valid int value are used.
 
         Returns
         -------
@@ -282,7 +334,7 @@ class Word(object):
         Raises
         ------
         ValueError
-            If none of the analyses has been run.
+            If none of the analyses has been run (are None).
         """
 
         characteristics = [self._length, self._silent_letters, self._shared_phonemes]
