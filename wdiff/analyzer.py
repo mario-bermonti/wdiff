@@ -6,14 +6,14 @@ from .word import Word
 
 
 class Analyzer(object):
-    """This class provides the API.
+    """This class exposes wdiff's API.
+    
     It provides methods for creating word objects, running analyses, storing
-    results, and saving them to disk.
+    results, and saving results to a file.
     """
 
     def __init__(self, words):
-        """It requires an iterable of words to be analyzed.
-
+        """
         Parameters
         ----------
         words : iterable, list-like object
