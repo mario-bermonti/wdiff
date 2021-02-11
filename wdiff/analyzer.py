@@ -1,3 +1,5 @@
+"""Module that defines the api."""
+
 import pandas as pd
 
 from .word import Word

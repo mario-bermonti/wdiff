@@ -1,3 +1,5 @@
+"""Module that defines the Word class."""
+
 class Word(object):
     """Base class for all analyses. It conceptualizes words as objects with
     features, where each feature corresponds to a characteristic of the word.
