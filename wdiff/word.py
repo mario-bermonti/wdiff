@@ -328,12 +328,12 @@ class Word(object):
     def _calculate_total_difficulty(self):
         """Calculate the total difficulty for the word.
 
-        This is the sum of all other characteristics. It is taken to indicate
-        how difficult is to spell a word. This information can be particularly
+        This is the sum of all other characteristics. It is interpreted as
+        how difficult is to spell the word. This information can be particularly
         useful if this *difficulty index* is compared to the index of
         other words.
 
-        Only the characteristics that have a value valid int value are used.
+        Only the characteristics that have a valid value (int) are used.
 
         Returns
         -------
