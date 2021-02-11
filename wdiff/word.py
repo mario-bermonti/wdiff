@@ -63,8 +63,7 @@ class Word(object):
             self._word_length_is_invalid(text)
             or self._word_contains_invalid_character(text)
         ):
-            print("ValueError: text", f"text", "is invalid for creating word")
-            raise ValueError
+            raise ValueError(f"\'{text}\' is invalid for creating word")
 
 
     def _word_length_is_invalid(self, text):
