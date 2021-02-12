@@ -141,9 +141,8 @@ class Word(object):
 
         Rules
         -----
-        - *u*: when preceded by an *g* or *q* and
-            followed by a *i* or *e*. These follow the pattern *gui*, *gue*,
-            *que*, *qui*. 
+        *u*: when preceded by an *g* or *q* and followed by a *i* or *e*.
+             These follow the pattern *gui*, *gue*, *que*, *qui*. 
 
         Returns
         -------
@@ -165,7 +164,7 @@ class Word(object):
 
         Rules
         -----
-        - *h*: when is not preceded by a letter *c*.
+        *h*: when is not preceded by a letter *c*.
 
         Returns
         -------
@@ -218,9 +217,9 @@ class Word(object):
 
         Rules
         -----
-        - *z*: Any letter *z*
-        - *s*: Any letter *s*
-        - *c*: when followed by an *i* or *e*
+        *z*: Any letter *z*
+        *s*: Any letter *s*
+        *c*: when followed by an *i* or *e*
 
         Returns
         -------
@@ -240,8 +239,8 @@ class Word(object):
 
         Rules
         -----
-        - *b*: Any letter *b*
-        - *v*: Any letter *v*
+        *b*: Any letter *b*
+        *v*: Any letter *v*
 
         Returns
         -------
@@ -260,8 +259,8 @@ class Word(object):
 
         Rules
         -----
-        - *l*: If it is next to another letter *l* (i.e., *ll*)
-        - *y*: Any letter *y* that is not at the end of the word
+        *l*: If it is next to another letter *l* (i.e., *ll*)
+        *y*: Any letter *y* that is not at the end of the word
 
         Returns
         -------
@@ -284,8 +283,8 @@ class Word(object):
 
         Rules
         -----
-        - *j*: Any letter *j*
-        - *g*: when followed by an *e* or *i*
+        *j*: Any letter *j*
+        *g*: when followed by an *e* or *i*
 
         Returns
         -------
@@ -304,9 +303,9 @@ class Word(object):
 
         Rules
         -----
-        - *k*: Any letter *k*
-        - *q*: Any letter *q*
-        - *c*: when followed by an *a*, *o* or *u*
+        *k*: Any letter *k*
+        *q*: Any letter *q*
+        *c*: when followed by an *a*, *o* or *u*
 
         Returns
         -------
