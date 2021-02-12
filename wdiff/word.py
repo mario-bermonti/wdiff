@@ -1,5 +1,16 @@
 """Module that defines the Word class."""
 
+from docrep import DocstringProcessor
+
+DocstringProcessor.param_like_sections = [
+    "Rules",
+    "Parameters",
+    "Other Parameters",
+    "Returns",
+    "Raises"
+]
+docstrings = DocstringProcessor()
+
 class Word(object):
     """Base class for all analyses. It conceptualizes words as objects with
     features, where each feature corresponds to a characteristic of the word.
@@ -30,6 +41,7 @@ class Word(object):
         self._silent_letters = None
         self._shared_phonemes = None
         self._total_difficulty = None
+        
 
     def _normalize_text(self, text):
         """Normalize text so it is properly formatted.
@@ -112,34 +124,11 @@ class Word(object):
                 return True
         return False
 
-
-    def _check_silent_letters(self):
-        """Count the number of silent letters.
-
-        Silent letters are graphemes that do not have a phonemic representation.
-        In Spanish, silent letters are *h*s and *u*s that meet certain criteria. 
-
-        Rules
-        -----
-        TODO Add reference to rules
-
-        Returns
-        -------
-        silent_letter_count : int
-            Number of silent letters.
-        """
-
-        silent_u_count = self._check_silent_u()
-        silent_h_count = self._check_silent_h()
-
-        silent_letter_count = silent_u_count + silent_h_count
-
-        return silent_letter_count
-
+    @docstrings.get_sections(base="silent_u", sections=["Rules"])
     def _check_silent_u(self):
         """Count the number of silent letters *u*.
 
-        Rules
+        Rules 
         -----
         *u*: when preceded by an *g* or *q* and followed by a *i* or *e*.
              These follow the pattern *gui*, *gue*, *que*, *qui*. 
@@ -159,6 +148,7 @@ class Word(object):
 
         return silent_u_count
 
+    @docstrings.get_sections(base="silent_h", sections=["Rules"])
     def _check_silent_h(self):
         """Count the number of silent letters *h*.
 
@@ -179,39 +169,37 @@ class Word(object):
 
         return silent_h_count
 
-    def _check_shared_phonemes(self):
-        """Count the number of graphemes that share phonemes with other graphemes.
+    @docstrings.get_sections(
+        base="silent_letters",
+        sections=["Rules", "Returns"]
+    )
+    @docstrings.get_extended_summary(base="silent_letters")
+    @docstrings.with_indent(8)
+    def _check_silent_letters(self):
+        """Count the number of silent letters.
 
-        Graphemes that share phonemes with other graphemes are 
-        letters or combination of letters that represent the same sound
-        as other letters or combination of letters.
+        Silent letters are graphemes that do not have a phonemic representation.
+        In Spanish, silent letters are *h*s and *u*s that meet certain criteria. 
 
         Rules
         -----
-        TODO Add reference to rules
+        %(silent_u.rules)s
+        %(silent_h.rules)s
 
         Returns
         -------
-        shared_phoneme_count : int
-            Number of shared phonemes.
+        silent_letter_count : int
+            Number of silent letters.
         """
 
-        shared_phoneme_s_count = self._check_shared_phoneme_s()
-        shared_phoneme_j_count = self._check_shared_phoneme_j()
-        shared_phoneme_k_count = self._check_shared_phoneme_k()
-        shared_phoneme_y_count = self._check_shared_phoneme_y()
-        shared_phoneme_b_count = self._check_shared_phoneme_b()
+        silent_u_count = self._check_silent_u()
+        silent_h_count = self._check_silent_h()
 
-        shared_phoneme_count = (
-            shared_phoneme_s_count
-            + shared_phoneme_j_count
-            + shared_phoneme_k_count
-            + shared_phoneme_y_count
-            + shared_phoneme_b_count
-        )
+        silent_letter_count = silent_u_count + silent_h_count
 
-        return shared_phoneme_count
+        return silent_letter_count
 
+    @docstrings.get_sections(base="shared_s", sections=["Rules"])
     def _check_shared_phoneme_s(self):
         """Count the number of graphemes that represent the /s/ phoneme.
 
@@ -234,6 +222,7 @@ class Word(object):
 
         return shared_phoneme_s_count
 
+    @docstrings.get_sections(base="shared_b", sections=["Rules"])
     def _check_shared_phoneme_b(self):
         """Count the number of graphemes that represent the /b/ phoneme.
 
@@ -254,6 +243,7 @@ class Word(object):
 
         return shared_phoneme_b_count
 
+    @docstrings.get_sections(base="shared_y", sections=["Rules"])
     def _check_shared_phoneme_y(self):
         """Count the number of graphemes that represent the /y/ phoneme.
 
@@ -278,6 +268,7 @@ class Word(object):
 
         return shared_phoneme_y_count
 
+    @docstrings.get_sections(base="shared_j", sections=["Rules"])
     def _check_shared_phoneme_j(self):
         """Count the number of graphemes that represent the /j/ phoneme.
 
@@ -298,6 +289,7 @@ class Word(object):
 
         return shared_phoneme_j_count
 
+    @docstrings.get_sections(base="shared_k", sections=["Rules"])
     def _check_shared_phoneme_k(self):
         """Count the number of graphemes that represent the /k/ phoneme.
 
@@ -324,6 +316,54 @@ class Word(object):
 
         return shared_phoneme_k_count
 
+    @docstrings.get_sections(
+        base="shared_phonemes",
+        sections=["Rules", "Returns"]
+    )
+    @docstrings.get_extended_summary(base="shared_phonemes")
+    @docstrings.with_indent(8)
+    def _check_shared_phonemes(self):
+        """Count the number of graphemes that share phonemes with other graphemes.
+
+        Graphemes that share phonemes with other graphemes are 
+        letters or combination of letters that represent the same sound
+        as other letters or combination of letters.
+
+        Rules
+        -----
+        %(shared_s.rules)s
+        %(shared_b.rules)s
+        %(shared_y.rules)s
+        %(shared_j.rules)s
+        %(shared_k.rules)s
+
+        Returns
+        -------
+        shared_phoneme_count : int
+            Number of shared phonemes.
+        """
+
+        shared_phoneme_s_count = self._check_shared_phoneme_s()
+        shared_phoneme_j_count = self._check_shared_phoneme_j()
+        shared_phoneme_k_count = self._check_shared_phoneme_k()
+        shared_phoneme_y_count = self._check_shared_phoneme_y()
+        shared_phoneme_b_count = self._check_shared_phoneme_b()
+
+        shared_phoneme_count = (
+            shared_phoneme_s_count
+            + shared_phoneme_j_count
+            + shared_phoneme_k_count
+            + shared_phoneme_y_count
+            + shared_phoneme_b_count
+        )
+
+        return shared_phoneme_count
+
+    @docstrings.get_sections(
+        base="total_difficulty",
+        sections=["Returns", "Raises"]
+    )
+    @docstrings.get_extended_summary(base="total_difficulty")
     def _calculate_total_difficulty(self):
         """Calculate the total difficulty for the word.
 
@@ -374,22 +414,64 @@ class Word(object):
 
         return self._length
 
-    @property
+    @property                   
+    @docstrings.with_indent(8)
     def silent_letters(self):
+        """Returns the number of silent letters in the word.
+
+        %(silent_letters.summary_ext)s
+
+        Rules
+        -----
+        %(silent_letters.rules)s
+
+        Returns
+        -----
+        %(silent_letters.returns)s
+        """
+
         if self._silent_letters is None:
             self._silent_letters = self._check_silent_letters()
 
         return self._silent_letters
 
     @property
+    @docstrings.with_indent(8)
     def shared_phonemes(self):
+        """Returns the number of shared phonemes in the word.
+
+        %(shared_phonemes.summary_ext)s
+
+        Rules
+        -----
+        %(shared_phonemes.rules)s
+
+        Returns
+        -----
+        %(shared_phonemes.returns)s
+        """
+
         if self._shared_phonemes is None:
             self._shared_phonemes = self._check_shared_phonemes()
 
         return self._shared_phonemes
 
+    @docstrings.with_indent(8)
     @property
     def total_difficulty(self):
+        """Returns the word's total difficulty.
+
+        %(total_difficulty.summary_ext)s
+
+        Returns
+        -----
+        %(total_difficulty.returns)s
+        
+        Raises
+        -----
+        %(total_difficulty.raises)s
+        """
+
         if self._total_difficulty is None:
             self._total_difficulty = self._calculate_total_difficulty()
 
