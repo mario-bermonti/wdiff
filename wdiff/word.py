@@ -1,15 +1,7 @@
 """Module that defines the Word class."""
 
-from docrep import DocstringProcessor
+from .docsprocessor import docstrings, _COMMON_SECTIONS
 
-DocstringProcessor.param_like_sections = [
-    "Rules",
-    "Parameters",
-    "Other Parameters",
-    "Returns",
-    "Raises"
-]
-docstrings = DocstringProcessor()
 
 class Word(object):
     """Base class for all analyses. It conceptualizes words as objects with
@@ -124,11 +116,11 @@ class Word(object):
                 return True
         return False
 
-    @docstrings.get_sections(base="silent_u", sections=["Rules"])
+    @docstrings.get_sections(base="silent_u", sections=_COMMON_SECTIONS)
     def _check_silent_u(self):
         """Count the number of silent letters *u*.
 
-        Rules 
+        Rules
         -----
         *u*: when preceded by an *g* or *q* and followed by a *i* or *e*.
              These follow the pattern *gui*, *gue*, *que*, *qui*. 
@@ -148,7 +140,7 @@ class Word(object):
 
         return silent_u_count
 
-    @docstrings.get_sections(base="silent_h", sections=["Rules"])
+    @docstrings.get_sections(base="silent_h", sections=_COMMON_SECTIONS)
     def _check_silent_h(self):
         """Count the number of silent letters *h*.
 
@@ -199,7 +191,7 @@ class Word(object):
 
         return silent_letter_count
 
-    @docstrings.get_sections(base="shared_s", sections=["Rules"])
+    @docstrings.get_sections(base="shared_s", sections=_COMMON_SECTIONS)
     def _check_shared_phoneme_s(self):
         """Count the number of graphemes that represent the /s/ phoneme.
 
@@ -222,7 +214,7 @@ class Word(object):
 
         return shared_phoneme_s_count
 
-    @docstrings.get_sections(base="shared_b", sections=["Rules"])
+    @docstrings.get_sections(base="shared_b", sections=_COMMON_SECTIONS)
     def _check_shared_phoneme_b(self):
         """Count the number of graphemes that represent the /b/ phoneme.
 
@@ -243,7 +235,7 @@ class Word(object):
 
         return shared_phoneme_b_count
 
-    @docstrings.get_sections(base="shared_y", sections=["Rules"])
+    @docstrings.get_sections(base="shared_y", sections=_COMMON_SECTIONS)
     def _check_shared_phoneme_y(self):
         """Count the number of graphemes that represent the /y/ phoneme.
 
@@ -268,7 +260,7 @@ class Word(object):
 
         return shared_phoneme_y_count
 
-    @docstrings.get_sections(base="shared_j", sections=["Rules"])
+    @docstrings.get_sections(base="shared_j", sections=_COMMON_SECTIONS)
     def _check_shared_phoneme_j(self):
         """Count the number of graphemes that represent the /j/ phoneme.
 
@@ -289,7 +281,7 @@ class Word(object):
 
         return shared_phoneme_j_count
 
-    @docstrings.get_sections(base="shared_k", sections=["Rules"])
+    @docstrings.get_sections(base="shared_k", sections=_COMMON_SECTIONS)
     def _check_shared_phoneme_k(self):
         """Count the number of graphemes that represent the /k/ phoneme.
 
@@ -447,7 +439,7 @@ class Word(object):
         %(shared_phonemes.rules)s
 
         Returns
-        -----
+        -------
         %(shared_phonemes.returns)s
         """
 
@@ -456,19 +448,19 @@ class Word(object):
 
         return self._shared_phonemes
 
-    @docstrings.with_indent(8)
     @property
+    @docstrings.with_indent(8)
     def total_difficulty(self):
         """Returns the word's total difficulty.
 
         %(total_difficulty.summary_ext)s
 
         Returns
-        -----
+        -------
         %(total_difficulty.returns)s
         
         Raises
-        -----
+        ------
         %(total_difficulty.raises)s
         """
 
