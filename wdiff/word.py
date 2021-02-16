@@ -419,7 +419,7 @@ class Word(object):
 
         return self._length
 
-    @property                   
+    @property
     @docstrings.with_indent(8)
     def silent_letters(self):
         """Returns the number of silent letters in the word.
