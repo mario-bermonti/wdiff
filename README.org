@@ -1,48 +1,45 @@
-* General functions                                                :noexport:
-#+begin_src ipython :exports none :session   :results drawer output
-  from stats import formatting
-  formatting.add_org_formatter_ipython()
-#+end_src
+* wdiff
 
-#+RESULTS:
-:results:
-:end:
+wdiff helps analyze how difficult it is to spell Spanish words. The objetive
+with wdiff is to improve research on spelling skill and may also be useful
+for games that require user's to spell /Spanish words/.
 
-* Word Analysis
+wdiff was design to be easy to use and as flexible as possible
+to facilitate conducting research on spelling skills.
 
-This modules has a set of functions to analyze Spanish words and determine
-their difficulty level based on the following dimensions:
-1) Word length
-2) Number of silent letters
-3) Number of different letters with the same sound: e.g., /s/ and /z/ 
-4) Number of anagrams: words that can be made with its letters
+wdiff determines the difficulty of words based on the following dimensions:
+1) Word length - how many letters it has
+2) Number of silent letters - letters that don't have a phonemic
+   representation (e.g., /h/)
+3) Number of graphemes that share their phoneme with other
+   graphemes (e.g., /s/ and /z/)
+
+The more of these characteristics a word has, the more difficulty it is
+believed that it will be to spell.
 
 * Getting Started
-** Prerequisites
-You will need to install the pandas package to be able to use this
-module. To install it use =pip install pandas=.
 ** Installing
-=pip install wdiff=
+=python -m pip install wdiff=
 
 ** Usage
-#+begin_src ipython :exports code :session :results drawer output
-  import wdiff.wdiff as wdiff
-  words = ['perro', 'gato', 'serpiente']
-  wanalyzer = wdiff.WordAnalyzer()
-  wanalyzer.set_words(words)
-  wanalyzer.determine_length_difficulty(difficultyWeight=1)
-  wanalyzer.determine_silent_letter_difficulty(difficultyWeight=1)
-  wanalyzer.determine_same_sound_letter_difficulty(difficultyWeight=1)
-  wanalyzer.determine_anagrams_difficulty(difficultyWeight=1)
-  wanalyzer.determine_total_difficulty_index()
-  wanalyzer.save_results()
+   The most basic usage requires you to pass an iterable of words (e.g., list),
+   run all possible analyses, and save the results to a file named =results.csv=.
+   
+#+begin_src python :exports code :session 
+  from wdiff.analyzer import Analyzer
+
+  words = ['guitarra', 'jinete', 'serpiente']
+  analyzer = Analyzer(words) # create analyzer
+  analyzer.run_all_analyses()
+  print(analyzer.results) # see results
+  analyzer.save_results()
 #+end_src
 
-#+RESULTS:
-:results:
-:end:
+You can further customize which analyses to run, extract the results
+as a =pandas.DataFrame=, and choose the name of the results file. 
 
-Results will be saved in the current directory as a CSV file.
+*Better documentation is coming very soon!*
+
 * Contributing to this project
   If you encounter any bugs, please open an issue on github. To contribute to
 this project, clone the repository and submit a pull request. If you wish to
@@ -50,8 +47,12 @@ become an active maintainer of the project, you can contact me
 at mbermonti1132@gmail.com
 
   All contributions are welcome!
+
 * Author
-  Mario E. Bermonti-Perez. Feel free to contact me at mbermonti1132@gmail.com.
+  This project was developed by Mario E. Bermonti-Pérez as part of
+  his academic research. Feel free to contact me at [[mailto:mbermonti@psm.edu][mbermonti@psm.edu]] or
+  [[mailto:mbermonti1132@gmail.com][mbermonti1132@gmail.com]]
+
 * License
 This project is licensed under the GPL License. See the LICENSE.txt file for
 details.
