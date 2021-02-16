@@ -2,6 +2,19 @@
 
 from .docsprocessor import docstrings, _COMMON_SECTIONS
 
+###########################################################################
+# Note                                                                    #
+###########################################################################
+# The order of the methods is important for the docstrings to be build    #
+# correctly. This is because docrep reads and builds docstrings as they   #
+# are evaluated by python and the docstrings from which the text is       #
+# taken have to be evaluated before they can be used in other strings.    #
+#                                                                         #
+# There is an alternative, but it is too messy.                           #
+#                                                                         #
+# The same applies to methods that are properties. The docstrings have to #
+# build before the method can be converted into properties.               #
+###########################################################################
 
 class Word(object):
     """Base class for all analyses. It conceptualizes words as objects with
