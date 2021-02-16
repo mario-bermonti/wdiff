@@ -1,17 +1,20 @@
+"""Module that defines the api."""
+
 import pandas as pd
 
 from .word import Word
+from .docsprocessor import docstrings, _COMMON_SECTIONS
 
 
 class Analyzer(object):
-    """This class provides the API.
+    """This class exposes wdiff's API.
+    
     It provides methods for creating word objects, running analyses, storing
-    results, and saving them to disk.
+    results, and saving results to a file.
     """
 
     def __init__(self, words):
-        """It requires an iterable of words to be analyzed.
-
+        """
         Parameters
         ----------
         words : iterable, list-like object
@@ -34,7 +37,7 @@ class Analyzer(object):
         Returns
         -------
         word_objs : List of Words
-            List of word objects
+            Word objects
         """
 
         word_objs = [Word(text) for text in text_for_words]
@@ -52,7 +55,7 @@ class Analyzer(object):
         Returns
         -------
         word_properties : pandas.Series
-            Series containing the property of each words.
+            The property of all words.
         """
 
         word_objs = self._results["word_objs"]
@@ -73,9 +76,9 @@ class Analyzer(object):
         self._results["text"] = word_text
 
     def check_length_difficulty(self):
-        """Determine the difficulty associated with the length of the words.
+        """Determine the difficulty of each word associated with its length.
 
-        # TODO add the docstring of word's analog attribute.
+        The length is determined based on the number of letters in the words.
 
         Returns
         -------
@@ -85,10 +88,15 @@ class Analyzer(object):
         word_lengths = self._get_property_from_words(word_property="length")
         self._results["length"] = word_lengths
 
+    @docstrings.with_indent(8)
     def check_silent_letter_difficulty(self):
-        """Determine each word's difficulty associated with silent letters.
+        """Determine the difficulty of each word associated with silent letters.
 
-        # TODO add the docstring of word's analog attribute.
+        %(silent_letters.summary_ext)s
+
+        Rules
+        -----
+        %(silent_letters.rules)s
 
         Returns
         -------
@@ -98,10 +106,15 @@ class Analyzer(object):
         word_silent_letters = self._get_property_from_words(word_property="silent_letters")
         self._results["silent_letters"] = word_silent_letters
 
+    @docstrings.with_indent(8)
     def check_shared_phonemes_difficulty(self):
-        """Determine each word's difficulty associated with shared phonemes.
+        """Determine the difficulty of each word associated with shared phonemes.
 
-        # TODO add the docstring of word's analog attribute.
+        %(shared_phonemes.summary_ext)s
+
+        Rules
+        -----
+        %(shared_phonemes.rules)s
 
         Returns
         -------
@@ -111,10 +124,15 @@ class Analyzer(object):
         word_shared_phonemes = self._get_property_from_words(word_property="shared_phonemes")
         self._results["shared_phonemes"] = word_shared_phonemes
 
+    @docstrings.with_indent(8)
     def determine_total_difficulty(self):
         """Determine each word's total difficulty.
 
-        # TODO add the docstring of word's analog attribute.
+        %(total_difficulty.summary_ext)s
+
+        Raises
+        ------
+        %(total_difficulty.raises)s
 
         Returns
         -------
@@ -144,23 +162,12 @@ class Analyzer(object):
 
         return results_formatted
 
-    @property
-    def results(self):
-        """Return the results
-
-        Returns
-        -------
-        results : pandas.DataFrame
-        """
-
-        return self._format_results()
-
     def save_results(self, filename="results"):
         """Save the results to a CSV file.
 
         Parameters
         ----------
-        filename : str
+        filename : str, default="results"
             Filename. If a complete path is provided, it will be saved
             in the specific path. It must not include the file's extension.
 
@@ -188,3 +195,15 @@ class Analyzer(object):
         self.check_silent_letter_difficulty()
         self.check_shared_phonemes_difficulty()
         self.determine_total_difficulty()
+
+    @property
+    def results(self):
+        """Return the results.
+
+        Returns
+        -------
+        results : pandas.DataFrame
+            Formatted results
+        """
+
+        return self._format_results()
