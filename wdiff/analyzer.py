@@ -3,6 +3,7 @@
 import pandas as pd
 
 from .word import Word
+from .docsprocessor import docstrings, _COMMON_SECTIONS
 
 
 class Analyzer(object):
@@ -77,7 +78,7 @@ class Analyzer(object):
     def check_length_difficulty(self):
         """Determine the difficulty of each word associated with its length.
 
-        # TODO add the docstring of word's analog attribute.
+        The length is determined based on the number of letters in the words.
 
         Returns
         -------
@@ -87,10 +88,15 @@ class Analyzer(object):
         word_lengths = self._get_property_from_words(word_property="length")
         self._results["length"] = word_lengths
 
+    @docstrings.with_indent(8)
     def check_silent_letter_difficulty(self):
         """Determine the difficulty of each word associated with silent letters.
 
-        # TODO add the docstring of word's analog attribute.
+        %(silent_letters.summary_ext)s
+
+        Rules
+        -----
+        %(silent_letters.rules)s
 
         Returns
         -------
@@ -100,10 +106,15 @@ class Analyzer(object):
         word_silent_letters = self._get_property_from_words(word_property="silent_letters")
         self._results["silent_letters"] = word_silent_letters
 
+    @docstrings.with_indent(8)
     def check_shared_phonemes_difficulty(self):
         """Determine the difficulty of each word associated with shared phonemes.
 
-        # TODO add the docstring of word's analog attribute.
+        %(shared_phonemes.summary_ext)s
+
+        Rules
+        -----
+        %(shared_phonemes.rules)s
 
         Returns
         -------
@@ -113,10 +124,15 @@ class Analyzer(object):
         word_shared_phonemes = self._get_property_from_words(word_property="shared_phonemes")
         self._results["shared_phonemes"] = word_shared_phonemes
 
+    @docstrings.with_indent(8)
     def determine_total_difficulty(self):
         """Determine each word's total difficulty.
 
-        # TODO add the docstring of word's analog attribute.
+        %(total_difficulty.summary_ext)s
+
+        Raises
+        ------
+        %(total_difficulty.raises)s
 
         Returns
         -------
