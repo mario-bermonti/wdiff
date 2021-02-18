@@ -1,3 +1,5 @@
+#+TOC: nil
+
 * wdiff
 
 wdiff helps analyze how difficult it is to spell Spanish words. The objetive

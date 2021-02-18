@@ -1,11 +1,3 @@
-- [wdiff](#sec-)
-- [Getting Started](#sec-)
-  - [Installing](#sec-)
-  - [Usage](#sec-)
-- [Contributing to this project](#sec-)
-- [Author](#sec-)
-- [License](#sec-)
-
 # wdiff<a id="sec-"></a>
 
 wdiff helps analyze how difficult it is to spell Spanish words. The objetive with wdiff is to improve research on spelling skill and may also be useful for games that require user's to spell Spanish words.
