@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="wdiff",
-    version="0.0.7",
+    version="0.0.8",
     author="Mario E. Bermonti Perez",
     author_email="mbermonti1132@gmail.com",
     description="Package for analyzing word difficulty in Spanish",
