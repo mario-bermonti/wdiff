@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wdiff"
-version = "0.0.7"
+version = "0.0.9"
 description = "Analyze how difficult a Spanish word will be to spell"
 authors = ["Mario E. Bermonti Pérez <mbermonti1132@gmail.com>"]
 license = "GPL"
@@ -8,9 +8,9 @@ license = "GPL"
 [tool.poetry.dependencies]
 python = "^3.6"
 pandas = "^0.25"
+docrep = "^0.3.1"
 
 [tool.poetry.dev-dependencies]
-docrep = "^0.3.1"
 pytest = "^6.2.2"
 
 [build-system]
