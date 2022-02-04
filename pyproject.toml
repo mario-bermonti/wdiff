@@ -1,18 +1,137 @@
+
 [tool.poetry]
 name = "wdiff"
 version = "0.0.9"
 description = "Analyze how difficult a Spanish word will be to spell"
 authors = ["Mario E. Bermonti Pérez <mbermonti1132@gmail.com>"]
-license = "GPL"
+
+
+readme = "README.md"
+homepage = "https://github.com/mario-bermonti/wdiff"
+repository = "https://github.com/mario-bermonti/wdiff"
+documentation = "https://wdiff.readthedocs.io"
+keywords = ["wdiff"]
+classifiers=[
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/mario-bermonti/wdiff/issues"
+
+
+
+[tool.poetry.scripts]
+wdiff = 'wdiff.cli:main'
+
 
 [tool.poetry.dependencies]
 python = "^3.8.0"
 pandas = "^1.4.0"
 docrep = "^0.3.1"
+click = "^7.1.2"
+
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.2"
+# testing
+pytest = "^6.2.4"
+pytest-cov = "^2.10.1"
+xdoctest = "^0.15.4"
+coverage = {version = "^5.3", extras = ["toml"]}
+
+# linting
+flake8 = "^3.8.4"
+flakehell = "^0.9.0"
+flake8-builtins = "^1.5.3"
+flake8-blind-except = "^0.2.0"
+flake8-logging-format = "^0.6.0"
+flake8-bugbear = "^21.3.2"
+flake8-annotations = "^2.6.1"
+flake8-docstrings = "^1.6.0"
+flake8-bandit = "^2.1.2"
+darglint = "^1.7.0"
+safety = "^1.10.3"
+mypy = "^0.812"
+
+# docs
+sphinx = "^3.5.2"
+sphinx-rtd-theme = "^0.5.2"
+autodocsumm = "^0.2.4"
+recommonmark = "^0.7.1"
+
+# formatting
+isort = "^5.7.0"
+black = "^21.10b0"
+
+# multi-purpose or other
+pre-commit = "^2.11.1"
+invoke = "^1.5.0"
+bump2version = "^1.0.1"
+watchdog = {version = "^2.0.2", extras = ["watchmedo"]}
+sphinx-markdown-tables = "^0.0.15"
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
+[tool.coverage.run]
+branch = true
+source = ["wdiff"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if self.debug",
+  "if settings.DEBUG:",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if 0:",
+  "if __name__ == __main__:"
+]
+show_missing = true
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.flakehell]
+format = "grouped"
+max_line_length = 88
+show_source = true
+docstring-convention = "numpy"
+extended_default_ignore = []  # added to temporarily fix flakehell issue
+
+[tool.flakehell.plugins]
+pyflakes = ["+*"]
+pycodestyle = ["+*"]
+mccabe = ["+*"]
+"flake8-*" = ["+*"]
+darglint = ["+*"]
+
+[tool.flakehell.exceptions."tests/"]
+flake8-bandit = ["-S101"]
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+known_third_party = ["invoke", "nox"]
+
+[tool.black]
+line-length = 88
+target-version = ["py36"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

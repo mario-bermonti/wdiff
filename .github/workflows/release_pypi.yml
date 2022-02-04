@@ -1,0 +1,45 @@
+
+name: release pypy
+on:
+  release:
+    types: [published]
+
+jobs:
+  release_pypy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v2.2.1
+        with:
+          python-version: 3.6
+
+      - name: Install system deps
+        shell: bash
+        run: |
+          pip install poetry
+          poetry config virtualenvs.in-project true
+          pip install nox
+
+      - name: Run tests
+        shell: bash
+        run: nox --force-color -s tests
+
+      - name: Build package
+        run: |
+          poetry build --ansi
+
+      - name: Publish package on PyPI
+        uses: pypa/gh-action-pypi-publish@v1.4.1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
+
+      - name: Publish package on TestPyPI
+        uses: pypa/gh-action-pypi-publish@v1.4.1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+

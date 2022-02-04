@@ -1,0 +1,8 @@
+# Configuration: https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository
+
+blank_issues_enabled: false
+
+
+# Credits
+# From Tez RomancH's Github
+# https://github.com/TezRomacH/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.github/ISSUE_TEMPLATE/config.yml
