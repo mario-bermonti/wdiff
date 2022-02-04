@@ -69,7 +69,7 @@ implement it.
 Ready to contribute? Here\'s how to set up
 wdiff in your local development environment.
 
-You will need [Python 3.6+][download_python] installed.
+You will need [Python 3.8+][download_python] installed.
 
 1.  Fork the [wdiff repo][wdiff_gh] on GitHub.
 2.  Clone your fork locally:
