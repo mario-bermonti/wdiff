@@ -6,8 +6,8 @@ authors = ["Mario E. Bermonti Pérez <mbermonti1132@gmail.com>"]
 license = "GPL"
 
 [tool.poetry.dependencies]
-python = "^3.6"
-pandas = "^0.25"
+python = "^3.8.0"
+pandas = "^1.4.0"
 docrep = "^0.3.1"
 
 [tool.poetry.dev-dependencies]
