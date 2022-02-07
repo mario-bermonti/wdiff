@@ -15,13 +15,13 @@ def test_create_word_objects(text):
 
 
 @pytest.mark.parametrize(
-    ("word_property", "word_properties_exp"), 
+    ("word_property", "word_properties_exp"),
     [
         ("text", ["huevo", "guitarra", "calabaza", "gigante"]),
         ("length", [5, 8, 8, 7]),
         ("silent_letters", [1, 1, 0, 0]),
         ("shared_phonemes", [1, 0, 3, 1]),
-    ]
+    ],
 )
 def test_get_property_from_words(word_property, word_properties_exp):
     """Test the _get_property_from_words for each property."""
@@ -49,13 +49,13 @@ def test_get_property_from_words(word_property, word_properties_exp):
         (1, 2, 3, 6),
         # mixed
         (1, None, 3, 4),
-    ]
+    ],
 )
 def test_calculate_total_difficulty(
-        difficulty_length,
-        difficulty_silent,
-        difficulty_shared_phonemes,
-        total_difficulty_exp
+    difficulty_length,
+    difficulty_silent,
+    difficulty_shared_phonemes,
+    total_difficulty_exp,
 ):
     """Test the _get_property_from_words with the total_difficulty property.
 
@@ -70,8 +70,6 @@ def test_calculate_total_difficulty(
     word_obj._length = difficulty_length
     word_obj._silent_letters = difficulty_silent
     word_obj._shared_phonemes = difficulty_shared_phonemes
-    total_difficulty_obs = analyzer._get_property_from_words(
-        "total_difficulty"
-    )
+    total_difficulty_obs = analyzer._get_property_from_words("total_difficulty")
 
     assert total_difficulty_obs.to_list()[0] == total_difficulty_exp

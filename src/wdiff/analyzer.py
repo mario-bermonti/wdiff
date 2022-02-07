@@ -2,13 +2,13 @@
 
 import pandas as pd
 
+from .docsprocessor import _COMMON_SECTIONS, docstrings
 from .word import Word
-from .docsprocessor import docstrings, _COMMON_SECTIONS
 
 
 class Analyzer(object):
     """This class exposes wdiff's API.
-    
+
     It provides methods for creating word objects, running analyses, storing
     results, and saving results to a file.
     """
@@ -103,7 +103,9 @@ class Analyzer(object):
         None
         """
 
-        word_silent_letters = self._get_property_from_words(word_property="silent_letters")
+        word_silent_letters = self._get_property_from_words(
+            word_property="silent_letters"
+        )
         self._results["silent_letters"] = word_silent_letters
 
     @docstrings.with_indent(8)
@@ -121,7 +123,9 @@ class Analyzer(object):
         None
         """
 
-        word_shared_phonemes = self._get_property_from_words(word_property="shared_phonemes")
+        word_shared_phonemes = self._get_property_from_words(
+            word_property="shared_phonemes"
+        )
         self._results["shared_phonemes"] = word_shared_phonemes
 
     @docstrings.with_indent(8)
