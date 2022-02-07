@@ -1,6 +1,6 @@
 """Module that defines the Word class."""
 
-from .docsprocessor import docstrings, _COMMON_SECTIONS
+from .docsprocessor import _COMMON_SECTIONS, docstrings
 
 ###########################################################################
 # Note                                                                    #
@@ -15,6 +15,7 @@ from .docsprocessor import docstrings, _COMMON_SECTIONS
 # The same applies to methods that are properties. The docstrings have to #
 # build before the method can be converted into properties.               #
 ###########################################################################
+
 
 class Word(object):
     """Base class for all analyses. It conceptualizes words as objects with
@@ -46,7 +47,6 @@ class Word(object):
         self._silent_letters = None
         self._shared_phonemes = None
         self._total_difficulty = None
-        
 
     def _normalize_text(self, text):
         """Normalize text so it is properly formatted.
@@ -65,7 +65,6 @@ class Word(object):
         word_normalized = text.strip().lower()
 
         return word_normalized
-
 
     def _validate_word(self, text):
         """Validate that the word's text meets minimal requirements.
@@ -86,12 +85,10 @@ class Word(object):
             return True
         """
 
-        if (
-            self._word_length_is_invalid(text)
-            or self._word_contains_invalid_character(text)
+        if self._word_length_is_invalid(text) or self._word_contains_invalid_character(
+            text
         ):
-            raise ValueError(f"\'{text}\' is invalid for creating word")
-
+            raise ValueError(f"'{text}' is invalid for creating word")
 
     def _word_length_is_invalid(self, text):
         """Checks whether the word's text length is invalid.
@@ -103,7 +100,7 @@ class Word(object):
 
         Returns
         -------
-        Bool 
+        Bool
             True if the length is 0 False; False if it is not 0
         """
 
@@ -136,7 +133,7 @@ class Word(object):
         Rules
         -----
         *u*: when preceded by an *g* or *q* and followed by a *i* or *e*.
-             These follow the pattern *gui*, *gue*, *que*, *qui*. 
+             These follow the pattern *gui*, *gue*, *que*, *qui*.
 
         Returns
         -------
@@ -174,17 +171,14 @@ class Word(object):
 
         return silent_h_count
 
-    @docstrings.get_sections(
-        base="silent_letters",
-        sections=["Rules", "Returns"]
-    )
+    @docstrings.get_sections(base="silent_letters", sections=["Rules", "Returns"])
     @docstrings.get_extended_summary(base="silent_letters")
     @docstrings.with_indent(8)
     def _check_silent_letters(self):
         """Count the number of silent letters.
 
         Silent letters are graphemes that do not have a phonemic representation.
-        In Spanish, silent letters are *h*s and *u*s that meet certain criteria. 
+        In Spanish, silent letters are *h*s and *u*s that meet certain criteria.
 
         Rules
         -----
@@ -311,26 +305,21 @@ class Word(object):
         """
 
         k_count = self._text.count("k")
-        q_count = self._text.count("q") 
+        q_count = self._text.count("q")
         c_compliant_count = (
-            self._text.count("ca")
-            + self._text.count("co")
-            + self._text.count("cu")
+            self._text.count("ca") + self._text.count("co") + self._text.count("cu")
         )
         shared_phoneme_k_count = k_count + q_count + c_compliant_count
 
         return shared_phoneme_k_count
 
-    @docstrings.get_sections(
-        base="shared_phonemes",
-        sections=["Rules", "Returns"]
-    )
+    @docstrings.get_sections(base="shared_phonemes", sections=["Rules", "Returns"])
     @docstrings.get_extended_summary(base="shared_phonemes")
     @docstrings.with_indent(8)
     def _check_shared_phonemes(self):
         """Count the number of graphemes that share phonemes with other graphemes.
 
-        Graphemes that share phonemes with other graphemes are 
+        Graphemes that share phonemes with other graphemes are
         letters or combination of letters that represent the same sound
         as other letters or combination of letters.
 
@@ -364,10 +353,7 @@ class Word(object):
 
         return shared_phoneme_count
 
-    @docstrings.get_sections(
-        base="total_difficulty",
-        sections=["Returns", "Raises"]
-    )
+    @docstrings.get_sections(base="total_difficulty", sections=["Returns", "Raises"])
     @docstrings.get_extended_summary(base="total_difficulty")
     def _calculate_total_difficulty(self):
         """Calculate the total difficulty for the word.
@@ -393,13 +379,16 @@ class Word(object):
         characteristics = [self._length, self._silent_letters, self._shared_phonemes]
 
         if characteristics.count(None) == len(characteristics):
-            print("ValueError: total_dificulty cannot be calculated because no analysis has been conducted")
+            print(
+                "ValueError: total_dificulty cannot be calculated because no analysis has been conducted"
+            )
             raise ValueError
 
-        characteristic_valid = [characteristic
-                                for characteristic in characteristics
-                                if characteristic is not None
-                                ]
+        characteristic_valid = [
+            characteristic
+            for characteristic in characteristics
+            if characteristic is not None
+        ]
         total_difficulty = sum(characteristic_valid)
 
         return total_difficulty
@@ -471,7 +460,7 @@ class Word(object):
         Returns
         -------
         %(total_difficulty.returns)s
-        
+
         Raises
         ------
         %(total_difficulty.raises)s
@@ -481,4 +470,3 @@ class Word(object):
             self._total_difficulty = self._calculate_total_difficulty()
 
         return self._total_difficulty
-

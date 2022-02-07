@@ -20,7 +20,7 @@ from wdiff.word import Word
         ("habichuela", 1),
         ("hecho", 1),
         ("chihuahua", 2),
-    ]
+    ],
 )
 def test_check_silent_h(text, expected):
     """Test the check_silent_h function with different types of cases."""
@@ -53,7 +53,7 @@ def test_check_silent_h(text, expected):
         ("conjugues", 1),
         ("quietud", 1),
         ("aunque", 1),
-    ]
+    ],
 )
 def test_check_silent_u(text, expected):
     """Test the check_silent_u function with different types of cases."""
@@ -90,7 +90,7 @@ def test_check_silent_u(text, expected):
         ("adolescencia", 3),
         ("acidez", 2),
         ("castizo", 2),
-    ]
+    ],
 )
 def test_check_shared_phoneme_s(text, expected):
     """Test the _check_shared_phoneme_s function with different cases."""
@@ -115,7 +115,7 @@ def test_check_shared_phoneme_s(text, expected):
         # mixed
         ("absolver", 2),
         ("observatorio", 2),
-    ]
+    ],
 )
 def test_check_shared_phoneme_b(text, expected):
     """Test the _check_shared_phoneme_b function with different cases."""
@@ -138,7 +138,7 @@ def test_check_shared_phoneme_b(text, expected):
         ("yoyo", 2),
         ("hoy", 0),
         ("rey", 0),
-    ]
+    ],
 )
 def test_check_shared_phoneme_y(text, expected):
     """Test the _check_shared_phoneme_y function with different cases."""
@@ -163,7 +163,7 @@ def test_check_shared_phoneme_y(text, expected):
         ("jengibre", 2),
         ("jaguar", 1),
         ("juguete", 1),
-    ]
+    ],
 )
 def test_check_shared_phoneme_j(text, expected):
     """Test the _check_shared_phoneme_j function with different cases."""
@@ -193,7 +193,7 @@ def test_check_shared_phoneme_j(text, expected):
         ("kiosco", 2),
         ("quince", 1),
         ("cosquillas", 2),
-    ]
+    ],
 )
 def test_check_shared_phoneme_k(text, expected):
     """Test the _check_shared_phoneme_k function with different cases."""
@@ -216,13 +216,13 @@ def test_check_shared_phoneme_k(text, expected):
         (1, 2, 3, 6),
         # mixed
         (1, None, 3, 4),
-    ]
+    ],
 )
 def test_calculate_total_difficulty(
-        difficulty_length,
-        difficulty_silent,
-        difficulty_shared_phonemes,
-        total_difficulty_expected
+    difficulty_length,
+    difficulty_silent,
+    difficulty_shared_phonemes,
+    total_difficulty_expected,
 ):
     """Test the _calculate_total_difficulty."""
 
@@ -260,7 +260,7 @@ def test_calculate_total_difficulty_none_valid():
         ("   perro   ", "perro"),
         # mixed
         ("  PErrO", "perro"),
-    ]
+    ],
 )
 def test_normalize_text(text_original, text_expected):
     """Test the _normalize_text with different cases."""
@@ -276,7 +276,7 @@ def test_normalize_text(text_original, text_expected):
     [
         ("perro", False),
         ("", True),
-    ]
+    ],
 )
 def test_word_length_is_invalid(text, expected):
     """Test the _word_length_is_invalid with different cases."""
@@ -298,7 +298,7 @@ def test_word_length_is_invalid(text, expected):
         # invalid
         ("perro8", True),
         ("perro{", True),
-    ]
+    ],
 )
 def test_word_contains_invalid_character(text, expected):
     """Test the _word_contains_invalid_character with different cases."""
