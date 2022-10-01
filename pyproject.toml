@@ -43,7 +43,7 @@ click = "^7.1.2"
 [tool.poetry.dev-dependencies]
 # testing
 pytest = "^6.2.4"
-pytest-cov = "^2.10.1"
+pytest-cov = "^4.0.0"
 xdoctest = "^0.15.4"
 coverage = {version = "^5.3", extras = ["toml"]}
 
