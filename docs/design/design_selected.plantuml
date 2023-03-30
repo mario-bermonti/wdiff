@@ -47,14 +47,16 @@ cli *-- Wdiff
 @startuml attributes
 !theme spacelab
 entity Wdiff {
-    -_results
-    +run_all_analyses()
+    - pd.DataFrame _results
+    ' +run_all_analyses()
     +None analyze_letter_length()
     +None analyze_silent_letters()
     +None analyze_shared_phonemes()
     +None analyze_total_difficulty()
     +None save_results(filename: Path)
     +pd.DataFrame results() 
+
+    -Iterable[str] normalize_words(Iterable[str])
 }
 
 entity Length{
@@ -75,22 +77,14 @@ entity SharedPhonemes{
     #pd.Series analyze_total(pd.DataFrame)
 }
 
-entity cli{
-    +Iterable[str] get_words_from_file(Path filename)
-    +run_all_analyses(Analyzer analyzer)
-    +save_results(Path filename)
-}
+' entity cli{
+'     +Iterable[str] get_words_from_file(Path filename)
+'     +run_all_analyses(Analyzer analyzer)
+'     +save_results(Path filename)
+' }
 
-entity utils{
-    #pd.DataFrame create_results_obj(Iterable[str])
-    -Iterable[str] normalize_words(Iterable[str])
-    -pd.DataFrame to_df(Iterable[str])  
-}
-
-Wdiff *-- utils
 Wdiff *-- Length
 Wdiff *-- SilentLetters
 Wdiff *-- SharedPhonemes
-cli *-- Wdiff
 
 @enduml
