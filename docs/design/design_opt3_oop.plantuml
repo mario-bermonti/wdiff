@@ -1,0 +1,299 @@
+# OOP version
+@startuml responsibilities
+!theme spacelab
+
+class Wdiff{
+    public interface
+    create words
+    manage results   
+    run analyses
+}
+
+class Word{
+    store characteristics
+    provide characteristics
+    validate text
+    determine available characteristics
+    provide formal names for properties
+}
+
+class ResultsExporter{
+    export info from words
+    format results
+    save results
+}
+
+class Length{
+    store length
+    analyze length
+}
+
+class SilentLetters{
+    store info about silent letters
+    analyze silent letters
+}
+
+class SharedPhonemes{
+    store info about same sound graphemes
+    analyze same sound graphemes 
+}
+
+class TotalDifficulty{
+    store total difficulty
+    analyze total difficulty
+}
+
+class cli{
+    read words texts from files
+    run all analyses
+    run individual analyses - future
+    save results
+}
+
+class CustomDoctringProcessor{
+    format docstrings 
+}
+
+cli *-- Wdiff
+Wdiff *-- Analyzer
+Analyzer *-- Word
+Analyzer *-- ResultsExporter
+ResultsExporter *-- Word
+Word *-- Length
+Word *-- SilentLetters
+Word *-- SharedPhonemes
+Word *-- TotalDifficulty
+Length *-- CustomDoctringProcessor 
+SilentLetters *-- CustomDoctringProcessor 
+SharedPhonemes *-- CustomDoctringProcessor 
+TotalDifficulty *-- CustomDoctringProcessor 
+@enduml
+
+@startuml attributes
+!theme spacelab
+class Wdiff {
+    -list[Word] words
+
+    +None analyze_letter_length()
+    +None analyze_silent_letters()
+    +None analyze_shared_phoneme()
+    +None analyze_total_difficulty()
+    +None save_results(filename: Path)
+    +pd.DataFrame results()
+
+    -create_word_objs(str word_texts)
+    -run_analysis(Callable func)
+}
+
+class ResultsExporterModule{
+    +pd.DataFrame format_results(list[Word] words)  
+    -list[dict] extract_info_words(list[Word] words)
+    -list[dict[str, join[int, str]]] extract_info_word(word Word)
+    -dict[str, join[int, str]] merge_info_from_characts(list[dict[str, join[int, str]]] characteristics)
+    -pd.DataFrame format_results_as_df(list[dict] words)
+}
+
+class Word{
+    #str text
+    #Optional[Length] length = None
+    #Optional[SilentLetter] sillent_letters = None
+    #Optional[SharedPhoneme] graphemes_shared_phoneme = None 
+    #Optional[TotalDifficulty] total_difficulty = None
+
+    #dict[str, str] map_characteristic_names_to_labels
+
+    -str normalize_text()
+    -raises validate_word()
+    -bool word_length_is_invalid()
+    -bool word_contains_invalid_character()
+
+    +None analyze_letter_length()
+    +None analyze_silent_letters_total()
+    +None analyze_shared_phoneme_total()
+    +None analyze_total_difficulty()
+
+    +list[str] get_available_characteristics()
+}
+
+class Length{
+    #int letter
+
+    +None analyze_letter_length(str text)
+}
+
+class SilentLetters{
+    #int u
+    #int h
+    #int total
+
+    +None analyze_silent_u(str text)
+    +None analyze_silent_h(str text)
+    +None analyze_silent_letters_total(str text)
+}
+
+class SharedPhonemes{
+    #int s
+    #int b
+    #int y
+    #int j
+    #int k
+    #int total
+    
+    +None analyze_shared_phoneme_s(str text) 
+    +None analyze_shared_phoneme_b(str text)
+    +None analyze_shared_phoneme_y(str text)
+    +None analyze_shared_phoneme_j(str text)
+    +None analyze_shared_phoneme_k(str text)
+    +None analyze_shared_phonemes_total(str text)
+}
+
+class TotalDifficulty{
+    #int difficulty
+
+    +None analyze_total_difficulty(Word word)
+}
+
+class CustomDoctringProcessor{
+    -param_like_sections
+}
+
+class climodule{
+    -Iterable[str] get_words_from_file(Path filename)
+    -run_all_analyses(Analyzer analyzer)
+    -save_results(Path filename)
+}
+
+climodule *-- Wdiff
+Wdiff *-- Word
+Wdiff *-- ResultsExporterModule
+ResultsExporterModule *-- Word
+Word *-- Length
+Word *-- SilentLetters
+Word *-- SharedPhonemes
+Word *-- TotalDifficulty
+Length *-- CustomDoctringProcessor 
+SilentLetters *-- CustomDoctringProcessor 
+SharedPhonemes *-- CustomDoctringProcessor 
+TotalDifficulty *-- CustomDoctringProcessor 
+@enduml
+
+# Data analysis approach (no OOP)
+@startuml responsibilities
+!theme spacelab
+
+entity Wdiff{
+    prepare words (validate and format)
+    run analyses
+    manage results
+}
+
+Entity Validators{
+    validate words
+}
+
+entity Length{
+    analyze length
+}
+
+entity SilentLetters{
+    analyze silent letters
+}
+
+entity SharedPhonemes{
+    analyze same sound graphemes 
+}
+
+entity TotalDifficulty{
+    analyze total difficulty
+}
+
+entity cli{
+    run all analyses
+    save results
+}
+
+entity CustomDoctringProcessor{
+    format docstrings 
+}
+
+cli --> Wdiff
+Wdiff --> Validators
+Wdiff --> Length
+Wdiff --> SilentLetters
+Wdiff --> SharedPhonemes
+Wdiff --> TotalDifficulty
+
+Length --> CustomDoctringProcessor 
+SilentLetters --> CustomDoctringProcessor 
+SharedPhonemes --> CustomDoctringProcessor 
+TotalDifficulty --> CustomDoctringProcessor 
+@enduml
+
+@startuml attributes
+!theme spacelab
+entity Wdiff {
+    -pd.DataFrame _results
+
+    -Iterable[str] normalize_words(Iterable[str])
+    -raises validate_words(Iterable[str])
+    +None run_all_analyses()
+    +None analyze_letter_length()
+    +None analyze_silent_letters()
+    +None analyze_shared_phoneme()
+    +None analyze_total_difficulty()
+
+    +Wdiff from_file(Path path_file)
+    +None save_results(Path path_file)
+    ' property
+    +pd.DataFrame results()
+}
+
+entity Validators{
+    -bool word_length_is_invalid(Iterable[str])
+    -bool word_contains_invalid_character(Iterable[str])
+}
+
+entity Length{
+    int analyze_letter_length(str text)
+}
+
+entity SilentLetters{
+    +int analyze_silent_u(str text)
+    +int analyze_silent_h(str text)
+    +int analyze_silent_letters_total(pd.DataFrame silent_letter_data)
+}
+
+entity SharedPhonemes{
+    +int analyze_shared_phoneme_s(str text) 
+    +int analyze_shared_phoneme_b(str text)
+    +int analyze_shared_phoneme_y(str text)
+    +int analyze_shared_phoneme_j(str text)
+    +int analyze_shared_phoneme_k(str text)
+    +int analyze_shared_phonemes_total(pd.DataFrame shared_phoneme_data)
+}
+
+entity TotalDifficulty{
+    +int analyze_total_difficulty(pd.DataFrame word_difficulty_data)
+}
+
+entity CustomDoctringProcessor{
+    -param_like_sections
+}
+
+entity cli{
+    +main()
+}
+
+cli --> Wdiff
+Wdiff --> Validators
+Wdiff --> Length
+Wdiff --> SilentLetters
+Wdiff --> SharedPhonemes
+Wdiff --> TotalDifficulty
+
+Wdiff --> CustomDoctringProcessor 
+Length --> CustomDoctringProcessor 
+SilentLetters --> CustomDoctringProcessor 
+SharedPhonemes --> CustomDoctringProcessor 
+TotalDifficulty --> CustomDoctringProcessor 
+@enduml

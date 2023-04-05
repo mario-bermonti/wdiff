@@ -1,0 +1,90 @@
+@startuml responsibilities
+!theme spacelab
+
+entity Wdiff{
+    public interface
+    provides general level functions
+}
+
+entity Length{
+    Analyze letter length of words
+}
+entity SilentLetters{
+    Analyze silent letters in words
+    Analyze specific charactertistics 
+    Analyze total difficulty 
+}
+
+entity SharedPhonemes{
+    Analyze shared phonemes in words
+    Analyze specific charactertistics 
+    Analyze total difficulty 
+}
+
+entity cli{
+    read words texts from file
+    run all analyses
+    run individual analyses - future
+    save results
+}
+
+entity utils{
+    normalize words
+    format as df
+}
+
+Wdiff *-- Length
+Wdiff *-- SilentLetters
+Wdiff *-- SharedPhonemes
+Wdiff *-- utils
+cli *-- Wdiff
+
+@enduml
+
+@startuml attributes
+!theme spacelab
+entity Wdiff {
+    +run_all_analyses()
+    +pd.DataFrame analyze_letter_length(Iterable[str])
+    +pd.DataFrame analyze_silent_letters(Iterable[str])
+    +pd.DataFrame analyze_shared_phonemes(Iterable[str])
+    +pd.DataFrame analyze_total_difficulty(pd.DataFrame)
+    +None save_results(filename: Path)
+}
+
+entity Length{
+    #int analyze_letter_length(str text)
+}
+entity SilentLetters{
+    #int analyze_u(str text)
+    #int analyze_h(str text)
+    #pd.dataframe analyze_total(pd.dataframe)
+}
+
+entity SharedPhonemes{
+    #int analyze_s(str text) 
+    #int analyze_b(str text)
+    #int analyze_y(str text)
+    #int analyze_j(str text)
+    #int analyze_k(str text)
+    #pd.dataframe analyze_total(pd.dataframe)
+}
+
+entity cli{
+    +Iterable[str] get_words_from_file(Path filename)
+    +run_all_analyses(Analyzer analyzer)
+    +save_results(Path filename)
+}
+
+entity utils{
+    #Iterable[str] normalize_words(Iterable[str])
+    #pd.DataFrame to_df(Iterable[str])  
+}
+
+Wdiff *-- utils
+Wdiff *-- Length
+Wdiff *-- SilentLetters
+Wdiff *-- SharedPhonemes
+cli *-- Wdiff
+
+@enduml
